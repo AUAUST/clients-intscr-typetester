@@ -88,17 +88,100 @@ Texts:
 Fonts:
 
 - 
-  name: Arzier
+  name: Arzier Bold
   file:
-    - file://PzdQLydytGoaKjWS
-  stylesets: >
-    ss01, ss02, ss03, ss04, ss06, ss05,
-    ss07, ss08, ss09, ss10
+    - file://DCuDtl5qbG0O0o45
+  stylesets: ss01, ss03, ss02, ss04
 - 
-  name: Numéro
+  name: Arzier Medium
   file:
-    - file://LwlhyJuadgBwTNC5
-  stylesets: ss01, ss02, ss03
+    - file://ryXHFIixIQuxW8LY
+  stylesets: ss01, ss02, ss04, ss03
+- 
+  name: Arzier Regular
+  file:
+    - file://8cQuunQUvSnri5zG
+  stylesets: ss01, ss02, ss03, ss04
+- 
+  name: Arzier Light
+  file:
+    - file://n1CkLlntEtoE1zff
+  stylesets: ss01, ss02, ss03, ss04
+- 
+  name: Arzier Thin
+  file:
+    - file://zClU6rBSME9hQKCo
+  stylesets: ss01, ss02, ss03, ss04
+- 
+  name: Fatalis Italic
+  file:
+    - file://bAq4ubRKxWoLTQe5
+  stylesets: ""
+- 
+  name: Fatalis Roman
+  file:
+    - file://Ne7vWj8fuwOirNpB
+  stylesets: ""
+- 
+  name: Legion
+  file:
+    - file://UQPjYcyocOyA3BPu
+  stylesets: ""
+- 
+  name: Numéro Black
+  file:
+    - file://y99LGFmyx38fq2n7
+  stylesets: ss01, ss03
+- 
+  name: Numéro Ultrabold
+  file:
+    - file://0BJQUwpWvyVfEvde
+  stylesets: ss01, ss03
+- 
+  name: Numéro Bold
+  file:
+    - file://xf3e5pmYedzfp0vb
+  stylesets: ss01, ss03
+- 
+  name: Numéro Semibold
+  file:
+    - file://ys4iuGG1KuYcXnx9
+  stylesets: ss01, ss03
+- 
+  name: Numéro Medium
+  file:
+    - file://YYDo1FO6NRGZjPZD
+  stylesets: ss01, ss03
+- 
+  name: Numéro Regular
+  file:
+    - file://qJgOxXB9vMqALBaI
+  stylesets: ss01, ss03
+- 
+  name: Numéro Book
+  file:
+    - file://qR2i0UoT038Z4O1l
+  stylesets: ss01, ss03
+- 
+  name: Numéro Light
+  file:
+    - file://wmTFLXJoVmHZmGvQ
+  stylesets: ss01, ss03
+- 
+  name: Numéro White
+  file:
+    - file://LXVbHUjFme6kvfwy
+  stylesets: ss01, ss03
+- 
+  name: Numéro Skeleton
+  file:
+    - file://UASz9OazMxjPcVcj
+  stylesets: ss01, ss03
+- 
+  name: Numéro Hairline
+  file:
+    - file://D6ONN6fxDTmVAVYX
+  stylesets: ss01, ss03
 
 ----
 
