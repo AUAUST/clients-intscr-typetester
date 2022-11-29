@@ -75,7 +75,9 @@
         // Path after domain
         var urlPath = window.location.pathname;
         // Path after first slash
-        var urlData = urlPath.substring(urlPath.indexOf('typetester/') + 1, 11);
+        // 12 = length of "/typetester/"
+        var urlData = urlPath.substring(12);
+        // var urlData = urlPath.substring(urlPath.indexOf('typetester/') + 1, 11);
         // Font in url (before slash if any)
         var urlFont = urlData.indexOf('/') >= 0 ?
           urlData.substring(0, urlData.indexOf('/')) :
