@@ -84,6 +84,9 @@
         var urlStylesets = urlData.indexOf('/') === -1 ? '' : urlData.substring(urlData.indexOf('/') + 1);
         // Split string into array
         var stylesets = urlStylesets.length >= 1 ? urlStylesets.split('/') : [];
+        stylesets = stylesets.filter(styleset => {
+          return styleset.length === 4;
+        });
         // If the font exists, use it
         if ( fontsData[urlFont] ) {
           var font = urlFont;
