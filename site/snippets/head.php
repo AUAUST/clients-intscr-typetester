@@ -75,7 +75,7 @@
         // Path after domain
         var urlPath = window.location.pathname;
         // Path after first slash
-        var urlData = urlPath.substring(urlPath.indexOf('/') + 1);
+        var urlData = urlPath.substring(urlPath.indexOf('typetester/') + 1, 11);
         // Font in url (before slash if any)
         var urlFont = urlData.indexOf('/') >= 0 ?
           urlData.substring(0, urlData.indexOf('/')) :
@@ -84,9 +84,9 @@
         var urlStylesets = urlData.indexOf('/') === -1 ? '' : urlData.substring(urlData.indexOf('/') + 1);
         // Split string into array
         var stylesets = urlStylesets.length >= 1 ? urlStylesets.split('/') : [];
-        stylesets = stylesets.filter(styleset => {
-          return styleset.length === 4;
-        });
+        // stylesets = stylesets.filter(styleset => {
+        //   return styleset.length === 4;
+        // });
         // If the font exists, use it
         if ( fontsData[urlFont] ) {
           var font = urlFont;
