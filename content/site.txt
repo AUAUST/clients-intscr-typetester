@@ -1,1 +1,72 @@
 Title: Site Title
+
+----
+
+Texts:
+
+- 
+  text: aaaaaa
+  size: 1
+  color: '#aaaaaa'
+- 
+  text: >
+    Manger sur le pouce, six cent secondes.
+    Regarder un mauvais film, six mille
+    secondes. Dormir huit heures, trente
+    mille secondes. Et il vous faudrait
+    trente six millions de secondes pour
+    passer maitre dans un domaine, un seul.
+    Quatre ans, donc, si chaque jour de
+    l’année et chaque année de votre
+    vie, vous investissez chacune des
+    secondes que vous avez à votre
+    disposition dans l’exercice. Autant
+    dire que vous pouvez tripler si ce
+    n’est quadrupler la période
+    nécessaire. Après avoir déjà
+    dépensé un demi milliard de secondes
+    pour devenir majeur, le temps qu’il
+    vous reste avant d’être trop vieux
+    pour gagner une nouvelle maîtrise est
+    court. Ding. 1’430’286’710
+    secondes restantes. Votre temps est
+    compté. Le miens aussi. Je dois dormir.
+  size: 1
+  color: '#000000'
+
+----
+
+Fonts:
+
+- 
+  name: Arzier
+  file:
+    - file://PzdQLydytGoaKjWS
+  stylesets: >
+    ss01, ss02, ss03, ss04, ss06, ss05,
+    ss07, ss08, ss09, ss10
+- 
+  name: Numéro
+  file:
+    - file://LwlhyJuadgBwTNC5
+  stylesets: ss01, ss02, ss03
+
+----
+
+Textone: 
+
+----
+
+Texttwo: 
+
+----
+
+Textthree: 
+
+----
+
+Textfour: 
+
+----
+
+Textfive: 
