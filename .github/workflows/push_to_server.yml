@@ -24,7 +24,7 @@ jobs:
           server: ${{ secrets.SSH_SERVER }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASSWORD }}
-          server-dir: /sites/dev.apademide.ch/nkco-dev/inhouse/
+          server-dir: /sites/dev.apademide.ch/typetester/
           exclude: |
             **/.git*
             **/.git*/**
