@@ -133,8 +133,8 @@
         });
         function updateUrl() {
           var base = window.location.hostname === 'localhost' ? '/' : '/typetester/';
-          window.history.pushState({}, "", base);
-          window.history.pushState({},"", base+font+'/'+stylesets.join('/'));
+          window.history.pushState({}, "", '/'+base);
+          window.history.pushState({},"", '/'+base+font+'/'+stylesets.join('/'));
         }
         function updateBodyStyle() {
           var stringifiedStylesets = stylesets.length === 0 ? 'unset' : '"' + stylesets.join('", "') + '"';
