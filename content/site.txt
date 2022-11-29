@@ -38,7 +38,7 @@ Texts:
   color: '#000000'
   overflow: wrap
 - 
-  text: Numéro Arzier Sherpa Strauss
+  text: Arzier Lausanne Vevey Genève Sion Saint-Cergue Orbe Montreux
   size: 15
   color: '#008257'
   overflow: scroll
@@ -113,16 +113,6 @@ Fonts:
     - file://zClU6rBSME9hQKCo
   stylesets: ss01, ss02, ss03, ss04
 - 
-  name: Fatalis Italic
-  file:
-    - file://bAq4ubRKxWoLTQe5
-  stylesets: ""
-- 
-  name: Fatalis Roman
-  file:
-    - file://Ne7vWj8fuwOirNpB
-  stylesets: ""
-- 
   name: Legion
   file:
     - file://UQPjYcyocOyA3BPu
@@ -183,22 +173,3 @@ Fonts:
     - file://D6ONN6fxDTmVAVYX
   stylesets: ss01, ss03
 
-----
-
-Textone: 
-
-----
-
-Texttwo: 
-
-----
-
-Textthree: 
-
-----
-
-Textfour: 
-
-----
-
-Textfive: 
