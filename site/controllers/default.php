@@ -13,7 +13,21 @@ return function ($site) {
     ];
   }
 
+  $texts = [];
+  $index = 0;
+  foreach ($site->texts()->toStructure() as $text) {
+    $texts[$index] = [
+      'text' => $text->text()->kt(),
+      'id' => $index,
+      'size' => $text->size()->toFloat(),
+      'color' => $text->color()->hex()->toString(),
+      'overflow' => $text->overflow()->toString(),
+    ];
+    $index++;
+  }
+
   return [
     'fonts' => $fonts,
+    'texts' => $texts
   ];
 };

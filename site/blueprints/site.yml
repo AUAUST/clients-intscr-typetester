@@ -20,6 +20,8 @@ sections:
             after: rem
           color:
             width: 1/8
+          overflow:
+            width: 1/12
         fields:
           text:
             type: textarea
@@ -35,10 +37,16 @@ sections:
             width: 1/2
             required: true
             default: 1
+            help: 1rem = 15px
           color:
             type: colors
             width: 1/2
             required: true
+          overflow:
+            type: toggles
+            options:
+              - scroll
+              - wrap
       lineB:
         type: line
       fonts:

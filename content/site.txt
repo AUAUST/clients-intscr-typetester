@@ -5,9 +5,12 @@ Title: Site Title
 Texts:
 
 - 
-  text: aaaaaa
-  size: 1
+  text: >
+    Tous les contenus des textes sont
+    modifiables.
+  size: 3
   color: '#aaaaaa'
+  overflow: scroll
 - 
   text: >
     Manger sur le pouce, six cent secondes.
@@ -33,6 +36,52 @@ Texts:
     compté. Le miens aussi. Je dois dormir.
   size: 1
   color: '#000000'
+  overflow: wrap
+- 
+  text: Numéro Arzier Sherpa Strauss
+  size: 15
+  color: '#008257'
+  overflow: scroll
+- 
+  text: |
+    Durant une période qui va de 700 av. J.-C. jusqu’à la fin des années 1970, l’histoire de l’imprimerie et des écritures typographiques correspond à une expression graphique essentiellement construite autour de la lettre : l'écriture phénicienne (1200-1100 avant notre ère), la capitale romaine, puis la minuscule caroline, la calligraphie gothique puis la typographie gothique utilisée par Johannes Gutenberg (vers 1440). La Bible qu'il réalisa en 1444-1445 à Mayence est la première grande œuvre réalisée avec cette nouvelle technologie qu'est l'impression par caractères métalliques mobiles. Son invention permettra une diffusion plus large des livres, ce qui était jusqu'ici impossible.
+    
+    Alde Manuce (ou Aldo Manuzio) lui, est considéré comme un imprimeur de la deuxième génération (1449-1515). Éditeur, typographe, créateur de caractères, il développera un style et une structure pour ses livres qui reste encore aujourd'hui d'actualité. En effet, il systématisa définitivement la ponctuation ainsi que l'accentuation et inventa le sens actuel du point-virgule. Il est également à l'origine de l'italique dont il confia la mise au point à Francesco Griffo, lui aussi créateur de caractères. C'est, de plus, à Manuzio que l'on doit le format in-octavo, ancêtre du livre de poche. Les créations d'Aldo Manuzio étaient au service de l'édition des auteurs grecs de l'Antiquité. Les évolutions qu'il a introduites dans l'imprimerie ont permis la diffusion de la littérature humaniste. Ses inventions graphiques devaient avoir pour point d'orgue une Bible trilingue qu'il n'a cependant pas pu éditer de son vivant.
+    
+    Cette époque, souvent définie comme « humaniste », correspond à l'emploi pendant la Renaissance italienne d'une écriture manuscrite ronde (issue de la caroline) que nous appelons écriture « humanistique ». Par la suite, le graphisme connaîtra une évolution lente au gré des développements techniques et culturels, plus que de significatifs changements.
+    
+    Au début du xixe siècle, la popularisation de la lithographie libère le dessinateur professionnel de toute contrainte formelle : la fantaisie créatrice peut alors s'exprimer. À la fin du xixe siècle, on voit un effort, en particulier au Royaume-Uni, pour créer une union entre les beaux-arts et les arts appliqués. En effet, de 1891 à 1896 William Morris publie les livres les plus significatifs en matière d'art graphique du mouvement Arts and Crafts (littéralement « Arts et artisanats ») et en les vendant, prouve qu'il existe un marché pour des œuvres graphiques, aidant ainsi à son émancipation. En France et en Belgique, William Morris inspirera notamment la mouvance Art nouveau puis Art déco.
+    
+    Plus précisément, le graphisme verra en 1891 la création en Angleterre d'un atelier d'impression artisanal par William Morris (Kelmscott Press), dans le cadre des Arts & Crafts. Arthur Mack Murdo, Walter Crane, Aubrey Beardsley, les Beggarstaffs se font remarquer. En Écosse, la Glasgow School ose un nouveau graphisme avec Mackintosh et MacNair quand la France reste bloquée sur les beaux-arts.
+    
+    C'est Jules Chéret et ses expériences d'impression commencées en 1866 qui permettront d'ouvrir la voie en France et de proposer des affiches en couleur. Suivront Eugène Grasset et Georges Auriol avec un mélange d'Arts & Crafts et de l'art japonais. Puis Alphonse Mucha amènera l'Art nouveau français à son sommet. Le graphisme et l'affiche deviennent la mode à Paris. Bing, Meier-Graeffe, De Feure, Orazi et bien d'autres développent l'Art nouveau ; en face, Bonnard, Vuillard, Ibels, le Suisse Félix Vallotton et Toulouse-Lautrec essaient une autre orientation artistique.
+    
+    De nombreux noms peuvent être cités dans cette effervescence de création : T. A. Steinlen, J. A. Grün, Adolphe Willette, Firmin Bouisset, etc. Cela évoluera dans un style Liberty en Italie avec Adolfo Hohenstein, Marcello Dudovitch, Giovanni Mataloni et Leopoldo Metlicovitz. Mais l'avenir du graphisme va se tourner vers le nord de l'Europe avec, aux Pays-Bas, Thorne-Prikker et Jan Toorop mais surtout en Belgique, avec le groupe des XX fondé en 1883 par Octave Maus, Edmond Picard, James Ensor, Theo van Rysselberghe, Fernand Khnopff, Victor Horta et Henry Van de Velde. Ils estiment les arts décoratifs autant que les beaux-arts et voient dans le graphisme une avancée sociale possible. Privat-Livemont, Mignot et Meunier produisent beaucoup à Bruxelles ainsi que Berchmans, Donnay et Rassenfosse à Liège.
+    
+    Après l'Angleterre, la France et la Belgique, le développement des arts graphiques va continuer en Autriche, puis en Allemagne et aux États-Unis, où le graphisme moderne va émerger.
+    
+    En 1894, Klimt, Olbrich, Koloman Moser, Heinrich Lefler (en), Egon Schiele et Josef Hoffmann vont s'engager dans une rébellion artistique contre l'académisme. Ils se regroupent sous le titre de Sécession (ou Hagenbuud pour Heinrich Lefler) et produisent différentes revues pour promouvoir leurs idées (Ver sacrum). Les créateurs de toute cette époque (seconde moitié du xixe siècle) sont généralement des architectes et designers aux multiples casquettes. Le souhait de composer une œuvre d'art totale les incite à expérimenter leurs idées dans tous les champs du design.
+    
+    Pour être clair, le graphisme s'exprime alors à travers des supports comme l'affiche, le livre, le logotype, la publicité et même parfois des cartes postales, mais leurs auteurs ne sont pas spécialisés comme aujourd'hui. L'écroulement de l'empire autrichien fera encore migrer le dynamisme du graphisme vers d'autres horizons. Le même problème du poids académique dans l'art pèse sur l'Allemagne. La presse donnera voix aux nouvelles pensées des artistes et designers en 1896 à Munich avec Jugend et Simplicissimus (et Pan plus tôt à Berlin).
+    
+    Thomas Theodore Heine, Julius Diez, Olaf Gulbransson, Bruno Paul, Hans Neumann, Behrens sont les principaux acteurs de la richesse des arts graphiques allemands. L'Allemagne sortait du lettrage gothique grâce à la typographie intemporelle dessinée par Berthold en 1889 : l'Akzidenz Grotesk. La première revue d'art graphique était née à Vienne, le premier studio sera ouvert à Berlin en 1900 par Fritz H. Ehmcke, Kleukens et Behrens, sous le nom de Steglitz Studio. La philosophie des designers commencent à s'éloigner de l'esprit Arts & Crafts avec le rassemblement Werkbund, mené par Hermann Muthesius, convaincu que la standardisation peut améliorer les objets les plus banals.
+    
+    Une nouvelle effervescence commence et l'affiche allemande s'affirme. Ernst Growald, Hollerbaum & Schmidt, Julius Klinger, Lucian Bernhard, Hans Rudi Erdt, Julius Gipkens, Ernst Deutsch, Paul Scheurich, Ludwig Holwein, les Six (Franz Paul Glass, Fritz Heubner, Carl Moos, Emil Praetorius, Schwarzer et Valentin Zietara et Walter Tienman proposeront enfin une vision moderne du graphisme, une vision non élitiste.
+    
+    Les États-Unis ne tarderont pas non plus à adopter cette vision du graphisme. Au début, dans les années 1850, les imprimeurs américains Strobridge, Forbes et Courrier sont de trop grandes structures pour évoluer philosophiquement. La presse (Harper's, par exemple) suit l'évolution européenne avec l'influence des Arts & Crafts et des affiches parisiennes. Les noms de J. J. Gould, Maxfield Parrish, Will Bradley se remarquent. Puis la multiplication gigantesque du nombre de revues et du nombre de pages publicitaires produites créent un incroyable marché économique (95 millions de dollar). Ayer & Cie ouvre en 1891 le premier département créatif dans une agence de presse.
+    
+    Les Linotypes et les Monotypes sont inventées, la production va pouvoir s’accélérer et, avec elle, créer une plus grande diversité de caractères comme le Century (de Lynn B. Benton) ou le Camelot (de Frederic Goudy). L'histoire du graphisme entre dans son ère moderne6.
+  size: 1.5
+  color: '#888888'
+  overflow: wrap
+- 
+  text: |
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    abcdefghijklmnopqrstuvwxyz
+    0123456789
+  size: 5
+  color: '#000000'
+  overflow: wrap
 
 ----
 
