@@ -1,0 +1,35 @@
+---
+
+name: Push Code to Server
+
+on:
+  push:
+    branches: [master, main]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checjout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        with:
+          server: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          server-dir: /sites/dev.apademide.ch/nkco-dev/inhouse/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            /README.md
+            /.git*
+            /content/*
+            /media/*
