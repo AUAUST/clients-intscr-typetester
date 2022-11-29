@@ -117,7 +117,6 @@
                   stylesets: stylesets,
                   data: fontsData
                 });
-                window.history.pushState({},"", '/'+font+'/'+stylesets.join('/'));
                 break;
               }
 
@@ -134,7 +133,7 @@
         });
         function updateUrl() {
           var base = window.location.hostname === 'localhost' ? '/' : '/typetester/';
-          // window.history.pushState({}, "", base);
+          window.history.pushState({}, "", base);
           window.history.pushState({},"", base+font+'/'+stylesets.join('/'));
         }
         function updateBodyStyle() {
