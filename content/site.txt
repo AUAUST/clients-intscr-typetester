@@ -38,7 +38,9 @@ Texts:
   color: '#000000'
   overflow: wrap
 - 
-  text: Arzier Lausanne Vevey Genève Sion Saint-Cergue Orbe Montreux
+  text: >
+    Arzier Lausanne Vevey Genève Sion
+    Saint-Cergue Orbe Montreux
   size: 15
   color: '#008257'
   overflow: scroll
@@ -100,7 +102,7 @@ Fonts:
 - 
   name: Arzier Regular
   file:
-    - file://8cQuunQUvSnri5zG
+    - file://dMusynYP0bdCMFHm
   stylesets: ss01, ss02, ss03, ss04
 - 
   name: Arzier Light
@@ -172,4 +174,3 @@ Fonts:
   file:
     - file://D6ONN6fxDTmVAVYX
   stylesets: ss01, ss03
-
