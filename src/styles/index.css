@@ -1,0 +1,20 @@
+:root {
+  min-width: 320px;
+  --h-screen: calc(100 * var(--vh, 1vh));
+}
+
+html {
+  --at-apply: bg-blue-800 text-gray-800;
+}
+
+html.dark {
+  --at-apply: bg-gray-900 text-white;
+}
+
+:focus:not(:focus-visible) {
+  --at-apply: outline-none;
+}
+
+:focus-visible {
+  --at-apply: "focus-visible:ring-2 focus-visible:ring-blue-600";
+}

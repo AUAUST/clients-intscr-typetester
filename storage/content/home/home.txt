@@ -1,0 +1,17 @@
+Title: Home
+
+----
+
+Text:
+
+----
+
+Customtitle:
+
+----
+
+Description:
+
+----
+
+Thumbnail:
