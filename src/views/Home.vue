@@ -1,22 +1,5 @@
 <template>
-  <Intro>{{ page.title }}</Intro>
-
-  <ul v-if="photography.isReady" class="grid">
-    <li v-for="album in photography.children" :key="album.uri">
-      <router-link :to="`/${album.uri}`">
-        <figure>
-          <img :src="album.cover.urlHome" :alt="album.cover.alt" />
-
-          <figcaption>
-            <span>
-              <span class="example-name">{{ album.title }}</span>
-            </span>
-          </figcaption>
-        </figure>
-      </router-link>
-    </li>
-  </ul>
-  <div v-else>Loading …</div>
+  <FontFileInput />
 </template>
 
 <script setup>

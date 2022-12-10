@@ -11,6 +11,7 @@
     "release": "npx -y bumpp --commit --push --tag"
   },
   "dependencies": {
+    "lib-font": "^2.4.0",
     "ofetch": "^1.0.0",
     "scule": "^1.0.0",
     "ufo": "^1.0.1",

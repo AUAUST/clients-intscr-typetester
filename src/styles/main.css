@@ -10,9 +10,10 @@
   box-sizing: border-box;
 }
 
-html {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji";
+body {
+  font-family: var(--F-NOW, "Times New Roman");
+  /* font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji"; */
 }
 
 li {
