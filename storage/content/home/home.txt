@@ -2,16 +2,4 @@ Title: Home
 
 ----
 
-Text:
-
-----
-
-Customtitle:
-
-----
-
-Description:
-
-----
-
-Thumbnail:
+Uuid: oi3M8WY4GTQ02SYW

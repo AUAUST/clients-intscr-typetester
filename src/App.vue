@@ -1,11 +1,18 @@
 <template>
-  <main class="max-w-screen-md mx-auto p-4 space-y-4">
+  <SkipToContentLink />
+  <Announcer />
+
+  <div class="page">
     <Header />
+    <main id="main" tabindex="-1">
+      <RouterView :key="route.path" />
+    </main>
+  </div>
 
-    <div class="box">
-      <RouterView />
-    </div>
-
-    <Footer />
-  </main>
+  <Footer />
 </template>
+
+<script setup>
+import { useRoute } from "vue-router";
+const route = useRoute();
+</script>

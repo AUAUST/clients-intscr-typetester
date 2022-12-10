@@ -1,13 +1,5 @@
-Title: Kirby + Vue.js Lightkit
+Title: Mægazine
 
 ----
 
-Customtitle: Kirby + Vue.js Lightkit
-
-----
-
-Description: ⛺️ File-based routing, layout system, Windi CSS, SEO-friendly & more. All you need.
-
-----
-
-Thumbnail:
+Description: Simple, almost identical port of the Kirby 3 starterkit frontend to Vue.js. Head over to https://github.com/johannschopplich/kirby-vue3-starterkit for more details about the project.

@@ -1,0 +1,21 @@
+Title: Plants
+
+----
+
+Cover: - file://sq15pd2AejNoEdGJ
+
+----
+
+Headline: 
+
+----
+
+Description: They call me Dr. Greenthumb.
+
+----
+
+Tags: plants
+
+----
+
+Uuid: OlYPcgdscy9a5w8t

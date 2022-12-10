@@ -1,22 +1,9 @@
-title:
-  de: Fehler
-  en: Error
+# Each page blueprint must have a title, the title may be different from the file name
+title: Error
 
-icon: ⚠️
-
-tabs:
-  content:
-    label:
-      de: Inhalt
-      en: Content
-    icon: draft
-    columns:
-      - width: 2/3
-        sections:
-          text: sections/text
-
-      - width: 1/3
-        sections:
-          meta: sections/meta
-
-  images: tabs/images
+# Page options allow you to control how users can interact with the page.
+# Here we prevent reading of the page, so it is not shown to anyone in the Panel.
+# If you want to allow users to modify the error page content in the Panel, remove this option.
+# More about page options: https://getkirby.com/docs/reference/panel/blueprints/page#options
+options:
+  read: false

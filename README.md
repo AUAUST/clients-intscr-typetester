@@ -1,78 +1,41 @@
 <p align="center">
-  <img src="./.github/icon.svg" alt="Logo of Kirby + Vue.js Lightkit" width="114" height="114">
+  <img src="./.github/icon.svg" alt="Logo of Kirby + Vue.js Starterkit" width="114" height="114">
 </p>
 
-<h3 align="center">Kirby + Vue.js Lightkit</h3>
+<h3 align="center">Kirby + Vue.js Starterkit</h3>
 
 <p align="center">
-  Simple SPA for straightforward frontend projects<br>
-  <a href="https://kirby-vue-lightkit.jhnn.dev"><strong>Explore the lightkit live »</strong></a>
+  SPA with Vue 3 and Kirby: SEO-friendly, automatic routing, i18n and more!<br>
+  <a href="https://kirby-vue3-starterkit.jhnn.dev"><strong>Explore the starterkit live »</strong></a>
 </p>
 
 <br>
 
-## Kirby + Vue.js Lightkit
+## Kirby + Vue.js Starterkit
 
 ### Key Features
 
 - ⚡️ [Vue 3](https://github.com/vuejs/vue-next) & [Vite](https://vitejs.dev)
-- 📦 [Components auto importing](./src/components/)
+- 🛣 Automatic routing
+- 📦 [On-demand components auto importing](./src/components/)
 - 📑 [Nuxt-inspired module system](./src/modules/)
-- 🗂 [File-based routing](./src/pages) like Nuxt.js
-- 🎨 [UnoCSS](https://github.com/unocss/unocss) – Instant on-demand atomic CSS engine
-- 😃 [Use icons from any icon sets, with no compromise](https://github.com/antfu/unplugin-icons)
-- 🔍 SEO-friendly: server-side generated meta tags
+- 🔍 SEO-friendly: [server-side generated](https://github.com/johannschopplich/kirby-extended/blob/main/docs/meta.md) meta tags
+- 🌐 [Multi-language](#multi-language) support
+- ♿ Accessible frontend routing
+- 💫 [Stale-while-revalidate](#stale-while-revalidate) page data
 
-### Introduction
+## Alternatives
+
+- [kirby-vue-lightkit](https://github.com/johannschopplich/kirby-vue-lightkit): ⛺️ Minimal Kirby + Vue starter: File-based routing, UnoCSS, SEO & more
+- [kirby-nuxt-starterkit](https://github.com/johannschopplich/kirby-nuxt-starterkit): 💚 Kirby's sample site – ported to Nuxt 3 and KirbyQL
+
+## Introduction
 
 > [Or jump right to the setup](#setup).
 
-When your project uses a _predefined_ folder structure which doesn't require adjustability by the user, this kit is for you.
+This boilerplate is a tight and comprehensive integration of [Vue.js](https://github.com/vuejs/vue-next) in the frontend and [Kirby](https://getkirby.com) as headless CMS. The content is provided as JSON through Kirby and fetched by the frontend.
 
-It's aimed to be a straightforward Vue single-page application, while keeping Kirby in the background to deliver server-generated meta tags as well as backend-editing of content.
-
-Think of this lightkit as the little brother of my [Kirby + Vue.js Starterkit](https://github.com/johannschopplich/kirby-vue3-starterkit).
-
-Why not use Vue.js with [Kirby QL](https://github.com/getkirby/kql)? Well, for some projects I don't like the idea of an API user which has complete read access to the panel. I want to control, what a user can fetch from the project. Hence, [`controllers`](./site/controllers).
-
-### 🗂 File-Based Routing
-
-File components in the [`src/pages`](./src/pages) directory correspond to the frontend's route structure. The Vue Router is automatically populated by generated routes using [Vite](https://vitejs.dev)'s [glob import](https://vitejs.dev/guide/features.html#glob-import).
-
-#### Basic Routing
-
-Pages will automatically map files from the [`pages`](./src/pages) directory to a route with the same name:
-
-- `src/pages/todo.vue` -> `/todo`
-
-#### Index Routes
-
-Files named `index` are treated as the index page of a route:
-
-- `src/pages/index.vue` -> `/`
-
-#### Dynamic Routes
-
-Dynamic routes are denoted using square brackets. Both directories and pages can be dynamic:
-
-- `src/pages/article/[id].vue` -> `/article/:id` (`/article/kirby-rocks`)
-
-Dynamic parameters will be passed to the page as props.
-
-#### Catch-all Routes
-
-Not found routes are denoted with square brackets containing an ellipsis:
-
-- `src/pages/[...all].vue` -> `/*` (`/non-existent-page`)
-
-The text after the ellipsis will be used both to name the route, and as the name of the prop in which the route parameters are passed.
-
-### Controllers for Data
-
-- The [`site/controllers/default.php`](./site/controllers/default.php) controller returns data which is embedded in the index template and available with the `useSite()` hook. Use it for data required for the first screen that's displayed to avoid a extra roundtrip.
-- Every other controller can be called via the `useController()` hook. When fetched once from the network, it is then cached in store. Use it for data not required for the initial paint of your web application.
-
-> ℹ️ Note: Each controller has to return it's data nested inside the `data` key. Take a look into the examples provided to get an idea.
+![Lighthouse report](./.github/lighthouse-report.png)
 
 ### Folder Structure
 
@@ -82,7 +45,7 @@ Some notes about the folder structure with some additional comments on important
 <summary><b>Expand folder tree</b></summary>
 
 ```sh
-kirby-vue-lightkit/
+kirby-vue3-starterkit/
 |
 |   # Main entry point of the website, point your web server to this directory
 ├── public/
@@ -98,42 +61,73 @@ kirby-vue-lightkit/
 |
 |   # Kirby's core folder containing templates, blueprints, etc.
 ├── site/
-|   ├── blueprints/
 |   ├── config/
-|   |
-|   |   # Create data objects fetchable via the `useController()` hook
-|   ├── controllers/
 |   |   |
-|   |   |   # Acts as global site object similar to Kirby's `$site`
-|   |   └── default.php
+|   |   |   # General configuration settings for Kirby and plugins
+|   |   ├── config.php
+|   |   |
+|   |   |   # Builds a JSON-encoded `site` object for the frontend
+|   |   |   # Used by Vue Router to populate routes, but can be extended by commonly used data
+|   |   └── app-site.php
 |   |
+|   |   # Only relevant in multi-language setups
+|   ├── languages/
+|   |
+|   ├── plugins/kirby-vue-kit/
+|   |   |
+|   |   |   # Core of the Vite integration plugin, mainly registers routes
+|   |   ├── index.php
+|   |   |
+|   |   |   # Routes to handle `.json` requests and serving the `index.php` snippet
+|   |   └── routes.php
+|   |
+|   |   # Templates for JSON content representations fetched by frontend
+|   |   # Contains also index page (`_app-index.php`)
 |   └── templates/
 |       |
-|       |   # Index page and main entry point for the web application
-|       └── default.php
+|       |   # Handles build asset paths, inlines the `site` object, includes SEO meta tags, etc.
+|       └── _app-index.php
 |
 |   # Includes all frontend-related sources
 ├── src/
 |   |
-|   |   # All components will be auto imported on-demand
+|   |   # `Header`, `Footer`, `Intro` and other components (auto imported on-demand)
 |   ├── components/
 |   |
 |   |   # Composables for common actions
 |   ├── composables/
 |   |   |
-|   |   |   # Fetch data of a controller by id
-|   |   ├── useController.js
+|   |   |   # Announces any useful information for screen readers
+|   |   ├── useAnnouncer.js
 |   |   |
-|   |   |   # Provides a object corresponding to Kirby's global `$site`
+|   |   |   # Provides information about the current language
+|   |   ├── useLanguages.js
+|   |   |
+|   |   |   # Retrieves pages from the content API
+|   |   ├── useKirbyApi.js
+|   |   |
+|   |   |   # Returns page data for the current path, similarly to Kirby's `$page` object
+|   |   ├── usePage.js
+|   |   |
+|   |   |   # Returns a object corresponding to Kirby's global `$site`
 |   |   └── useSite.js
 |   |
-|   |   # File-based routing
-|   ├── pages/
+|   |   # Modules system entries will be auto installed
+|   ├── modules/
+|   |   |
+|   |   |   # Installs the `v-kirbytext` directive to handle internal page links inside KirbyText
+|   |   ├── kirbytext.js
+|   |   |
+|   |   |   # Initializes the Vue Router
+|   |   └── router.js
+|   |
+|   |   # Vue.js views corresponding to Kirby templates
+|   |   # Routes are being automatically resolved
+|   ├── views/
 |   |
 |   ├── App.vue
 |   ├── index.css
-|   ├── index.js
-|   └── router.js
+|   └── index.js
 |
 |   # Contains everything content and user data related (not tracked by Git)
 ├── storage/
@@ -155,10 +149,20 @@ kirby-vue-lightkit/
 
 </details>
 
+## Caching
+
+The frontend will store pages between individual routes/views. When the tab get reloaded, the data for each page is freshly fetched from the API once again.
+
+![Caching for Kirby and Vue 3 starterkit](./.github/kirby-vue-3-cache-and-store.png)
+
+## Stale-While-Revalidate
+
+The stale-while-revalidate mechanism for the [`usePage`](src/composables/usePage.js) hook allows you to respond as quickly as possible with cached page data if available, falling back to the network request if it's not cached. The network request is then used to update the cached page data – which directly affects the view after lazily assigning changes (if any), thanks to Vue's reactivity.
+
 ## Prerequisites
 
 - Node.js with npm (only required to build the frontend)
-- PHP 7.4+
+- PHP 8.0+
 
 > Kirby is not a free software. You can try it for free on your local machine but in order to run Kirby on a public server you must purchase a [valid license](https://getkirby.com/buy).
 
@@ -166,7 +170,7 @@ kirby-vue-lightkit/
 
 ### Composer
 
-Kirby-related dependencies are managed via [Composer](https://getcomposer.org) and located in the `vendor` directory. To install them, run:
+Kirby-related dependencies are managed via [Composer](https://getcomposer.org) and located in the `vendor` directory. Install them with:
 
 ```bash
 composer install
@@ -182,15 +186,24 @@ npm ci
 
 ### Environment Variables
 
-Duplicate the [`.env.example`](.env.example) as `.env`::
+Duplicate the [`.env.development.example`](.env.development.example) as `.env`::
 
 ```bash
-cp .env.example .env
+cp .env.development.example .env
 ```
 
 Optionally, adapt it's values.
 
-### Static Assets
+Vite will load `.env` files according to the [docs](https://vitejs.dev/guide/env-and-mode.html#env-files):
+
+```
+.env                # loaded in all cases
+.env.local          # loaded in all cases, ignored by git
+.env.[mode]         # only loaded in specified mode
+.env.[mode].local   # only loaded in specified mode, ignored by git
+```
+
+### Static assets
 
 _During development_ Kirby can't access static files located in the `src` folder. Therefore it's necessary to create a symbolic link inside of the public folder:
 
@@ -211,11 +224,11 @@ During development a `.lock` file will be generated inside the `src` directory t
 You can start the development process with:
 
 ```bash
-# Runs `npm run kirby` in parallel to `vite`
+# Runs `npm run kirby` parallel to `vite`
 npm run dev
 ```
 
-Afterwards, visit the app in your browser: [`http://127.0.0.1:8080`](http://127.0.0.1:8080)
+Afterwards visit the app in your browser: [`http://127.0.0.1:8080`](http://127.0.0.1:8080)
 
 > For Valet users: Of course you can use a virtual host alternatively!
 
@@ -239,6 +252,47 @@ Vite will generate a hashed version of all assets, including images and fonts sa
 
 > ℹ️ Some hosting environments require to uncomment `RewriteBase /` in [`.htaccess`](public/.htaccess) to make site links work.
 
+## Configuration
+
+All development and production related configurations for both backend and frontend code are located in your `.env` file:
+
+- `KIRBY_DEV_HOSTNAME` and `KIRBY_DEV_PORT` specify the address where you wish the Kirby backend to be served from. It is used by the frontend to fetch content data as JSON.
+- Keys starting with `VITE_` are available in your code following the `import.meta.env.VITE_CUSTOM_VARIABLE` syntax.
+
+For example, setting `KIRBY_CACHE` to `true` is useful in production environment.
+
+### Content API Slug
+
+To change the API slug to fetch JSON-encoded page data from, set
+
+- `KIRBY_CONTENT_API_SLUG` to a value of your liking (defaults to `app`). It can even be left empty to omit a slug altogether!
+
+> You can't use Kirby's internal API slug (defaults to `api`). If you insist on using `api` for _your_ content endpoint, you can rename Kirby's by adding a `KIRBY_API_SLUG` key and set it to something other than `api`.
+
+### Multi-Language
+
+Multiple languages are supported. A comprehensive introduction about [multi-language setups](https://getkirby.com/docs/guide/languages/introduction) may be found on the Kirby website.
+
+To enable language handling, you don't have to edit the [`config.php`](site/config/config.php) manually. Just set
+
+- `KIRBY_MULTILANG` to `true`.
+- `KIRBY_MULTILANG_DETECT` to `true` (optional but recommended).
+
+Then, visit the panel and add new languages by your liking. The Panel **automatically renames all existing content** and file meta data files and includes the language extension.
+
+Language data is provided by the global `site` object, which can be accessed via the `useSite()` hook.
+
+### Stale-While-Revalidating
+
+To keep page data fresh with **stale-while-revalidate**, set:
+
+- `VITE_STALE_WHILE_REVALIDATE` to `true`
+
+## Credits
+
+- Huge thanks to [arnoson](https://github.com/arnoson) for his [Kirby Vite Plugin](https://github.com/arnoson/kirby-vite).
+- Thanks to Jakub Medvecký Heretik for his inspirational work on [kirby-vue-starterkit](https://github.com/jmheretik/kirby-vue-starterkit) which got me starting to build my own Kirby Vue integration.
+
 ## License
 
-[MIT](./LICENSE) License © 2021 [Johann Schopplich](https://github.com/johannschopplich)
+[MIT](./LICENSE) License © 2020-2022 [Johann Schopplich](https://github.com/johannschopplich)
