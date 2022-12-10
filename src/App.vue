@@ -1,15 +1,13 @@
 <template>
-  <SkipToContentLink />
-  <Announcer />
-
   <div class="page">
     <Header />
+
     <main id="main" tabindex="-1">
       <RouterView :key="route.path" />
     </main>
-  </div>
 
-  <Footer />
+    <Footer />
+  </div>
 </template>
 
 <script setup>
