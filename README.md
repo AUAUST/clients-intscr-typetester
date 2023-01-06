@@ -2,4 +2,4 @@
 
 ## About
 
-A tool that helps type designers to view their fonts.
+A tool that helps type designers have an overview of their WIP fonts.
