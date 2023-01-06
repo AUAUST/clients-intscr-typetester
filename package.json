@@ -1,34 +1,20 @@
 {
+  "name": "auaust-projects-typetester",
   "private": true,
-  "version": "5.2.0",
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "kirby": "env-cmd --use-shell \"php -S \\$KIRBY_DEV_HOSTNAME:\\$KIRBY_DEV_PORT -t public vendor/getkirby/cms/router.php\"",
-    "dev": "shx touch src/.lock && concurrently \"npm:kirby\" \"vite\"",
-    "build": "shx rm -f src/.lock && vite build",
-    "lint": "eslint \"src/**/*.{js,vue}\"",
-    "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --write \"src/**/*.{js,vue}\"",
-    "release": "npx -y bumpp --commit --push --tag"
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "lib-font": "^2.4.0",
-    "ofetch": "^1.0.0",
-    "scule": "^1.0.0",
-    "ufo": "^1.0.1",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue": "^3.2.45"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^0.1.1",
-    "@types/node": "^18.11.11",
-    "@vitejs/plugin-vue": "^3.2.0",
-    "concurrently": "^7.6.0",
-    "env-cmd": "^10.1.0",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "prettier": "2.8.1",
-    "shx": "^0.3.4",
-    "unplugin-vue-components": "^0.22.11",
-    "vite": "^3.2.5"
+    "@vitejs/plugin-vue": "^4.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vue-tsc": "^1.0.11"
   }
 }
