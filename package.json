@@ -13,22 +13,21 @@
     "format": "prettier --write \"src/**/*.{ts,vue}\" --ignore-path .gitignore"
   },
   "dependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@types/node": "^18.11.18",
-    "@types/vue-router": "^2.0.0",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.0.0",
-    "vue-router": "^4.1.6",
-    "vue-tsc": "^1.0.11",
-    "unplugin-vue-components": "^0.22.12",
     "@prettier/plugin-php": "^0.19.2",
+    "@types/node": "^18.11.18",
+    "@vitejs/plugin-vue": "^4.0.0",
     "concurrently": "^7.6.0",
-    "shx": "^0.3.4",
-    "prettier": "2.8.1",
     "env-cmd": "^10.1.0",
-    "eslint": "^8.31.0"
+    "eslint": "^8.31.0",
+    "prettier": "2.8.1",
+    "shx": "^0.3.4",
+    "typescript": "^4.9.3",
+    "unplugin-vue-components": "^0.22.12",
+    "vite": "^4.0.0",
+    "vue-tsc": "^1.0.11"
   }
 }
