@@ -1,0 +1,12 @@
+{
+    "name": "auaust/typetester",
+    "type": "project",
+    "license": "UNLICENSED",
+    "authors": [
+        {
+            "name": "apademide",
+            "email": "contact@apademide.ch"
+        }
+    ],
+    "require": {}
+}
