@@ -1,12 +1,24 @@
 {
-    "name": "auaust/typetester",
-    "type": "project",
-    "license": "UNLICENSED",
-    "authors": [
-        {
-            "name": "apademide",
-            "email": "contact@apademide.ch"
-        }
-    ],
-    "require": {}
+  "name": "auaust/typetester",
+  "type": "project",
+  "license": "UNLICENSED",
+  "authors": [
+    {
+      "name": "apademide",
+      "email": "contact@apademide.ch"
+    }
+  ],
+  "require": {
+    "getkirby/cms": "^3.8",
+    "johannschopplich/kirby-helpers": "^3.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "allow-plugins": {
+      "getkirby/composer-installer": true
+    }
+  },
+  "extra": {
+    "kirby-cms-path": false
+  }
 }

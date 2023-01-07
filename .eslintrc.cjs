@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ["@nuxt/eslint-config", "prettier"],
+  extends: ["@nuxt/eslint-config", "prettier", "prettier/@prettier/plugin-php"],
   rules: {
     "sort-imports": [
       "error",
