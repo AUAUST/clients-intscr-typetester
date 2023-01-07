@@ -1,3 +1,78 @@
+@use "@/assets/style/variables" as v;
+
+@font-face {
+  font-family: "Arzier";
+  src: url("@/assets/fonts/arzier.ttf");
+}
+
 * {
-  color: red;
+  font-family: "Arzier", "Zapfino";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+// SEARCH
+// \$c-(\w+)-(\d+): (.*);
+
+// REPLACE
+// $c-$1-$2: $3;
+// .color-$1-$2 {
+//   color: v.$c-$1-$2;
+// }
+// .bgcolor-$1-$2 {
+//   background-color: v.$c-$1-$2;
+// }
+.color-auaust-9 {
+  color: v.$c-auaust-9;
+}
+.bgcolor-auaust-9 {
+  background-color: v.$c-auaust-9;
+}
+.color-auaust-8 {
+  color: v.$c-auaust-8;
+}
+.bgcolor-auaust-8 {
+  background-color: v.$c-auaust-8;
+}
+.color-auaust-7 {
+  color: v.$c-auaust-7;
+}
+.bgcolor-auaust-7 {
+  background-color: v.$c-auaust-7;
+}
+.color-auaust-6 {
+  color: v.$c-auaust-6;
+}
+.bgcolor-auaust-6 {
+  background-color: v.$c-auaust-6;
+}
+.color-auaust-5 {
+  color: v.$c-auaust-5;
+}
+.bgcolor-auaust-5 {
+  background-color: v.$c-auaust-5;
+}
+.color-auaust-4 {
+  color: v.$c-auaust-4;
+}
+.bgcolor-auaust-4 {
+  background-color: v.$c-auaust-4;
+}
+.color-auaust-3 {
+  color: v.$c-auaust-3;
+}
+.bgcolor-auaust-3 {
+  background-color: v.$c-auaust-3;
+}
+.color-auaust-2 {
+  color: v.$c-auaust-2;
+}
+.bgcolor-auaust-2 {
+  background-color: v.$c-auaust-2;
+}
+.color-auaust-1 {
+  color: v.$c-auaust-1;
+}
+.bgcolor-auaust-1 {
+  background-color: v.$c-auaust-1;
 }

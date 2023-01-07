@@ -1,12 +1,12 @@
 <template>
-  <menu>
+  <main>
     <p>Hey</p>
-  </menu>
+  </main>
 </template>
 
 <style scoped lang="scss">
-menu {
-  background-color: green;
+main {
+  background-color: orange;
   grid-column: span 1;
 }
 </style>
