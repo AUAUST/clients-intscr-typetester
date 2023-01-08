@@ -1,5 +1,4 @@
 ---
-
 name: Push Code to Server
 
 on:
@@ -8,12 +7,12 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checjout
+      - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -31,5 +30,3 @@ jobs:
             **/node_modules/**
             /README.md
             /.git*
-            /content/*
-            /media/*

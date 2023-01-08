@@ -8,7 +8,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Content: typeof import('./components/Content.vue')['default']
-    copy: typeof import('./components/content/Paragraph copy.vue')['default']
     Counter: typeof import('./components/Counter.vue')['default']
     Glyphs: typeof import('./components/content/Glyphs.vue')['default']
     Paragraph: typeof import('./components/content/Paragraph.vue')['default']
