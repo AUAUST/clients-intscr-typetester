@@ -11,6 +11,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow: hidden;
+}
 // SEARCH
 // \$c-(\w+)-(\d+): (.*);
 

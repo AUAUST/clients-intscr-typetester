@@ -1,9 +1,25 @@
+// COLORS → AUAUST
 $c-auaust-9: #170049;
-$c-auaust-8: hsl(259, 100%, 25%);
-$c-auaust-7: hsl(258, 100%, 35%);
-$c-auaust-6: hsl(255, 100%, 45%);
-$c-auaust-5: hsl(252, 100%, 55%);
-$c-auaust-4: hsl(249, 100%, 65%);
-$c-auaust-3: hsl(246, 100%, 75%);
-$c-auaust-2: hsl(243, 100%, 85%);
-$c-auaust-1: hsl(240, 100%, 95%);
+$c-auaust-8: #280080;
+$c-auaust-7: #3600b3;
+$c-auaust-6: #3900e6;
+$c-auaust-5: #471aff;
+$c-auaust-4: #674dff;
+$c-auaust-3: #8c80ff;
+$c-auaust-2: #b6b3ff;
+$c-auaust-1: #e5e5ff;
+// COLORS → GRAY
+$c-gray-9: hsl(259, 7%, 5%);
+$c-gray-8: hsl(259, 7%, 7%);
+$c-gray-7: hsl(259, 7%, 23%);
+$c-gray-6: hsl(259, 7%, 35%);
+$c-gray-5: hsl(259, 7%, 49%);
+$c-gray-4: hsl(259, 7%, 60%);
+$c-gray-3: hsl(259, 7%, 71%);
+$c-gray-2: hsl(259, 7%, 83%);
+$c-gray-1: hsl(259, 7%, 95%);
+$c-gray-0: hsl(259, 7%, 98%);
+
+// RESPONSIVE BREAKPOINTS
+$breakpoint-menu-hideable: 768px; // When 100vw <= that value, menu can be hidden
+$breakpoint-menu-fullwidth: 384px; // When 100vw <= that value, the menu starts being 100vw when shown
