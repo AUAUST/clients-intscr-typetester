@@ -1,41 +1,56 @@
 <template>
   <main>
     <div>
-      <button @click="showComponent('PARAGRAPH')">
-        {{ contentTypes.PARAGRAPH.title }}
+      <button @click="content.current('PARAGRAPH')">
+        {{ content.types.PARAGRAPH.title }}
       </button>
-      <button @click="showComponent('GLYPHS')">
-        {{ contentTypes.GLYPHS.title }}
+      <button @click="content.current('GLYPHS')">
+        {{ content.types.GLYPHS.title }}
       </button>
       <article>
-        <component v-bind:is="currentComponent"></component>
+        <component v-bind:is="content.current()"></component>
       </article>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import { reactive } from "vue";
+import { shallowReactive } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
 
-const contentTypes = {
-  PARAGRAPH: {
-    component: ParagraphContent,
-    title: "Paragraph",
+const content = shallowReactive({
+  types: {
+    PARAGRAPH: {
+      component: ParagraphContent,
+      title: "Paragraph",
+    },
+    GLYPHS: {
+      component: GlyphsContent,
+      title: "Glyphs",
+    },
   },
-  GLYPHS: {
-    component: GlyphsContent,
-    title: "Glyphs",
+  currentId: "PARAGRAPH",
+  allTypes: function () {
+    return Object.keys(this.types);
   },
-};
-const currentComponent = reactive(contentTypes["GLYPHS"].component);
+  current: function (id?: string) {
+    if (id) {
+      if (this.allTypes().includes(id)) {
+        this.currentId = id;
+      }
+    }
+    return this.types[this.currentId as keyof typeof this.types].component;
+  },
+});
 
-function showComponent(component: string) {
-  currentComponent.value =
-    contentTypes[component as keyof typeof contentTypes].component;
-  console.log(currentComponent);
-}
+// const currentComponent = reactive(contentTypes["GLYPHS"].component);
+
+// function showComponent(component: string) {
+//   currentComponent.value =
+//     contentTypes[component as keyof typeof contentTypes].component;
+//   console.log(currentComponent);
+// }
 </script>
 
 <style scoped lang="scss">

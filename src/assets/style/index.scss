@@ -5,6 +5,10 @@
   src: url("@/assets/fonts/arzier.ttf");
 }
 
+:root {
+  font-size: v.$font-root-em;
+}
+
 * {
   font-family: "Arzier", "Zapfino";
   margin: 0;
@@ -13,6 +17,7 @@
 }
 body {
   overflow: hidden;
+  font-size: 1.5rem;
 }
 // SEARCH
 // \$c-(\w+)-(\d+): (.*);
