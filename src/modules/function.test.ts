@@ -5,3 +5,7 @@ import { myFunction } from "./function";
     expect(myFunction(string)).toBe(string);
   });
 });
+
+test("foo", () => {
+  expect("foo");
+});
