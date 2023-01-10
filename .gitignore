@@ -1,6 +1,8 @@
 node_modules
 vendor
 
+/coverage
+
 # Kirby
 .lock
 /public/media/*
@@ -44,3 +46,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
