@@ -67,14 +67,23 @@ const content = shallowReactive({
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
-main {
-  width: 100%;
-  background-color: orange;
-  grid-column: 2;
-
-  @media screen and (max-width: v.$breakpoint-menu-hideable) {
+body.view-normal {
+  main {
+    width: 100%;
+    background-color: orange;
+    grid-column: 2;
+  }
+}
+body.view-narrow {
+  main {
     width: 100vw;
     height: 100vh;
+  }
+}
+
+body.view-x-narrow {
+  main {
+    width: 100vw;
   }
 }
 </style>

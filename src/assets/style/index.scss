@@ -19,17 +19,6 @@ body {
   overflow: hidden;
   font-size: 1.5rem;
 }
-// SEARCH
-// \$c-(\w+)-(\d+): (.*);
-
-// REPLACE
-// $c-$1-$2: $3;
-// .color-$1-$2 {
-//   color: v.$c-$1-$2;
-// }
-// .bgcolor-$1-$2 {
-//   background-color: v.$c-$1-$2;
-// }
 .color-auaust-9 {
   color: v.$c-auaust-9;
 }

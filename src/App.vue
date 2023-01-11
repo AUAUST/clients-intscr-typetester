@@ -39,17 +39,27 @@ function drop() {
 @use "@/assets/style/variables" as v;
 
 #app-container {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-auto-flow: column;
-
   width: 100vw;
   height: 100vh;
-
-  @media screen and (max-width: v.$breakpoint-menu-hideable) {
+}
+body.view-normal {
+  #app-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-auto-flow: column;
+  }
+}
+body.view-narrow {
+  #app-container {
     display: flex;
   }
 }
+
+// body.view-x-narrow {
+//   #app-container {
+//     display: block;
+//   }
+// }
 #font-input {
   position: absolute;
   top: 0;
