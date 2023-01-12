@@ -1,28 +1,29 @@
 <template>
-  <div
-    id="app-container"
-    @dragover="dragging = true"
-    @drop.prevent="drop"
-    @dragleave="dragging = false"
-    ref="app"
-  >
+  <div id="app-container">
     <SideBar></SideBar>
     <Content></Content>
   </div>
-  <div id="font-input" v-show="dragging">hello</div>
+  <div @ref="fontInputContainer" @dragstart="log">
+    <FontInputOverlay v-show="dragging"></FontInputOverlay>
+  </div>
 </template>
 
 <script setup lang="ts">
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
-import { ref, reactive } from "vue";
+import FontInputOverlay from "@/components/FontInputOverlay.vue";
+import { ref } from "vue";
 
-const app = ref(null);
+const fontInputContainer = ref(null);
 const dragging = ref(false);
 
-function drop() {
-  console.log("files-dropped");
+function log() {
+  console.log("foll");
 }
+
+// function drop() {
+//   console.log("files-dropped");
+// }
 // function startDragOver() {
 //   if (app.value) {
 //     app.value.classList.add("test");
@@ -60,13 +61,4 @@ body.view-narrow {
 //     display: block;
 //   }
 // }
-#font-input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: red;
-  pointer-events: none;
-}
 </style>

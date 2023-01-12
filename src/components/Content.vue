@@ -1,12 +1,12 @@
 <template>
   <main>
     <div>
-      <button
+      <Button
         v-for="contentType in content.allTypes()"
         @click="content.current(contentType)"
       >
         {{ content.get(contentType).title }}
-      </button>
+      </Button>
       <div>
         <component v-bind:is="content.current()"></component>
       </div>
@@ -18,6 +18,7 @@
 import { shallowReactive } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
+import Button from "@/components/ui/Button.vue";
 
 const content = shallowReactive({
   // config available contents
@@ -70,7 +71,7 @@ const content = shallowReactive({
 body.view-normal {
   main {
     width: 100%;
-    background-color: orange;
+    background-color: v.$c-auaust-1;
     grid-column: 2;
   }
 }
