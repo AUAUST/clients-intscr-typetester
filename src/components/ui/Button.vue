@@ -9,9 +9,9 @@
 <style lang="scss">
 @use "@/assets/style/variables" as v;
 
-div.button {
+.button {
   display: inline-block;
-  padding: 8px 2px;
+  padding: 7px 2px;
   user-select: none;
   -webkit-user-select: none;
   &:first-of-type {
@@ -24,7 +24,7 @@ div.button {
     font-size: 1.3rem;
     background-color: v.$c-auaust-8;
     color: v.$c-gray-1;
-    padding: 6px 7px 4px 7px;
+    padding: 6px 8px 4px 8px;
     cursor: pointer;
     &:hover {
       background-color: v.$c-auaust-7;

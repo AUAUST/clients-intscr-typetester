@@ -1,11 +1,11 @@
 <template>
   <menu id="sidebar">
     <p>SideBar</p>
-    <Button v-show="responsive.currentScale === 'view-x-narrow'"> </Button>
+    <!-- <Button v-show="windowData.currentScaleIndex < 2>"> </Button> -->
   </menu>
 </template>
 <script setup lang="ts">
-import { responsive } from "~/composables/useResponsive";
+import { windowData } from "~/composables/useWindow";
 import Button from "@/components/ui/Button.vue";
 </script>
 <style scoped lang="scss">
@@ -20,8 +20,8 @@ import Button from "@/components/ui/Button.vue";
   border-right: 1px solid v.$c-auaust-2;
 }
 // }
-body.view-narrow,
-body.view-x-narrow {
+.view-narrow,
+.view-x-narrow {
   #sidebar {
     z-index: 1;
     position: absolute;
@@ -30,7 +30,7 @@ body.view-x-narrow {
   }
 }
 
-body.view-x-narrow {
+.view-x-narrow {
   #sidebar {
     width: 100vw;
   }

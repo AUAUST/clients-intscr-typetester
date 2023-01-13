@@ -1,6 +1,15 @@
 import { reactive } from "vue";
 
-function getWindowData() {
+function getBrightness() {
+  if (
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    return "dark";
+  }
+  return "light";
+}
+function getWindowSize() {
   type configTypes = {
     scales: {
       [i: string]: {
@@ -50,46 +59,42 @@ function getWindowData() {
   const currentScaleObject =
     config.scales[currentScale as keyof typeof config.scales];
   return {
-    windowWidth: windowSize.width,
-    windowHeight: windowSize.height,
+    width: windowSize.width,
+    height: windowSize.height,
     currentScale: currentScale,
     currentScaleIndex: currentScaleObject.order,
     sideBarHideable: currentScaleObject.sideBarHideable,
+    brightness: getBrightness(),
   };
 }
 
 function update() {
-  const scaleBefore = responsive.currentScale;
-  const windowData = getWindowData();
+  // const scaleBefore = windowData.currentScale;
+  const windowSize = getWindowSize();
 
-  responsive.windowWidth = windowData.windowWidth;
-  responsive.windowHeight = windowData.windowHeight;
-  responsive.currentScale = windowData.currentScale;
-  responsive.currentScaleIndex = windowData.currentScaleIndex;
-
-  if (
-    scaleBefore &&
-    responsive.currentScale &&
-    responsive.currentScale !== scaleBefore
-  ) {
-    documentBody.classList.remove(scaleBefore);
-    documentBody.classList.add(responsive.currentScale);
-  } else if (responsive.currentScale) {
-    documentBody.classList.add(responsive.currentScale);
-  }
+  windowData.width = windowSize.width;
+  windowData.height = windowSize.height;
+  windowData.currentScale = windowSize.currentScale;
+  windowData.currentScaleIndex = windowSize.currentScaleIndex;
 }
 
-const initialState = getWindowData();
-const documentBody = document.body;
+const initialState = getWindowSize();
+// const documentBody = document.body;
 
 window.addEventListener("resize", update);
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (event) => {
+    windowData.brightness = event.matches ? "dark" : "light";
+  });
 
-export const responsive = reactive({
-  windowWidth: initialState.windowWidth,
-  windowHeight: initialState.windowHeight,
+export const windowData = reactive({
+  width: initialState.width,
+  height: initialState.height,
   currentScale: initialState.currentScale,
   currentScaleIndex: initialState.currentScaleIndex,
   sideBarHideable: initialState.sideBarHideable,
+  brightness: initialState.brightness,
 });
 
 update();

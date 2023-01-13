@@ -1,12 +1,14 @@
 <template>
   <main>
     <div>
-      <Button
-        v-for="contentType in content.allTypes()"
-        @click="content.current(contentType)"
-      >
-        {{ content.get(contentType).title }}
-      </Button>
+      <nav>
+        <Button
+          v-for="contentType in content.allTypes()"
+          @click="content.current(contentType)"
+        >
+          {{ content.get(contentType).title }}
+        </Button>
+      </nav>
       <div>
         <component v-bind:is="content.current()"></component>
       </div>
@@ -68,21 +70,21 @@ const content = shallowReactive({
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
-body.view-normal {
+.view-normal {
   main {
     width: 100%;
     background-color: v.$c-auaust-1;
     grid-column: 2;
   }
 }
-body.view-narrow {
+.view-narrow {
   main {
     width: 100vw;
     height: 100vh;
   }
 }
 
-body.view-x-narrow {
+.view-x-narrow {
   main {
     width: 100vw;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app-container">
+  <div id="app-container" :class="[currentScale, currentBrightness]">
     <SideBar></SideBar>
     <Content></Content>
   </div>
@@ -13,6 +13,7 @@ import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import FontInputOverlay from "@/components/FontInputOverlay.vue";
 import { ref } from "vue";
+import { windowData } from "~/composables/useWindow";
 
 const fontInputContainer = ref(null);
 const dragging = ref(false);
@@ -20,6 +21,20 @@ const dragging = ref(false);
 function log() {
   console.log("foll");
 }
+
+const currentScale = ref(windowData.currentScale);
+const currentBrightness = ref(windowData.brightness);
+
+// if (
+//     scaleBefore &&
+//     windowSize.currentScale &&
+//     windowSize.currentScale !== scaleBefore
+//   ) {
+//     documentBody.classList.remove(scaleBefore);
+//     documentBody.classList.add(windowSize.currentScale);
+//   } else if (windowSize.currentScale) {
+//     documentBody.classList.add(windowSize.currentScale);
+//   }
 
 // function drop() {
 //   console.log("files-dropped");
@@ -42,16 +57,12 @@ function log() {
 #app-container {
   width: 100vw;
   height: 100vh;
-}
-body.view-normal {
-  #app-container {
+  &.view-normal {
     display: grid;
     grid-template-columns: auto 1fr;
     grid-auto-flow: column;
   }
-}
-body.view-narrow {
-  #app-container {
+  &.view-narrow {
     display: flex;
   }
 }
