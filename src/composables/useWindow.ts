@@ -5,9 +5,9 @@ function getBrightness() {
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return "dark";
+    return "theme-dark";
   }
-  return "light";
+  return "theme-light";
 }
 function getWindowSize() {
   type configTypes = {
@@ -85,7 +85,7 @@ window.addEventListener("resize", update);
 window
   .matchMedia("(prefers-color-scheme: dark)")
   .addEventListener("change", (event) => {
-    windowData.brightness = event.matches ? "dark" : "light";
+    windowData.brightness = event.matches ? "theme-dark" : "theme-light";
   });
 
 export const windowData = reactive({

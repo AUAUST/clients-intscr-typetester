@@ -70,10 +70,15 @@ const content = shallowReactive({
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
+.theme-dark main {
+  background-color: v.$c-auaust-9;
+}
+.theme-light main {
+  background-color: v.$c-auaust-1;
+}
 .view-normal {
   main {
     width: 100%;
-    background-color: v.$c-auaust-1;
     grid-column: 2;
   }
 }

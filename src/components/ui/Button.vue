@@ -22,13 +22,32 @@
   }
   span {
     font-size: 1.3rem;
-    background-color: v.$c-auaust-8;
-    color: v.$c-gray-1;
     padding: 6px 8px 4px 8px;
     cursor: pointer;
-    &:hover {
+  }
+}
+.theme-light {
+  .button {
+    span {
+      color: v.$c-gray-1;
       background-color: v.$c-auaust-7;
+      &:hover {
+        background-color: v.$c-auaust-8;
+      }
     }
   }
 }
+.theme-dark {
+  .button {
+    span {
+      color: v.$c-gray-9;
+      background-color: v.$c-auaust-2;
+      &:hover {
+        background-color: v.$c-auaust-3;
+      }
+    }
+  }
+}
+// background-color: v.$c-auaust-8;
+// background-color: v.$c-auaust-7;
 </style>
