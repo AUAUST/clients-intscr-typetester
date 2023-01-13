@@ -1,24 +1,66 @@
 // COLORS → AUAUST
-$c-auaust-9: #170049;
-$c-auaust-8: #280080;
-$c-auaust-7: #3600b3;
-$c-auaust-6: #3900e6;
-$c-auaust-5: #572dff;
-$c-auaust-4: #7159fe;
-$c-auaust-3: #b3abff;
-$c-auaust-2: #d5d3ff;
-$c-auaust-1: #f4f4ff;
+$c-auaust-9: var(--c-auaust-9);
+$c-auaust-8: var(--c-auaust-8);
+$c-auaust-7: var(--c-auaust-7);
+$c-auaust-6: var(--c-auaust-6);
+$c-auaust-5: var(--c-auaust-5);
+$c-auaust-4: var(--c-auaust-4);
+$c-auaust-3: var(--c-auaust-3);
+$c-auaust-2: var(--c-auaust-2);
+$c-auaust-1: var(--c-auaust-1);
+// COLORS → AUAUST → DARK
+$dark-c-auaust-9: hsl(259, 100%, 14%);
+$dark-c-auaust-8: hsl(239, 80%, 35%);
+$dark-c-auaust-7: hsl(239, 80%, 45%);
+$dark-c-auaust-6: hsl(239, 80%, 59%);
+$dark-c-auaust-5: hsl(239, 80%, 67%);
+$dark-c-auaust-4: hsl(239, 80%, 84%);
+$dark-c-auaust-3: hsl(239, 80%, 91%);
+$dark-c-auaust-2: hsl(239, 80%, 94%);
+$dark-c-auaust-1: hsl(239, 80%, 98%);
+// COLORS → AUAUST → LIGHT
+$light-c-auaust-9: red;
+$light-c-auaust-8: hsl(239, 80%, 35%);
+$light-c-auaust-7: hsl(239, 80%, 45%);
+$light-c-auaust-6: hsl(239, 80%, 59%);
+$light-c-auaust-5: hsl(239, 80%, 67%);
+$light-c-auaust-4: hsl(239, 80%, 84%);
+$light-c-auaust-3: hsl(239, 80%, 91%);
+$light-c-auaust-2: hsl(239, 80%, 94%);
+$light-c-auaust-1: hsl(239, 80%, 98%);
 // COLORS → GRAY
-$c-gray-9: hsl(259, 7%, 5%);
-$c-gray-8: hsl(259, 7%, 7%);
-$c-gray-7: hsl(259, 7%, 23%);
-$c-gray-6: hsl(259, 7%, 35%);
-$c-gray-5: hsl(259, 7%, 49%);
-$c-gray-4: hsl(259, 7%, 60%);
-$c-gray-3: hsl(259, 7%, 71%);
-$c-gray-2: hsl(259, 7%, 83%);
-$c-gray-1: hsl(259, 7%, 95%);
-$c-gray-0: hsl(259, 7%, 98%);
+$c-gray-9: var(--c-gray-9);
+$c-gray-8: var(--c-gray-8);
+$c-gray-7: var(--c-gray-7);
+$c-gray-6: var(--c-gray-6);
+$c-gray-5: var(--c-gray-5);
+$c-gray-4: var(--c-gray-4);
+$c-gray-3: var(--c-gray-3);
+$c-gray-2: var(--c-gray-2);
+$c-gray-1: var(--c-gray-1);
+$c-gray-0: var(--c-gray-0);
+// COLORS → GRAY → DARK
+$dark-c-gray-9: hsl(259, 7%, 5%);
+$dark-c-gray-8: hsl(259, 7%, 7%);
+$dark-c-gray-7: hsl(259, 7%, 23%);
+$dark-c-gray-6: hsl(259, 7%, 35%);
+$dark-c-gray-5: hsl(259, 7%, 49%);
+$dark-c-gray-4: hsl(259, 7%, 60%);
+$dark-c-gray-3: hsl(259, 7%, 71%);
+$dark-c-gray-2: hsl(259, 7%, 83%);
+$dark-c-gray-1: hsl(259, 7%, 95%);
+$dark-c-gray-0: hsl(259, 7%, 98%);
+// COLORS → GRAY → LIGHT
+$light-c-gray-9: hsl(259, 7%, 5%);
+$light-c-gray-8: hsl(259, 7%, 7%);
+$light-c-gray-7: hsl(259, 7%, 23%);
+$light-c-gray-6: hsl(259, 7%, 35%);
+$light-c-gray-5: hsl(259, 7%, 49%);
+$light-c-gray-4: hsl(259, 7%, 60%);
+$light-c-gray-3: hsl(259, 7%, 71%);
+$light-c-gray-2: hsl(259, 7%, 83%);
+$light-c-gray-1: hsl(259, 7%, 95%);
+$light-c-gray-0: hsl(259, 7%, 98%);
 
 // RESPONSIVE BREAKPOINTS
 $breakpoint-menu-hideable: 768px; // When 100vw <= that value, menu can be hidden

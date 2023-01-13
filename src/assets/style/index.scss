@@ -7,6 +7,44 @@
 
 :root {
   font-size: v.$font-root-em;
+  --c-auaust-9: #{v.$light-c-auaust-9};
+  --c-auaust-8: #{v.$light-c-auaust-8};
+  --c-auaust-7: #{v.$light-c-auaust-7};
+  --c-auaust-6: #{v.$light-c-auaust-6};
+  --c-auaust-5: #{v.$light-c-auaust-5};
+  --c-auaust-4: #{v.$light-c-auaust-4};
+  --c-auaust-3: #{v.$light-c-auaust-3};
+  --c-auaust-2: #{v.$light-c-auaust-2};
+  --c-auaust-1: #{v.$light-c-auaust-1};
+  --c-gray-9: #{v.$light-c-gray-9};
+  --c-gray-8: #{v.$light-c-gray-8};
+  --c-gray-7: #{v.$light-c-gray-7};
+  --c-gray-6: #{v.$light-c-gray-6};
+  --c-gray-5: #{v.$light-c-gray-5};
+  --c-gray-4: #{v.$light-c-gray-4};
+  --c-gray-3: #{v.$light-c-gray-3};
+  --c-gray-2: #{v.$light-c-gray-2};
+  --c-gray-1: #{v.$light-c-gray-1};
+}
+.theme-dark {
+  --c-auaust-9: #{v.$dark-c-auaust-1};
+  --c-auaust-8: #{v.$dark-c-auaust-2};
+  --c-auaust-7: #{v.$dark-c-auaust-3};
+  --c-auaust-6: #{v.$dark-c-auaust-4};
+  --c-auaust-5: #{v.$dark-c-auaust-5};
+  --c-auaust-4: #{v.$dark-c-auaust-6};
+  --c-auaust-3: #{v.$dark-c-auaust-7};
+  --c-auaust-2: #{v.$dark-c-auaust-8};
+  --c-auaust-1: #{v.$dark-c-auaust-9};
+  --c-gray-9: #{v.$dark-c-gray-1};
+  --c-gray-8: #{v.$dark-c-gray-2};
+  --c-gray-7: #{v.$dark-c-gray-3};
+  --c-gray-6: #{v.$dark-c-gray-4};
+  --c-gray-5: #{v.$dark-c-gray-5};
+  --c-gray-4: #{v.$dark-c-gray-6};
+  --c-gray-3: #{v.$dark-c-gray-7};
+  --c-gray-2: #{v.$dark-c-gray-8};
+  --c-gray-1: #{v.$dark-c-gray-9};
 }
 
 * {

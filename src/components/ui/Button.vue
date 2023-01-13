@@ -1,17 +1,30 @@
 <template>
-  <div class="button">
+  <div class="button" :class="[type, active ? 'active' : '']">
     <span>
       <slot></slot>
     </span>
   </div>
 </template>
 
+<script setup lang="ts">
+import { ref } from "vue";
+const props = defineProps({
+  type: String,
+  active: Boolean,
+});
+
+const type = ref(props.type);
+</script>
+
 <style lang="scss">
 @use "@/assets/style/variables" as v;
 
 .button {
   display: inline-block;
-  padding: 7px 2px;
+  padding: 4px 2px;
+  &.fit-width {
+    width: 100%;
+  }
   user-select: none;
   -webkit-user-select: none;
   &:first-of-type {
@@ -20,34 +33,26 @@
   &:last-of-type {
     padding-right: 4px;
   }
+
   span {
     font-size: 1.3rem;
-    padding: 6px 8px 4px 8px;
+    text-align: center;
+    display: block;
+    padding: 4px 8px 2px 8px;
     cursor: pointer;
-  }
-}
-.theme-light {
-  .button {
-    span {
-      color: v.$c-gray-1;
-      background-color: v.$c-auaust-7;
-      &:hover {
-        background-color: v.$c-auaust-8;
-      }
+    color: v.$c-gray-1;
+    background-color: v.$c-auaust-7;
+    &:hover {
+      background-color: v.$c-auaust-8;
     }
   }
-}
-.theme-dark {
-  .button {
-    span {
-      color: v.$c-gray-9;
-      background-color: v.$c-auaust-2;
-      &:hover {
-        background-color: v.$c-auaust-3;
-      }
-    }
+  &.active span {
+    background-color: v.$c-auaust-4;
+    color: v.$c-gray-1;
+    cursor: default;
   }
 }
+
 // background-color: v.$c-auaust-8;
 // background-color: v.$c-auaust-7;
 </style>

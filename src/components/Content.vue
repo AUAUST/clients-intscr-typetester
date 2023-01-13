@@ -1,10 +1,12 @@
 <template>
   <main>
     <div>
-      <nav>
+      <nav style="display: grid; grid-template-columns: 1fr 1fr">
         <Button
           v-for="contentType in content.allTypes()"
           @click="content.current(contentType)"
+          type="fit-width"
+          :active="content.currentId === contentType"
         >
           {{ content.get(contentType).title }}
         </Button>
@@ -70,10 +72,7 @@ const content = shallowReactive({
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
-.theme-dark main {
-  background-color: v.$c-auaust-9;
-}
-.theme-light main {
+main {
   background-color: v.$c-auaust-1;
 }
 .view-normal {

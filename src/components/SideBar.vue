@@ -16,8 +16,8 @@ import Button from "@/components/ui/Button.vue";
   width: 300px;
   height: 100%;
   grid-column: 1;
-  background-color: v.$c-gray-0;
-  border-right: 1px solid v.$c-auaust-2;
+  background-color: v.$c-auaust-2;
+  border-right: 1px solid v.$c-auaust-3;
 }
 // }
 .view-narrow,
