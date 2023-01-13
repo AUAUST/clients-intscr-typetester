@@ -1,5 +1,8 @@
 <template>
-  <div id="app-container" :class="[currentScale, currentBrightness]">
+  <div
+    id="app-container"
+    :class="[windowData.currentScale, windowData.brightness]"
+  >
     <SideBar></SideBar>
     <Content></Content>
   </div>
@@ -22,8 +25,8 @@ function log() {
   console.log("foll");
 }
 
-const currentScale = ref(windowData.currentScale);
-const currentBrightness = ref(windowData.brightness);
+// const currentScale = ;
+// const currentBrightness = reactive(windowData.brightness);
 
 // if (
 //     scaleBefore &&
