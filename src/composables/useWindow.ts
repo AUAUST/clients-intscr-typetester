@@ -77,16 +77,16 @@ class WindowDataClass {
       className: this.getBrightnessClassName(),
     });
     this.size = reactive({
-      currentScale: this.getScaleClassName(),
       height: this.getViewportHeight(),
       width: this.getViewportWidth(),
+      currentScale: this.getScaleClassName(),
     });
   }
   initialize() {
     window.onresize = () => {
-      this.size.currentScale = this.getScaleClassName();
       this.size.height = this.getViewportHeight();
       this.size.width = this.getViewportWidth();
+      this.size.currentScale = this.getScaleClassName();
     };
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       this.brightness.className = this.getBrightnessClassName();
@@ -109,8 +109,47 @@ class WindowDataClass {
       document.body.clientWidth
     );
   }
+  getScaleObject() {
+    const sizes = {
+      order: ["view-x-narrow", "view-narrow", "view-normal"],
+      data: {
+        "view-x-narrow": {
+          maxWidth: 320,
+          sideBarHideable: true,
+        },
+        "view-narrow": {
+          maxWidth: 640,
+          sideBarHideable: true,
+        },
+        "view-normal": {
+          maxWidth: -1,
+          sideBarHideable: false,
+        },
+      },
+    };
+    let className = "view-normal";
+    let sideBarHideable = false;
+    for (const sizeId of sizes.order) {
+      if (
+        this.getViewportWidth() <=
+        sizes.data[sizeId as keyof typeof sizes.data].maxWidth
+      ) {
+        className = sizeId;
+        sideBarHideable =
+          sizes.data[sizeId as keyof typeof sizes.data].sideBarHideable;
+        break;
+      }
+    }
+    return {
+      className: className,
+      sideBarHideable: sideBarHideable,
+    };
+  }
   getScaleClassName() {
-    return "view-normal";
+    return this.getScaleObject().className;
+  }
+  getScaleSideBarHideable() {
+    return this.getScaleObject().sideBarHideable;
   }
   getBrightnessClassName() {
     if (this?.brightness?.userSelected) {
