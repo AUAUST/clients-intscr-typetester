@@ -1,14 +1,5 @@
-import { reactive } from "vue";
+import { reactive, shallowReactive } from "vue";
 
-function getBrightness() {
-  if (
-    window.matchMedia &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches
-  ) {
-    return "theme-dark";
-  }
-  return "theme-light";
-}
 function getWindowSize() {
   type configTypes = {
     scales: {
@@ -56,45 +47,156 @@ function getWindowSize() {
       if (maxWidth === undefined) return true;
       return maxWidth > windowSize.width;
     });
-  const currentScaleObject =
+  const currentScaleData =
     config.scales[currentScale as keyof typeof config.scales];
   return {
     width: windowSize.width,
     height: windowSize.height,
     currentScale: currentScale,
-    currentScaleIndex: currentScaleObject.order,
-    sideBarHideable: currentScaleObject.sideBarHideable,
-    brightness: getBrightness(),
+    currentScaleIndex: currentScaleData.order,
+    sideBarHideable: currentScaleData.sideBarHideable,
   };
 }
 
-function update() {
-  // const scaleBefore = windowData.currentScale;
-  const windowSize = getWindowSize();
+class WindowDataClass {
+  brightness: string;
+  listeningToBrightness: boolean;
+  userSelectedBrightness: string | null;
 
-  windowData.width = windowSize.width;
-  windowData.height = windowSize.height;
-  windowData.currentScale = windowSize.currentScale;
-  windowData.currentScaleIndex = windowSize.currentScaleIndex;
+  constructor() {
+    this.listeningToBrightness = false;
+    this.userSelectedBrightness = null;
+    this.brightness = this.getWindowBrightness();
+  }
+  getWindowBrightness() {
+    if (window.matchMedia) {
+      if (!this.listeningToBrightness) {
+        this.listeningToBrightness = true;
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", () => this.updateBrightness());
+      }
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "theme-dark";
+      }
+    }
+    return "theme-light";
+  }
+  updateBrightness() {
+    if (this.userSelectedBrightness) {
+      this.brightness = this.userSelectedBrightness;
+    } else {
+      this.brightness = this.getWindowBrightness();
+    }
+    return this;
+  }
+  setBrightness(brightness: string | null) {
+    if (brightness) {
+      switch (brightness.toLowerCase()) {
+        case "theme-dark":
+        case "dark":
+          this.userSelectedBrightness = "theme-dark";
+          break;
+        case "theme-light":
+        case "light":
+          this.userSelectedBrightness = "theme-light";
+          break;
+        default:
+          this.userSelectedBrightness = null;
+          break;
+      }
+    } else {
+      this.userSelectedBrightness = null;
+    }
+    this.updateBrightness();
+    console.log("----------------");
+    console.log(brightness);
+    console.log(this.userSelectedBrightness);
+    console.log(this.brightness);
+    console.log(this.listeningToBrightness);
+    console.log(this.getWindowBrightness());
+    return this;
+  }
 }
+export const windowData = reactive(new WindowDataClass());
 
-const initialState = getWindowSize();
-// const documentBody = document.body;
+// function update() {
+//   // const scaleBefore = windowData.currentScale;
+//   const windowSize = getWindowSize();
 
-window.addEventListener("resize", update);
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", (event) => {
-    windowData.brightness = event.matches ? "theme-dark" : "theme-light";
-  });
+//   windowData.width = windowSize.width;
+//   windowData.height = windowSize.height;
+//   windowData.currentScale = windowSize.currentScale;
+//   windowData.currentScaleIndex = windowSize.currentScaleIndex;
+//   windowData.brightness = brightness.getBrightness();
+// }
 
-export const windowData = reactive({
-  width: initialState.width,
-  height: initialState.height,
-  currentScale: initialState.currentScale,
-  currentScaleIndex: initialState.currentScaleIndex,
-  sideBarHideable: initialState.sideBarHideable,
-  brightness: initialState.brightness,
-});
+// const initialState = getWindowSize();
+// // const documentBody = document.body;
 
-update();
+// window.addEventListener("resize", update);
+// window
+//   .matchMedia("(prefers-color-scheme: dark)")
+//   .addEventListener("change", (event) => {
+//     windowData.brightness = brightness.getBrightness();
+//   });
+
+// function getPreferredBrightness() {
+//   if (
+//     window.matchMedia &&
+//     window.matchMedia("(prefers-color-scheme: dark)").matches
+//   ) {
+//     return "theme-dark";
+//   } else {
+//     return "theme-light";
+//   }
+// }
+// type brightnessType = {
+//   brightnessOverride: string | null;
+//   getBrightness: Function;
+// };
+// // const brightness = shallowReactive({
+// //   getBrightness: function (brightness?: string) {
+// //     if (brightness) {
+// //       switch (brightness) {
+// //         case "theme-dark":
+// //           this.brightnessOverride = "theme-dark";
+// //           break;
+// //         case "theme-light":
+// //           this.brightnessOverride = "theme-light";
+// //           break;
+// //         default:
+// //           this.brightnessOverride = null;
+// //           break;
+// //       }
+// //     }
+// //     let result: string;
+// //     // console.log(windowData.brightnessOverride);
+// //     if (this.brightnessOverride) {
+// //       result = this.brightnessOverride;
+// //     } else {
+// //       result = getPreferredBrightness();
+// //     }
+// //     return result;
+// //   },
+// // };)
+
+// type windowDataTypes = {
+//   width: number;
+//   height: number;
+//   currentScale: string | undefined;
+//   currentScaleIndex: number;
+//   brightness: string;
+//   getBrightness: Function;
+// };
+// export const windowData: windowDataTypes = reactive({
+//   width: initialState.width,
+//   height: initialState.height,
+//   currentScale: initialState.currentScale,
+//   currentScaleIndex: initialState.currentScaleIndex,
+//   sideBarHideable: initialState.sideBarHideable,
+//   brightness: getPreferredBrightness(),
+//   getBrightness: brightness.getBrightness,
+// });
+
+// update();

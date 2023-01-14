@@ -57,6 +57,27 @@ body {
   overflow: hidden;
   font-size: 1.5rem;
 }
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: unset;
+  font-variation-settings: "wght" 400;
+}
+
+.text-small {
+  font-size: 1.3rem;
+}
+.text-x-small {
+  font-size: 1.2rem;
+}
+.text-normal {
+  font-size: 1.5rem;
+}
+
 .color-auaust-9 {
   color: v.$c-auaust-9;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="button" :class="[type, active ? 'active' : '']">
-    <span>
+    <span class="text-small">
       <slot></slot>
     </span>
   </div>
@@ -21,24 +21,24 @@ const type = ref(props.type);
 
 .button {
   display: inline-block;
-  padding: 4px 2px;
+  padding: v.$gap-small-normal v.$gap-small-half;
   &.fit-width {
     width: 100%;
   }
   user-select: none;
   -webkit-user-select: none;
   &:first-of-type {
-    padding-left: 4px;
+    padding-left: v.$gap-small-normal;
   }
   &:last-of-type {
-    padding-right: 4px;
+    padding-right: v.$gap-small-normal;
   }
 
   span {
-    font-size: 1.3rem;
     text-align: center;
     display: block;
-    padding: 4px 8px 2px 8px;
+    padding: v.$gap-small-normal v.$gap-small-double v.$gap-small-half
+      v.$gap-small-double;
     cursor: pointer;
     color: v.$c-gray-1;
     background-color: v.$c-auaust-7;

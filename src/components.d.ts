@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Brightness: typeof import('./components/sidebar/Brightness.vue')['default']
     Button: typeof import('./components/ui/Button.vue')['default']
     Content: typeof import('./components/Content.vue')['default']
     Counter: typeof import('./components/Counter.vue')['default']
