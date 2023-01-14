@@ -1,7 +1,7 @@
 <template>
   <div
     id="app-container"
-    :class="[windowData.currentScale, windowData.brightness]"
+    :class="[windowData.size.currentScale, windowData.brightness.className]"
   >
     <SideBar></SideBar>
     <Content></Content>

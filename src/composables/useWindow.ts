@@ -1,4 +1,4 @@
-import { reactive, shallowReactive } from "vue";
+import { reactive, watch } from "vue";
 
 function getWindowSize() {
   type configTypes = {
@@ -58,67 +58,96 @@ function getWindowSize() {
   };
 }
 
+type scaleObjectType = {
+  currentScale: string;
+  height: number;
+  width: number;
+};
+type brightessObjectType = {
+  className: string;
+  userSelected: null | string;
+};
 class WindowDataClass {
-  brightness: string;
-  listeningToBrightness: boolean;
-  userSelectedBrightness: string | null;
+  size: scaleObjectType;
+  brightness: brightessObjectType;
 
   constructor() {
-    this.listeningToBrightness = false;
-    this.userSelectedBrightness = null;
-    this.brightness = this.getWindowBrightness();
+    this.brightness = reactive({
+      userSelected: null,
+      className: this.getBrightnessClassName(),
+    });
+    this.size = reactive({
+      currentScale: this.getScaleClassName(),
+      height: this.getViewportHeight(),
+      width: this.getViewportWidth(),
+    });
   }
-  getWindowBrightness() {
-    if (window.matchMedia) {
-      if (!this.listeningToBrightness) {
-        this.listeningToBrightness = true;
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", () => this.updateBrightness());
-      }
-      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "theme-dark";
-      }
+  initialize() {
+    window.onresize = () => {
+      this.size.currentScale = this.getScaleClassName();
+      this.size.height = this.getViewportHeight();
+      this.size.width = this.getViewportWidth();
+    };
+    window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
+      this.brightness.className = this.getBrightnessClassName();
+    };
+    return this;
+  }
+  getViewportHeight() {
+    // this.listenToResize();
+    return (
+      window.innerHeight ??
+      document.documentElement.clientHeight ??
+      document.body.clientHeight
+    );
+  }
+  getViewportWidth() {
+    // this.listenToResize();
+    return (
+      window.innerWidth ??
+      document.documentElement.clientWidth ??
+      document.body.clientWidth
+    );
+  }
+  getScaleClassName() {
+    return "view-normal";
+  }
+  getBrightnessClassName() {
+    if (this?.brightness?.userSelected) {
+      // console.log(this.brightness.userSelected);
+      return this.brightness.userSelected;
+    }
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "theme-dark";
     }
     return "theme-light";
-  }
-  updateBrightness() {
-    if (this.userSelectedBrightness) {
-      this.brightness = this.userSelectedBrightness;
-    } else {
-      this.brightness = this.getWindowBrightness();
-    }
-    return this;
   }
   setBrightness(brightness: string | null) {
     if (brightness) {
       switch (brightness.toLowerCase()) {
         case "theme-dark":
         case "dark":
-          this.userSelectedBrightness = "theme-dark";
+          this.brightness.userSelected = "theme-dark";
           break;
         case "theme-light":
         case "light":
-          this.userSelectedBrightness = "theme-light";
+          this.brightness.userSelected = "theme-light";
           break;
         default:
-          this.userSelectedBrightness = null;
+          this.brightness.userSelected = null;
           break;
       }
     } else {
-      this.userSelectedBrightness = null;
+      this.brightness.userSelected = null;
     }
-    this.updateBrightness();
-    console.log("----------------");
-    console.log(brightness);
-    console.log(this.userSelectedBrightness);
-    console.log(this.brightness);
-    console.log(this.listeningToBrightness);
-    console.log(this.getWindowBrightness());
+    this.brightness.className = this.getBrightnessClassName();
     return this;
   }
 }
-export const windowData = reactive(new WindowDataClass());
+export const windowData = new WindowDataClass().initialize();
 
 // function update() {
 //   // const scaleBefore = windowData.currentScale;
