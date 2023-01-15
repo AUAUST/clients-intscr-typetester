@@ -22,11 +22,13 @@
         </div>
       </section>
     </menu>
-    <Button
-      v-show="windowData.size.sideBarHideable"
-      @click="windowData.toggleSideBar()"
-      >{{ windowData.size.sideBarHidden ? "→" : "←" }}</Button
-    >
+    <div id="toggle-sidebar-button">
+      <Button
+        v-show="windowData.size.sideBarHideable"
+        @click="windowData.toggleSideBar()"
+        >{{ windowData.size.sideBarHidden ? "→" : "←" }}</Button
+      >
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -86,7 +88,7 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
     position: absolute;
     height: 100%;
 
-    > .button {
+    #toggle-sidebar-button {
       position: absolute;
       left: 100%;
       bottom: 0px;
@@ -97,12 +99,14 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
 .view-x-narrow {
   #sidebar-container {
     width: 100vw;
-    > .button {
-      position: fixed;
-      right: 0;
-      bottom: 0;
+    #toggle-sidebar-button {
+      .button {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+      }
     }
-    &.closed > .button {
+    &.closed #toggle-sidebar-button .button {
       transform: translate(100%);
     }
   }

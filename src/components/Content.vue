@@ -81,16 +81,11 @@ main {
     grid-column: 2;
   }
 }
-.view-narrow {
-  main {
-    width: 100vw;
-    height: 100vh;
-  }
-}
-
+.view-narrow,
 .view-x-narrow {
   main {
     width: 100vw;
+    height: 100vh;
   }
 }
 </style>
