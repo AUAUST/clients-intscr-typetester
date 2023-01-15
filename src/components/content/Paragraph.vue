@@ -1,10 +1,8 @@
 <template>
-  height: {{ windowData.size.height }} width: {{ windowData.size.width }} scale:
-  {{ windowData.size.currentScale }} {{ windowData.brightness.className }}
-  I am a paragraph. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-  Placeat, labore. Explicabo eaque est expedita ut voluptas at dignissimos
-  dolorem molestias unde omnis, assumenda commodi et minus officia sed tempora!
-  Quaerat.
+  height: {{ windowData.size.height }}<br />
+  width: {{ windowData.size.width }}<br />
+  scale: {{ windowData.size.currentScale }}<br />
+  brightness: {{ windowData.brightness.className }}
 </template>
 
 <script setup lang="ts">
