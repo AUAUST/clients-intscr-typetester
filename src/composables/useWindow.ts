@@ -86,10 +86,7 @@ class WindowDataClass {
     let sideBarHideable = false;
     const width = this.getViewportWidth();
     for (const sizeId of sizes.order) {
-      // console.log(this.getViewportWidth());
-      // console.log(sizes.data[sizeId as keyof typeof sizes.data].maxWidth);
       if (width <= sizes.data[sizeId as keyof typeof sizes.data].maxWidth) {
-        // console.log(sizeId);
         return {
           className: sizeId,
           sideBarHideable:
@@ -109,7 +106,6 @@ class WindowDataClass {
     return this.getScaleObject().sideBarHideable;
   }
   getBrightnessClassName() {
-    console.log(this?.brightness, "getBrightnessClassName");
     if (this?.brightness?.userSelected) {
       return this.brightness.userSelected;
     }
