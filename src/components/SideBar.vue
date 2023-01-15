@@ -23,7 +23,7 @@
       </section>
     </menu>
     <Button
-      v-if="windowData.size.sideBarHideable"
+      v-show="windowData.size.sideBarHideable"
       @click="windowData.toggleSideBar()"
       >{{ windowData.size.sideBarHidden ? "→" : "←" }}</Button
     >
@@ -44,15 +44,15 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
   width: 100%;
   height: 100%;
   grid-column: 1;
-  background-color: v.$c-auaust-2;
-  border-right: 1px solid v.$c-auaust-4;
+  background-color: v.$c-gray-2;
+  border-right: 1px solid v.$c-gray-4;
 
   section {
     div {
       color: v.$c-gray-6;
       h4 {
         padding: v.$gap-small-half v.$gap-small-normal;
-        border-bottom: 1px solid v.$c-auaust-4;
+        border-bottom: 1px solid v.$c-gray-4;
       }
       h5 {
         padding: v.$gap-small-half v.$gap-small-normal 0 v.$gap-small-normal;
@@ -71,16 +71,11 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
   }
   width: 300px;
   position: relative;
-  > .button {
-    position: absolute;
-    left: 100%;
-    bottom: 0px;
-  }
 }
 
 #interface-settings {
-  background-color: v.$c-auaust-3;
-  border-top: 1px solid v.$c-auaust-4;
+  background-color: v.$c-gray-3;
+  border-top: 1px solid v.$c-gray-4;
 }
 
 // }
@@ -90,13 +85,26 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
     z-index: 1;
     position: absolute;
     height: 100%;
-    opacity: 80%;
+
+    > .button {
+      position: absolute;
+      left: 100%;
+      bottom: 0px;
+    }
   }
 }
 
 .view-x-narrow {
   #sidebar-container {
     width: 100vw;
+    > .button {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+    }
+    &.closed > .button {
+      transform: translate(100%);
+    }
   }
 }
 </style>

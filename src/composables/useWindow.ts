@@ -79,7 +79,7 @@ class WindowDataClass {
       order: ["view-x-narrow", "view-narrow", "view-normal"],
       data: {
         "view-x-narrow": {
-          maxWidth: 320,
+          maxWidth: 340,
           sideBarHideable: true,
         },
         "view-narrow": {
