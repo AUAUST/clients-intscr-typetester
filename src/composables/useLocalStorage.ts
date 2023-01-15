@@ -33,6 +33,7 @@ class localStorageClass {
         value: this.storage[key],
       };
     }
+    // if the key is invalid
     return {
       exists: false,
       value: null,
@@ -40,8 +41,10 @@ class localStorageClass {
   }
   set(key: string, value: unknown) {
     if (key) {
-      this.storage[key] = value;
-      window.localStorage.setItem(key, JSON.stringify(value));
+      if (this.storage[key] !== value) {
+        this.storage[key] = value;
+        window.localStorage.setItem(key, JSON.stringify(value));
+      }
     } else {
       console.error(
         `Tried to set a localStorage value with an invalid key: ${key}`
