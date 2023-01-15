@@ -1,4 +1,5 @@
-import { reactive, watch } from "vue";
+import { localStorageData } from "./useLocalStorage";
+import { reactive } from "vue";
 
 type scaleObjectType = {
   sideBarHideable: boolean;
@@ -15,8 +16,18 @@ class WindowDataClass {
   brightness: brightessObjectType;
 
   constructor() {
+    let brightness: string | null;
+    let locallyStoredBrightness = localStorageData.get("userSelectedBrightness"); // prettier-ignore
+    if (
+      locallyStoredBrightness.exists &&
+      typeof locallyStoredBrightness.value === "string"
+    ) {
+      brightness = locallyStoredBrightness.value;
+    } else {
+      brightness = null;
+    }
     this.brightness = reactive({
-      userSelected: null,
+      userSelected: brightness,
       className: this.getBrightnessClassName(),
     });
     this.size = reactive({
@@ -25,6 +36,7 @@ class WindowDataClass {
       currentScale: this.getScaleClassName(),
       sideBarHideable: this.getScaleSideBarHideable(),
     });
+    this.setBrightness(brightness);
   }
   initialize() {
     window.onresize = () => {
@@ -97,6 +109,7 @@ class WindowDataClass {
     return this.getScaleObject().sideBarHideable;
   }
   getBrightnessClassName() {
+    console.log(this?.brightness, "getBrightnessClassName");
     if (this?.brightness?.userSelected) {
       return this.brightness.userSelected;
     }
@@ -113,18 +126,22 @@ class WindowDataClass {
       switch (brightness.toLowerCase()) {
         case "theme-dark":
         case "dark":
+          localStorageData.set("userSelectedBrightness", "theme-dark");
           this.brightness.userSelected = "theme-dark";
           break;
         case "theme-light":
         case "light":
+          localStorageData.set("userSelectedBrightness", "theme-light");
           this.brightness.userSelected = "theme-light";
           break;
         default:
+          localStorageData.set("userSelectedBrightness", null);
           this.brightness.userSelected = null;
           break;
       }
     } else {
       this.brightness.userSelected = null;
+      localStorageData.set("userSelectedBrightness", null);
     }
     this.brightness.className = this.getBrightnessClassName();
     return this;
