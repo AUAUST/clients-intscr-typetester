@@ -1,5 +1,11 @@
 <template>
-  <div id="sidebar-container">
+  <div
+    id="sidebar-container"
+    :class="{
+      closed: windowData.size.sideBarHidden,
+      hideable: windowData.size.sideBarHideable,
+    }"
+  >
     <menu id="sidebar">
       <section id="font-settings">
         <div>
@@ -10,13 +16,17 @@
         <div>
           <h4 class="text-x-small">Interface settings</h4>
           <section>
-            <h5>Brightness</h5>
+            <h5>Theme</h5>
             <UiSettingsBrightness />
           </section>
         </div>
       </section>
     </menu>
-    <!-- <Button v-if="windowData.size.sideBarHideable">Yo</Button> -->
+    <Button
+      v-if="windowData.size.sideBarHideable"
+      @click="windowData.toggleSideBar()"
+      >{{ windowData.size.sideBarHidden ? "→" : "←" }}</Button
+    >
   </div>
 </template>
 <script setup lang="ts">
@@ -46,17 +56,25 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
       }
       h5 {
         padding: v.$gap-small-half v.$gap-small-normal 0 v.$gap-small-normal;
+        margin-bottom: -2px;
       }
     }
   }
 }
 
 #sidebar-container {
+  &.hideable {
+    transition: transform 0.3s steps(3, end);
+    &.closed {
+      transform: translateX(-100%);
+    }
+  }
   width: 300px;
   position: relative;
   > .button {
     position: absolute;
     left: 100%;
+    bottom: 0px;
   }
 }
 
@@ -68,14 +86,16 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
 // }
 .view-narrow,
 .view-x-narrow {
-  #sidebar {
+  #sidebar-container {
     z-index: 1;
     position: absolute;
+    height: 100%;
+    opacity: 80%;
   }
 }
 
 .view-x-narrow {
-  #sidebar {
+  #sidebar-container {
     width: 100vw;
   }
 }

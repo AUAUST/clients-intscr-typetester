@@ -3,6 +3,7 @@ import { reactive } from "vue";
 
 type scaleObjectType = {
   sideBarHideable: boolean;
+  sideBarHidden: boolean;
   currentScale: string;
   height: number;
   width: number;
@@ -43,6 +44,7 @@ class WindowDataClass {
       width: this.getViewportWidth(),
       currentScale: this.getScaleClassName(),
       sideBarHideable: this.isSideBarHideable(),
+      sideBarHidden: false,
     });
   }
   initialize() {
@@ -57,19 +59,20 @@ class WindowDataClass {
     };
     return this;
   }
-  getViewportHeight() {
-    return (
-      window.innerHeight ??
-      document.documentElement.clientHeight ??
-      document.body.clientHeight
-    );
-  }
-  getViewportWidth() {
-    return (
-      window.innerWidth ??
-      document.documentElement.clientWidth ??
-      document.body.clientWidth
-    );
+  toggleSideBar(force?: "open" | "close") {
+    if (force) {
+      switch (force) {
+        case "open":
+          this.size.sideBarHidden = false;
+          break;
+        case "close":
+          this.size.sideBarHidden = true;
+          break;
+      }
+    } else {
+      this.size.sideBarHidden = !this.size.sideBarHidden;
+    }
+    return this.size.sideBarHidden;
   }
   getScaleObject() {
     const sizes = {
@@ -80,7 +83,7 @@ class WindowDataClass {
           sideBarHideable: true,
         },
         "view-narrow": {
-          maxWidth: 640,
+          maxWidth: 800,
           sideBarHideable: true,
         },
         "view-normal": {
@@ -103,6 +106,20 @@ class WindowDataClass {
       className: "view-normal",
       sideBarHideable: false,
     };
+  }
+  getViewportHeight() {
+    return (
+      window.innerHeight ??
+      document.documentElement.clientHeight ??
+      document.body.clientHeight
+    );
+  }
+  getViewportWidth() {
+    return (
+      window.innerWidth ??
+      document.documentElement.clientWidth ??
+      document.body.clientWidth
+    );
   }
   getScaleClassName() {
     return this.getScaleObject().className;
