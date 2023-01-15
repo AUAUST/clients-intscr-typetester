@@ -1,6 +1,7 @@
 import { reactive, watch } from "vue";
 
 type scaleObjectType = {
+  sideBarHideable: boolean;
   currentScale: string;
   height: number;
   width: number;
@@ -22,6 +23,7 @@ class WindowDataClass {
       height: this.getViewportHeight(),
       width: this.getViewportWidth(),
       currentScale: this.getScaleClassName(),
+      sideBarHideable: this.getScaleSideBarHideable(),
     });
   }
   initialize() {
@@ -29,6 +31,7 @@ class WindowDataClass {
       this.size.height = this.getViewportHeight();
       this.size.width = this.getViewportWidth();
       this.size.currentScale = this.getScaleClassName();
+      this.size.sideBarHideable = this.getScaleSideBarHideable();
     };
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       this.brightness.className = this.getBrightnessClassName();
@@ -36,7 +39,6 @@ class WindowDataClass {
     return this;
   }
   getViewportHeight() {
-    // this.listenToResize();
     return (
       window.innerHeight ??
       document.documentElement.clientHeight ??
@@ -44,7 +46,6 @@ class WindowDataClass {
     );
   }
   getViewportWidth() {
-    // this.listenToResize();
     return (
       window.innerWidth ??
       document.documentElement.clientWidth ??
@@ -71,20 +72,22 @@ class WindowDataClass {
     };
     let className = "view-normal";
     let sideBarHideable = false;
+    const width = this.getViewportWidth();
     for (const sizeId of sizes.order) {
-      if (
-        this.getViewportWidth() <=
-        sizes.data[sizeId as keyof typeof sizes.data].maxWidth
-      ) {
-        className = sizeId;
-        sideBarHideable =
-          sizes.data[sizeId as keyof typeof sizes.data].sideBarHideable;
-        break;
+      // console.log(this.getViewportWidth());
+      // console.log(sizes.data[sizeId as keyof typeof sizes.data].maxWidth);
+      if (width <= sizes.data[sizeId as keyof typeof sizes.data].maxWidth) {
+        // console.log(sizeId);
+        return {
+          className: sizeId,
+          sideBarHideable:
+            sizes.data[sizeId as keyof typeof sizes.data].sideBarHideable,
+        };
       }
     }
     return {
-      className: className,
-      sideBarHideable: sideBarHideable,
+      className: "view-normal",
+      sideBarHideable: false,
     };
   }
   getScaleClassName() {
@@ -95,7 +98,6 @@ class WindowDataClass {
   }
   getBrightnessClassName() {
     if (this?.brightness?.userSelected) {
-      // console.log(this.brightness.userSelected);
       return this.brightness.userSelected;
     }
     if (
@@ -129,17 +131,6 @@ class WindowDataClass {
   }
 }
 export const windowData = new WindowDataClass().initialize();
-
-// function update() {
-//   // const scaleBefore = windowData.currentScale;
-//   const windowSize = getWindowSize();
-
-//   windowData.width = windowSize.width;
-//   windowData.height = windowSize.height;
-//   windowData.currentScale = windowSize.currentScale;
-//   windowData.currentScaleIndex = windowSize.currentScaleIndex;
-//   windowData.brightness = brightness.getBrightness();
-// }
 
 // const initialState = getWindowSize();
 // // const documentBody = document.body;
@@ -181,7 +172,6 @@ export const windowData = new WindowDataClass().initialize();
 // //       }
 // //     }
 // //     let result: string;
-// //     // console.log(windowData.brightnessOverride);
 // //     if (this.brightnessOverride) {
 // //       result = this.brightnessOverride;
 // //     } else {
