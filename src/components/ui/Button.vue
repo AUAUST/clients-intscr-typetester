@@ -1,5 +1,9 @@
 <template>
-  <div class="button" :class="[type, active ? 'active' : '']">
+  <div
+    class="button"
+    :class="[type, active ? 'active' : '']"
+    :title="title ?? 'A clickable button.'"
+  >
     <span class="text-small">
       <slot></slot>
     </span>
@@ -10,6 +14,7 @@
 import { ref } from "vue";
 const props = defineProps({
   type: String,
+  title: String,
   active: Boolean,
 });
 
