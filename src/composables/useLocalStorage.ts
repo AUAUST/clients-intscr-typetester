@@ -1,7 +1,7 @@
 import { reactive } from "vue";
 
 class localStorageClass {
-  storage: { [k: string]: any };
+  storage: { [i: string]: any };
   constructor() {
     this.storage = reactive({});
   }
@@ -18,7 +18,7 @@ class localStorageClass {
           this.storage[key] = value;
           return {
             exists: true,
-            value: value,
+            value: this.storage[key],
           };
         }
         // if it's null, the value doesn't exist
@@ -30,7 +30,7 @@ class localStorageClass {
       // if the value is defined, return it from cache
       return {
         exists: true,
-        value: value,
+        value: this.storage[key],
       };
     }
     return {

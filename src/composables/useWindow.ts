@@ -10,25 +10,32 @@ type scaleObjectType = {
 type brightessObjectType = {
   className: string;
   userSelected: null | string;
+  browserDefault: string;
 };
 class WindowDataClass {
   size: scaleObjectType;
   brightness: brightessObjectType;
 
   constructor() {
-    let brightness: string | null;
-    let locallyStoredBrightness = localStorageData.get("userSelectedBrightness"); // prettier-ignore
-    if (
-      locallyStoredBrightness.exists &&
-      typeof locallyStoredBrightness.value === "string"
-    ) {
-      brightness = locallyStoredBrightness.value;
-    } else {
-      brightness = null;
-    }
+    const browserDefault = this.getBrowserDefault();
     this.brightness = reactive({
-      userSelected: brightness,
-      className: this.getBrightnessClassName(),
+      get userSelected() {
+        const key = localStorageData.get("userSelectedBrightness");
+        if (key.exists && typeof key.value === "string") {
+          return key.value;
+        }
+        return null;
+      },
+      set userSelected(value) {
+        localStorageData.set("userSelectedBrightness", value);
+      },
+      get className() {
+        if (this?.userSelected) {
+          return this.userSelected;
+        }
+        return this.browserDefault;
+      },
+      browserDefault: browserDefault,
     });
     this.size = reactive({
       height: this.getViewportHeight(),
@@ -36,7 +43,6 @@ class WindowDataClass {
       currentScale: this.getScaleClassName(),
       sideBarHideable: this.getScaleSideBarHideable(),
     });
-    this.setBrightness(brightness);
   }
   initialize() {
     window.onresize = () => {
@@ -46,7 +52,7 @@ class WindowDataClass {
       this.size.sideBarHideable = this.getScaleSideBarHideable();
     };
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
-      this.brightness.className = this.getBrightnessClassName();
+      this.brightness.browserDefault = this.getBrowserDefault();
     };
     return this;
   }
@@ -82,8 +88,6 @@ class WindowDataClass {
         },
       },
     };
-    let className = "view-normal";
-    let sideBarHideable = false;
     const width = this.getViewportWidth();
     for (const sizeId of sizes.order) {
       if (width <= sizes.data[sizeId as keyof typeof sizes.data].maxWidth) {
@@ -105,10 +109,7 @@ class WindowDataClass {
   getScaleSideBarHideable() {
     return this.getScaleObject().sideBarHideable;
   }
-  getBrightnessClassName() {
-    if (this?.brightness?.userSelected) {
-      return this.brightness.userSelected;
-    }
+  getBrowserDefault() {
     if (
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -122,24 +123,24 @@ class WindowDataClass {
       switch (brightness.toLowerCase()) {
         case "theme-dark":
         case "dark":
-          localStorageData.set("userSelectedBrightness", "theme-dark");
+          // localStorageData.set("userSelectedBrightness", "theme-dark");
           this.brightness.userSelected = "theme-dark";
           break;
         case "theme-light":
         case "light":
-          localStorageData.set("userSelectedBrightness", "theme-light");
+          // localStorageData.set("userSelectedBrightness", "theme-light");
           this.brightness.userSelected = "theme-light";
           break;
         default:
-          localStorageData.set("userSelectedBrightness", null);
+          // localStorageData.set("userSelectedBrightness", null);
           this.brightness.userSelected = null;
           break;
       }
     } else {
       this.brightness.userSelected = null;
-      localStorageData.set("userSelectedBrightness", null);
+      // localStorageData.set("userSelectedBrightness", null);
     }
-    this.brightness.className = this.getBrightnessClassName();
+    // this.brightness.className = this.getBrightnessClassName();
     return this;
   }
 }
