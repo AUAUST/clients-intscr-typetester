@@ -30,6 +30,7 @@
 
 <style lang="scss">
 .button-container {
+  height: fit-content;
   width: 100%;
   display: flex;
 }

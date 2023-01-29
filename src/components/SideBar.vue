@@ -7,14 +7,43 @@
     }"
   >
     <menu id="sidebar">
-      <section id="font-settings">
+      <section id="font-select">
+        <h4 class="text-x-small">Font in use</h4>
+
         <div>
-          <h4 class="text-x-small">Font settings</h4>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod saepe
+            excepturi quos, earum magnam pariatur dolore suscipit sed
+            reprehenderit atque, ut distinctio possimus exercitationem dicta
+            eaque. Maiores veniam veritatis tempora?Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. Quod saepe excepturi quos, earum
+            magnam pariatur dolore suscipit sed reprehenderit atque, ut
+            distinctio possimus exercitationem dicta eaque. Maiores veniam
+            veritatis tempora?Lorem ipsum dolor, sit amet consectetur
+            adipisicing elit. Quod saepe excepturi quos, earum magnam pariatur
+            dolore suscipit sed reprehenderit atque, ut distinctio possimus
+            exercitationem dicta eaque. Maiores veniam veritatis tempora?Lorem
+            ipsum dolor, sit amet consectetur adipisicing elit. Quod saepe
+            excepturi quos, earum magnam pariatur dolore suscipit sed
+            reprehenderit atque, ut distinctio possimus exercitationem dicta
+            eaque. Maiores veniam veritatis tempora?Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. Quod saepe excepturi quos, earum
+            magnam pariatur dolore suscipit sed reprehenderit atque, ut
+            distinctio possimus exercitationem dicta eaque. Maiores veniam
+            veritatis tempora?Lorem ipsum dolor, sit amet consectetur
+            adipisicing elit. Quod saepe excepturi quos, earum magnam pariatur
+            dolore suscipit sed reprehenderit atque, ut distinctio possimus
+            exercitationem dicta eaque. Maiores veniam veritatis tempora?
+          </p>
         </div>
       </section>
+      <section id="font-settings">
+        <h4 class="text-x-small">Font settings</h4>
+        <div></div>
+      </section>
       <section id="interface-settings">
+        <h4 class="text-x-small">Interface settings</h4>
         <div>
-          <h4 class="text-x-small">Interface settings</h4>
           <section>
             <h5>Theme</h5>
             <UiSettingsBrightness />
@@ -39,23 +68,34 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
-// body.view-normal {
 #sidebar {
-  display: grid;
-  grid-template-rows: auto auto;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  grid-column: 1;
   background-color: v.$c-gray-2;
   border-right: 1px solid v.$c-gray-4;
 
   section {
-    div {
+    overflow-y: auto;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    background-color: inherit;
+    > h4 {
+      position: sticky;
+      top: 0;
+
+      padding: v.$gap-small-half v.$gap-small-normal;
+      border-top: 1px solid v.$c-gray-4;
+      border-bottom: 1px solid v.$c-gray-4;
+
+      background-color: inherit;
+    }
+    > div {
       color: v.$c-gray-6;
-      h4 {
-        padding: v.$gap-small-half v.$gap-small-normal;
-        border-bottom: 1px solid v.$c-gray-4;
-      }
       h5 {
         padding: v.$gap-small-half v.$gap-small-normal 0 v.$gap-small-normal;
         margin-bottom: -2px;
@@ -66,18 +106,14 @@ import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
 
 #sidebar-container {
   &.hideable {
-    transition: transform 0.3s steps(3, end);
+    transition: transform 0.3s linear;
     &.closed {
       transform: translateX(-100%);
     }
   }
   width: 300px;
+  overflow: hidden;
   position: relative;
-}
-
-#interface-settings {
-  background-color: v.$c-gray-3;
-  border-top: 1px solid v.$c-gray-4;
 }
 
 // }

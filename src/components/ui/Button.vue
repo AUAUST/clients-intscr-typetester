@@ -57,7 +57,4 @@ const type = ref(props.type);
     cursor: default;
   }
 }
-
-// background-color: v.$c-auaust-8;
-// background-color: v.$c-auaust-7;
 </style>

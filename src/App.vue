@@ -6,52 +6,12 @@
     <SideBar></SideBar>
     <Content></Content>
   </div>
-  <div @ref="fontInputContainer" @dragstart="log">
-    <FontInputOverlay v-show="dragging"></FontInputOverlay>
-  </div>
 </template>
 
 <script setup lang="ts">
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
-import FontInputOverlay from "@/components/FontInputOverlay.vue";
-import { ref } from "vue";
 import { windowData } from "~/composables/useWindow";
-
-const fontInputContainer = ref(null);
-const dragging = ref(false);
-
-function log() {
-  console.log("foll");
-}
-
-// const currentScale = ;
-// const currentBrightness = reactive(windowData.brightness);
-
-// if (
-//     scaleBefore &&
-//     windowSize.currentScale &&
-//     windowSize.currentScale !== scaleBefore
-//   ) {
-//     documentBody.classList.remove(scaleBefore);
-//     documentBody.classList.add(windowSize.currentScale);
-//   } else if (windowSize.currentScale) {
-//     documentBody.classList.add(windowSize.currentScale);
-//   }
-
-// function drop() {
-//   console.log("files-dropped");
-// }
-// function startDragOver() {
-//   if (app.value) {
-//     app.value.classList.add("test");
-//   }
-// }
-// function endDragOver() {
-//   if (app.value) {
-//     app.value.classList.remove("test");
-//   }
-// }
 </script>
 
 <style scoped lang="scss">
@@ -69,10 +29,4 @@ function log() {
     display: flex;
   }
 }
-
-// body.view-x-narrow {
-//   #app-container {
-//     display: block;
-//   }
-// }
 </style>
