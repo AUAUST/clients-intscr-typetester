@@ -1,10 +1,5 @@
 @use "@/assets/style/variables" as v;
 
-@font-face {
-  font-family: "Arzier";
-  src: url("@/assets/fonts/arzier.ttf");
-}
-
 :root {
   font-size: v.$font-root-em;
   --c-auaust-9: #{v.$light-c-auaust-9};

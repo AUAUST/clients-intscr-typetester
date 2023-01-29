@@ -15,18 +15,24 @@
     <?= vite()->js("main.ts") ?>
     <?= vite()->css("main.ts") ?>
 
-    <script>
-      ;(() => {
-        const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-        const setting = localStorage.getItem('vueuse-color-scheme') || 'auto';
-        if (setting === 'dark' || (prefersDark && setting !== 'light')) {
-          document.documentElement.classList.toggle('dark', true);
+    <style>
+      @font-face {
+        font-family: "Arzier";
+        src: url(<?= $site
+          ->defaultUIFont()
+          ->toFile()
+          ->url() ?>);
         }
-      })()
-    </script>
+    </style>
+    <script>
+      function dragOverHandler(ev) {
+        console.log('File(s) in drop zone');
 
+        ev.preventDefault();
+      }
+    </script>
   </head>
-  <body>
+  <body ondragover="dragOverHandler(event);">
     <div id="app"></div>
     <script id="data-site" type="application/json"><?= \Kirby\Data\Json::encode(
       $data

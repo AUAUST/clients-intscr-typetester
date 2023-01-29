@@ -1,0 +1,7 @@
+title: Typetester
+
+fields:
+  defaultUIFont:
+    type: files
+    uploads:
+      template: Font
