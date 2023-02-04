@@ -13,12 +13,20 @@ type brightessObjectType = {
   userSelected: null | string;
   browserDefault: string;
 };
+
+const clicking = reactive({
+  isClicking: false,
+});
+document.body.onmousedown = () => (clicking.isClicking = true);
+document.body.onmouseup = () => (clicking.isClicking = false);
+
 class WindowDataClass {
   size: scaleObjectType;
   brightness: brightessObjectType;
 
   constructor() {
     const browserDefault = this.getBrowserDefault();
+
     this.brightness = reactive({
       get userSelected() {
         const key = localStorageData.get("userSelectedBrightness");
@@ -47,6 +55,9 @@ class WindowDataClass {
       sideBarHidden: false,
     });
   }
+  get clicking() {
+    return clicking.isClicking;
+  }
   initialize() {
     window.onresize = () => {
       this.size.height = this.getViewportHeight();
@@ -74,7 +85,7 @@ class WindowDataClass {
     }
     return this.size.sideBarHidden;
   }
-  getScaleObject() {
+  getScale() {
     const sizes = {
       order: ["view-x-narrow", "view-narrow", "view-normal"],
       data: {
@@ -122,10 +133,10 @@ class WindowDataClass {
     );
   }
   getScaleClassName() {
-    return this.getScaleObject().className;
+    return this.getScale().className;
   }
   isSideBarHideable() {
-    return this.getScaleObject().sideBarHideable;
+    return this.getScale().sideBarHideable;
   }
   getBrowserDefault() {
     if (

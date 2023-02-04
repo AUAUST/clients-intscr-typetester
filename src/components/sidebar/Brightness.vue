@@ -1,5 +1,5 @@
 <template>
-  <div class="button-container">
+  <ButtonsGroup>
     <Button
       @click="windowData.setBrightness('theme-light')"
       type="fit-width"
@@ -25,16 +25,8 @@
       "
       >Dark</Button
     >
-  </div>
+  </ButtonsGroup>
 </template>
-
-<style lang="scss">
-.button-container {
-  height: fit-content;
-  width: 100%;
-  display: flex;
-}
-</style>
 
 <script setup lang="ts">
 import { windowData } from "~/composables/useWindow";

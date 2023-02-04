@@ -6,6 +6,7 @@
     <SideBar></SideBar>
     <Content></Content>
   </div>
+  <FontInput />
 </template>
 
 <script setup lang="ts">

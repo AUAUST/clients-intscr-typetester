@@ -7,49 +7,33 @@
     }"
   >
     <menu id="sidebar">
-      <section id="font-select">
-        <h4 class="text-x-small">Font in use</h4>
-
-        <div>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod saepe
-            excepturi quos, earum magnam pariatur dolore suscipit sed
-            reprehenderit atque, ut distinctio possimus exercitationem dicta
-            eaque. Maiores veniam veritatis tempora?Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Quod saepe excepturi quos, earum
-            magnam pariatur dolore suscipit sed reprehenderit atque, ut
-            distinctio possimus exercitationem dicta eaque. Maiores veniam
-            veritatis tempora?Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Quod saepe excepturi quos, earum magnam pariatur
-            dolore suscipit sed reprehenderit atque, ut distinctio possimus
-            exercitationem dicta eaque. Maiores veniam veritatis tempora?Lorem
-            ipsum dolor, sit amet consectetur adipisicing elit. Quod saepe
-            excepturi quos, earum magnam pariatur dolore suscipit sed
-            reprehenderit atque, ut distinctio possimus exercitationem dicta
-            eaque. Maiores veniam veritatis tempora?Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Quod saepe excepturi quos, earum
-            magnam pariatur dolore suscipit sed reprehenderit atque, ut
-            distinctio possimus exercitationem dicta eaque. Maiores veniam
-            veritatis tempora?Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Quod saepe excepturi quos, earum magnam pariatur
-            dolore suscipit sed reprehenderit atque, ut distinctio possimus
-            exercitationem dicta eaque. Maiores veniam veritatis tempora?
-          </p>
-        </div>
-      </section>
-      <section id="font-settings">
-        <h4 class="text-x-small">Font settings</h4>
-        <div></div>
-      </section>
-      <section id="interface-settings">
+      <SideBarSection title="Font in use" id="font-selected" :resizable="false">
+        <ButtonsGroup>
+          <Button @click="uploadFont()"> Select a file </Button>
+        </ButtonsGroup>
+      </SideBarSection>
+      <SideBarSection
+        title="Font settings"
+        id="font-settings"
+        :resizable="true"
+      ></SideBarSection>
+      <SideBarSection
+        title="Interface settings"
+        id="interface-settings"
+        :resizable="true"
+        :fillHeight="true"
+      >
+        <UiSettingsBrightness />
+      </SideBarSection>
+      <!-- <section id="interface-settings" ref="interfaceSettings">
         <h4 class="text-x-small">Interface settings</h4>
         <div>
           <section>
             <h5>Theme</h5>
-            <UiSettingsBrightness />
+            
           </section>
         </div>
-      </section>
+      </section> -->
     </menu>
     <div id="toggle-sidebar-button">
       <Button
@@ -62,46 +46,27 @@
 </template>
 <script setup lang="ts">
 import { windowData } from "~/composables/useWindow";
+
+import { uploadFont } from "~/composables/useFont";
+
 import Button from "@/components/ui/Button.vue";
 import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
+import SideBarSection from "@/components/sidebar/Section.vue";
 </script>
+
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
 #sidebar {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
   width: 100%;
   height: 100%;
   background-color: v.$c-gray-2;
   border-right: 1px solid v.$c-gray-4;
-
-  section {
-    overflow-y: auto;
-    height: 100%;
-
-    display: grid;
-    grid-template-rows: auto 1fr;
-
-    background-color: inherit;
-    > h4 {
-      position: sticky;
-      top: 0;
-
-      padding: v.$gap-small-half v.$gap-small-normal;
-      border-top: 1px solid v.$c-gray-4;
-      border-bottom: 1px solid v.$c-gray-4;
-
-      background-color: inherit;
-    }
-    > div {
-      color: v.$c-gray-6;
-      h5 {
-        padding: v.$gap-small-half v.$gap-small-normal 0 v.$gap-small-normal;
-        margin-bottom: -2px;
-      }
-    }
-  }
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 #sidebar-container {
