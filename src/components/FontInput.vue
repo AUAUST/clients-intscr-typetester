@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { ChangeEvent } from "rollup";
 import { onMounted, onUnmounted, ref } from "vue";
 
 const fontInput = ref();

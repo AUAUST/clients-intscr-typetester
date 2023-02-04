@@ -7,18 +7,21 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Brightness: typeof import('./components/sidebar/Brightness.vue')['default']
     Button: typeof import('./components/ui/Button.vue')['default']
     ButtonsGroup: typeof import('./components/ui/ButtonsGroup.vue')['default']
     Content: typeof import('./components/Content.vue')['default']
+    copy: typeof import('./components/ui/Button copy.vue')['default']
     Counter: typeof import('./components/Counter.vue')['default']
     FontInput: typeof import('./components/FontInput.vue')['default']
-    FontInputOverlay: typeof import('./components/FontInputOverlay.vue')['default']
+    FontInputOverlay: typeof import("./components/FontInputOverlay.vue")["default"]
     Glyphs: typeof import('./components/content/Glyphs.vue')['default']
+    Input: typeof import('./components/ui/Input.vue')['default']
     Paragraph: typeof import('./components/content/Paragraph.vue')['default']
     RouterLink: typeof import("vue-router")["RouterLink"]
     RouterView: typeof import("vue-router")["RouterView"]
     Section: typeof import('./components/sidebar/Section.vue')['default']
     SideBar: typeof import('./components/SideBar.vue')['default']
+    UiSettings: typeof import('./components/sidebar/UiSettings.vue')['default']
+    UISettings: typeof import('./components/sidebar/UISettings.vue')['default']
   }
 }

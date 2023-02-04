@@ -1,18 +1,13 @@
 <template>
-  <div
-    class="button"
-    :class="[size, active ? 'active' : '']"
-    :title="title ?? 'A clickable button.'"
-  >
-    <span class="text-small">
-      <slot></slot>
-    </span>
+  <div class="input" :class="[size]" :title="title ?? 'An input field.'">
+    <input class="text-small" :placeholder="placeholder" />
   </div>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
   size: String,
+  placeholder: String,
   title: String,
   active: Boolean,
 });

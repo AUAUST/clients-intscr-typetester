@@ -1,8 +1,8 @@
 <template>
-  <ButtonsGroup>
+  <ButtonsGroup title="Theme">
     <Button
       @click="windowData.setBrightness('theme-light')"
-      type="fit-width"
+      size="fit-width"
       title="A lighter interface."
       :active="
         !!brightness.userSelected && brightness.className === 'theme-light'
@@ -11,20 +11,25 @@
     >
     <Button
       @click="windowData.setBrightness(null)"
-      type="fit-width"
+      size="fit-width"
       title="Use the user's settings to determine wether to use dark or light mode."
       :active="brightness.userSelected === null"
-      >Default</Button
+      >Auto</Button
     >
     <Button
       @click="windowData.setBrightness('theme-dark')"
-      type="fit-width"
+      size="fit-width"
       title="A darker interface."
       :active="
         !!brightness.userSelected && brightness.className === 'theme-dark'
       "
       >Dark</Button
     >
+  </ButtonsGroup>
+  <ButtonsGroup title="Colors">
+    <Input size="fit-width" type="text" placeholder="foo" title="Text's color.">
+      Text
+    </Input>
   </ButtonsGroup>
 </template>
 

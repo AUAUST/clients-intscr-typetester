@@ -5,7 +5,7 @@
         <Button
           v-for="contentType in content.allTypes()"
           @click="content.current(contentType)"
-          type="fit-width"
+          size="fit-width"
           :active="content.currentId === contentType"
         >
           {{ content.get(contentType).title }}

@@ -23,7 +23,7 @@
         :resizable="true"
         :fillHeight="true"
       >
-        <UiSettingsBrightness />
+        <UiSettings />
       </SideBarSection>
       <!-- <section id="interface-settings" ref="interfaceSettings">
         <h4 class="text-x-small">Interface settings</h4>
@@ -50,7 +50,7 @@ import { windowData } from "~/composables/useWindow";
 import { uploadFont } from "~/composables/useFont";
 
 import Button from "@/components/ui/Button.vue";
-import UiSettingsBrightness from "@/components/sidebar/Brightness.vue";
+import UiSettings from "@/components/sidebar/UiSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
 </script>
 
