@@ -27,13 +27,41 @@
     >
   </ButtonsGroup>
   <ButtonsGroup title="Colors">
-    <Input size="fit-width" type="text" placeholder="foo" title="Text's color.">
+    <TextInput
+      size="fit-width"
+      placeholder="#000000"
+      before="#"
+      title="Background's color."
+      v-model="backgroundColor"
+      @input="
+        localStorageData.set('userSelectedBackgroundColor', backgroundColor)
+      "
+    >
       Text
-    </Input>
+    </TextInput>
+    <TextInput
+      size="fit-width"
+      placeholder="#000000"
+      before="#"
+      after="%"
+      title="Text's color."
+      v-model="textColor"
+      @input="localStorageData.set('userSelectedTextColor', textColor)"
+    >
+      Text
+    </TextInput>
   </ButtonsGroup>
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { windowData } from "~/composables/useWindow";
+import { localStorageData } from "~/composables/useLocalStorage";
+
 const brightness = windowData.brightness;
+
+const backgroundColor = ref(
+  localStorageData.get("userSelectedBackgroundColor").value
+);
+const textColor = ref(localStorageData.get("userSelectedTextColor").value);
 </script>

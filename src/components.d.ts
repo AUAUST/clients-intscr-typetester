@@ -21,6 +21,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import("vue-router")["RouterView"]
     Section: typeof import('./components/sidebar/Section.vue')['default']
     SideBar: typeof import('./components/SideBar.vue')['default']
+    TextInput: typeof import('./components/ui/TextInput.vue')['default']
     UiSettings: typeof import('./components/sidebar/UiSettings.vue')['default']
     UISettings: typeof import('./components/sidebar/UISettings.vue')['default']
   }

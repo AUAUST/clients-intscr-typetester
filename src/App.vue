@@ -1,6 +1,11 @@
 <template>
   <div
     id="app-container"
+    :style="`--auaust-background-color: ${
+      localStorageData.get('userSelectedBackgroundColor').value
+    }; --auaust-text-color: ${
+      localStorageData.get('userSelectedTextColor').value
+    };`"
     :class="[windowData.size.currentScale, windowData.brightness.className]"
   >
     <SideBar></SideBar>
@@ -12,6 +17,7 @@
 <script setup lang="ts">
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
+import { localStorageData } from "~/composables/useLocalStorage";
 import { windowData } from "~/composables/useWindow";
 </script>
 

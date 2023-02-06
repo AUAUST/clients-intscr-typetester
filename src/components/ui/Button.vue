@@ -11,11 +11,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  size: String,
-  title: String,
-  active: Boolean,
-});
+defineProps(["size", "title", "active"]);
 </script>
 
 <style lang="scss">
