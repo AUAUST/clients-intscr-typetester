@@ -39,6 +39,16 @@
     >
       Text
     </TextInput>
+    <Button
+      @click="
+        backgroundColor = null;
+        textColor = null;
+        localStorageData.set('userSelectedBackgroundColor', null);
+        localStorageData.set('userSelectedTextColor', null);
+      "
+    >
+      Reset
+    </Button>
     <TextInput
       size="fit-width"
       placeholder="000000"

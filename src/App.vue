@@ -2,12 +2,8 @@
   <div
     id="app-container"
     :style="{
-      '--auaust-background-color': `#${
-        localStorageData.get('userSelectedBackgroundColor').value
-      }`,
-      '--auaust-text-color': `#${
-        localStorageData.get('userSelectedTextColor').value
-      }`,
+      '--auaust-background-color': backgroundColor,
+      '--auaust-text-color': textColor,
     }"
     :class="[windowData.size.currentScale, windowData.brightness.className]"
   >
@@ -20,14 +16,31 @@
 <script setup lang="ts">
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
+import { computed } from "vue";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { windowData } from "~/composables/useWindow";
+
+function parseCSSColor(color: unknown) {
+  if (!color) return null;
+  color = String(color);
+  if (!/^[0-9a-fA-F]+$/.test(color as string)) return null;
+  return `#${color}`;
+}
+
+const backgroundColor = computed(() =>
+  parseCSSColor(localStorageData.get("userSelectedBackgroundColor").value)
+);
+const textColor = computed(() =>
+  parseCSSColor(localStorageData.get("userSelectedTextColor").value)
+);
 </script>
 
 <style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
 #app-container {
+  --auaust-background-color: #{v.$c-auaust-3};
+  --auaust-text-color: #{v.$c-auaust-8};
   width: 100vw;
   height: 100vh;
   &.view-normal {
