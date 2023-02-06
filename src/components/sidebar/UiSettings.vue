@@ -29,7 +29,7 @@
   <ButtonsGroup title="Colors">
     <TextInput
       size="fit-width"
-      placeholder="#000000"
+      placeholder="000000"
       before="#"
       title="Background's color."
       v-model="backgroundColor"
@@ -41,9 +41,8 @@
     </TextInput>
     <TextInput
       size="fit-width"
-      placeholder="#000000"
+      placeholder="000000"
       before="#"
-      after="%"
       title="Text's color."
       v-model="textColor"
       @input="localStorageData.set('userSelectedTextColor', textColor)"

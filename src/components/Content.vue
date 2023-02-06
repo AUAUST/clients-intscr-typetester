@@ -73,7 +73,8 @@ const content = shallowReactive({
 @use "@/assets/style/variables" as v;
 
 main {
-  background-color: v.$c-gray-1;
+  background-color: var(--auaust-background-color);
+  color: var(--auaust-text-color);
 }
 .view-normal {
   main {

@@ -8,7 +8,7 @@
       <span v-if="before" class="before">{{ before }}</span>
       <input
         class="text-small"
-        :placeholder="placeholderValue"
+        :placeholder="placeholder"
         :value="modelValue"
         @input="
           $emit('update:modelValue', ($event.target as HTMLInputElement).value)
@@ -20,14 +20,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps([
-  "size",
-  "placeholderValue",
-  "title",
-  "modelValue",
-  "before",
-  "after",
-]);
+defineProps(["size", "placeholder", "title", "modelValue", "before", "after"]);
 defineEmits(["update:modelValue"]);
 </script>
 

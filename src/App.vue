@@ -1,11 +1,14 @@
 <template>
   <div
     id="app-container"
-    :style="`--auaust-background-color: ${
-      localStorageData.get('userSelectedBackgroundColor').value
-    }; --auaust-text-color: ${
-      localStorageData.get('userSelectedTextColor').value
-    };`"
+    :style="{
+      '--auaust-background-color': `#${
+        localStorageData.get('userSelectedBackgroundColor').value
+      }`,
+      '--auaust-text-color': `#${
+        localStorageData.get('userSelectedTextColor').value
+      }`,
+    }"
     :class="[windowData.size.currentScale, windowData.brightness.className]"
   >
     <SideBar></SideBar>
