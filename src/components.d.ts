@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     FontInputOverlay: typeof import("./components/FontInputOverlay.vue")["default"]
     Glyphs: typeof import('./components/content/Glyphs.vue')['default']
     Input: typeof import('./components/ui/Input.vue')['default']
+    Notifications: typeof import('./components/Notifications.vue')['default']
     Paragraph: typeof import('./components/content/Paragraph.vue')['default']
     RouterLink: typeof import("vue-router")["RouterLink"]
     RouterView: typeof import("vue-router")["RouterView"]

@@ -9,6 +9,7 @@
   >
     <SideBar></SideBar>
     <Content></Content>
+    <Notifications></Notifications>
   </div>
   <FontInput />
 </template>
