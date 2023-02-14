@@ -16,7 +16,20 @@ const fontInput = ref();
 onMounted(() => {
   fontInput.value.onchange = (event: InputEvent) => {
     if (event.target && event.type === "change") {
-      console.log((event.target as HTMLInputElement).files![0]);
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (
+        ["font/ttf", "font/otf", "font/woff", "font/woff2"].includes(
+          file?.type!
+        )
+      ) {
+        const fileData = {
+          name: file?.name,
+          size: file?.size,
+          type: file?.type,
+        };
+      } else {
+        console.error("Invalid file type");
+      }
     }
   };
 });

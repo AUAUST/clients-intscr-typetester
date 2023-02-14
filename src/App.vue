@@ -21,9 +21,9 @@ import { localStorageData } from "~/composables/useLocalStorage";
 import { windowData } from "~/composables/useWindow";
 
 function parseCSSColor(color: unknown) {
-  if (!color) return null;
+  if (!color) return undefined;
   color = String(color);
-  if (!/^[0-9a-fA-F]+$/.test(color as string)) return null;
+  if (!/^[0-9a-fA-F]+$/.test(color as string)) return undefined;
   return `#${color}`;
 }
 
