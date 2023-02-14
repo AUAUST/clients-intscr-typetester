@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 
-class localStorageClass {
+class LocalStorage {
   storage: { [i: string]: any };
   constructor() {
     this.storage = reactive({});
@@ -54,4 +54,4 @@ class localStorageClass {
   }
 }
 
-export const localStorageData = new localStorageClass();
+export const localStorageData = new LocalStorage();

@@ -28,7 +28,7 @@ onMounted(() => {
           type: file?.type,
         };
       } else {
-        console.error("Invalid file type");
+        console.error("Invalid file type", file);
       }
     }
   };
