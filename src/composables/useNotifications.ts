@@ -40,10 +40,23 @@ export const notificationsData = reactive({
   new: function ({
     message,
     type,
+    id,
   }: {
     message: string;
     type: "error" | "warning" | "info" | "success";
+    id?: string;
   }) {
-    this.list.push(new Notification({ message, type }));
+    try {
+      const notification = new Notification({
+        message: message,
+        type: type,
+        id: id ?? undefined,
+      });
+      this.list.push(notification);
+      return notification.id;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   },
 });
