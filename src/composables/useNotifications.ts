@@ -48,6 +48,10 @@ class NotificationsData {
   }) {
     const notification = new Notification({ type, message });
     this.notifications.push(notification);
+    if (expires === undefined) {
+      if (["warning", "error"].includes(type)) expires = false;
+      else expires = true;
+    }
     if (expires) {
       setTimeout(() => {
         this.deleteNotification(notification.id);
