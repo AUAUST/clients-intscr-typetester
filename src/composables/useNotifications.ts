@@ -50,13 +50,13 @@ class NotificationsData {
     this.notifications.push(notification);
     if (expires) {
       setTimeout(() => {
-        this.removeNotification(notification.id);
+        this.deleteNotification(notification.id);
       }, 5000);
     }
     console.log(expires);
     return notification.id;
   }
-  removeNotification(id: string) {
+  deleteNotification(id: string) {
     this.notifications.splice(
       this.notifications.findIndex((notification) => notification.id === id),
       1
