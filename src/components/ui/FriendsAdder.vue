@@ -22,9 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { database } from "~/composables/useDB";
-import { ref } from "vue";
-import { liveQuery } from "dexie";
+import { database } from "~/composables/useDatabase";
+import { ref, reactive, onMounted } from "vue";
+import { liveQuery, PromiseExtended } from "dexie";
+import type { Friend } from "~/composables/useDatabase";
 
 const props = defineProps({
   defaultAge: {
@@ -36,7 +37,15 @@ const props = defineProps({
 const friendName = ref("");
 const friendAge = ref(props.defaultAge);
 const status = ref("");
-const friends = liveQuery(() => database.friends.toArray());
+const friends = reactive(await database.friends.toCollection().toArray());
+
+function getFriendsQuery() {
+  return liveQuery(() => database.friends.toCollection().toArray());
+}
+
+onMounted(async () => {
+  friends.splice(0, friends.length, ...(await getFriendsQuery()));
+});
 
 async function addFriend() {
   try {
@@ -45,6 +54,8 @@ async function addFriend() {
       age: friendAge.value,
     });
     status.value = `Friend ${friendName.value} successfully added. Got id ${id}`;
+    const friend = await database.friends.get(id);
+    friend ? friends.push(friend) : null;
   } catch (error) {
     status.value = `Failed to add${friendName.value}: ${error}`;
   }

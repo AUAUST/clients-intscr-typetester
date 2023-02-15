@@ -16,7 +16,9 @@
       </div>
     </div>
   </main>
-  <FriendsAdder></FriendsAdder>
+  <Suspense>
+    <FriendsAdder></FriendsAdder>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
