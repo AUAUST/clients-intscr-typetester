@@ -1,62 +1,68 @@
-import { reactive } from "vue";
+import { computed, reactive } from "vue";
+import type { ComputedRef } from "vue";
+
+// `ntf-${Math.random().toString(36).substring(2, 9)}`
 
 class Notification {
   id: string;
+  type: "info" | "success" | "error" | "warning";
   message: string;
-  type: "error" | "warning" | "info" | "success";
-  expires: number | false;
 
   constructor({
-    message = "No message to show.",
     type = "info",
-    id = `ntf-${Math.random().toString(36).substring(2, 9)}`,
-    expires = false,
+    message = "No message provided.",
   }: {
-    message: string;
-    type: "error" | "warning" | "info" | "success";
-    id?: string;
-    expires?: number | false;
+    type?: "info" | "success" | "error" | "warning";
+    message?: string;
   }) {
-    this.id = id;
-    this.message = message;
+    this.id = `ntf-${Math.random().toString(36).substring(2, 9)}`;
     this.type = type;
-    if (typeof expires === "number") {
-      if (expires < 0) {
-        expires = 0;
-        console.warn(
-          "Inputed a negative number for `Notification.expires`. Using 0 instead."
-        );
-      }
-      this.expires = expires;
-    } else {
-      this.expires = false;
-    }
+    this.message = message;
   }
 }
 
-export const notificationsData = reactive({
-  loading: false,
-  list: [] as Notification[],
-  new: function ({
-    message,
-    type,
-    id,
+class NotificationsData {
+  loading: ComputedRef<boolean>;
+  notifications: Notification[];
+  titles: Record<"info" | "success" | "error" | "warning", string>;
+
+  constructor() {
+    this.loading = computed(() => this.notifications.length > 0);
+    this.notifications = reactive([]);
+    this.titles = {
+      info: "Info",
+      success: "Success",
+      error: "Error",
+      warning: "Warning",
+    };
+  }
+
+  sendNotification({
+    type = "info",
+    message = "No message provided.",
+    expires = true,
   }: {
-    message: string;
-    type: "error" | "warning" | "info" | "success";
-    id?: string;
+    type?: "info" | "success" | "error" | "warning";
+    message?: string;
+    expires?: boolean;
   }) {
-    try {
-      const notification = new Notification({
-        message: message,
-        type: type,
-        id: id ?? undefined,
-      });
-      this.list.push(notification);
-      return notification.id;
-    } catch (error) {
-      console.error(error);
-      return false;
+    const notification = new Notification({ type, message });
+    this.notifications.push(notification);
+    if (expires) {
+      setTimeout(() => {
+        this.removeNotification(notification.id);
+      }, 5000);
     }
-  },
-});
+    console.log(expires);
+    return notification.id;
+  }
+  removeNotification(id: string) {
+    this.notifications.splice(
+      this.notifications.findIndex((notification) => notification.id === id),
+      1
+    );
+    return this;
+  }
+}
+
+export const notificationsData = new NotificationsData();

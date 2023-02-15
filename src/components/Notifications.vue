@@ -1,10 +1,33 @@
 <template>
   <aside id="notifications-container">
-    <div
-      v-for="notification of notificationsData.list"
-      :class="`type-${notification.type}`"
-    ></div>
+    <div>
+      <div></div>
+    </div>
+    <div>
+      <h5>Notifications</h5>
+      <div
+        v-for="notification of notificationsData.notifications"
+        :key="notification.id"
+        :class="`type-${notification.type}`"
+      >
+        <h6>
+          {{ notificationsData.titles[notification.type] }}
+        </h6>
+        <p>{{ notification.message }}</p>
+      </div>
+    </div>
   </aside>
+  <Button
+    @click="
+      notificationsData.sendNotification({
+        type: 'success',
+        message: 'It worked!',
+        expires: false,
+      })
+    "
+  >
+    Click
+  </Button>
 </template>
 
 <script setup lang="ts">
