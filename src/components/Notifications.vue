@@ -36,7 +36,6 @@
           Math.floor(Math.random() * 4)
         ] as 'success' | 'error' | 'warning' | 'info',
         message: `${Math.random().toString(36)}`,
-        expires: true,
       })
     "
   >

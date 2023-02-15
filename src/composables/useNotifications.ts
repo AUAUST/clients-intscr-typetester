@@ -40,7 +40,7 @@ class NotificationsData {
   sendNotification({
     type = "info",
     message = "No message provided.",
-    expires = true,
+    expires,
   }: {
     type?: "info" | "success" | "error" | "warning";
     message?: string;
@@ -53,7 +53,22 @@ class NotificationsData {
         this.deleteNotification(notification.id);
       }, 5000);
     }
-    console.log(expires);
+    console.group(`Notification: ${notification.id}`);
+    switch (type) {
+      case "info":
+        console.info(message);
+        break;
+      case "success":
+        console.log(message);
+        break;
+      case "error":
+        console.error(message);
+        break;
+      case "warning":
+        console.warn(message);
+        break;
+    }
+    console.groupEnd();
     return notification.id;
   }
   deleteNotification(id: string) {
