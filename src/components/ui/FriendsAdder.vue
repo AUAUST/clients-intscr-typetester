@@ -37,15 +37,7 @@ const props = defineProps({
 const friendName = ref("");
 const friendAge = ref(props.defaultAge);
 const status = ref("");
-const friends = reactive(await database.friends.toCollection().toArray());
-
-function getFriendsQuery() {
-  return liveQuery(() => database.friends.toCollection().toArray());
-}
-
-onMounted(async () => {
-  friends.splice(0, friends.length, ...(await getFriendsQuery()));
-});
+const friends = reactive(await database.friends.toArray());
 
 async function addFriend() {
   try {
