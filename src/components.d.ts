@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     Counter: typeof import('./components/Counter.vue')['default']
     FontInput: typeof import('./components/FontInput.vue')['default']
     FontInputOverlay: typeof import("./components/FontInputOverlay.vue")["default"]
+    FriendsAdder: typeof import('./components/ui/FriendsAdder.vue')['default']
     Glyphs: typeof import('./components/content/Glyphs.vue')['default']
     Input: typeof import('./components/ui/Input.vue')['default']
     Notifications: typeof import('./components/Notifications.vue')['default']

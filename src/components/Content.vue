@@ -16,12 +16,14 @@
       </div>
     </div>
   </main>
+  <FriendsAdder></FriendsAdder>
 </template>
 
 <script setup lang="ts">
 import { shallowReactive } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
+import FriendsAdder from "@/components/ui/FriendsAdder.vue";
 import Button from "@/components/ui/Button.vue";
 
 const content = shallowReactive({

@@ -1,5 +1,5 @@
 <template>
-  <div
+  <button
     class="button"
     :class="[size, active ? 'active' : '']"
     :title="title ?? 'A clickable button.'"
@@ -7,17 +7,18 @@
     <span class="text-small">
       <slot></slot>
     </span>
-  </div>
+  </button>
 </template>
 
 <script setup lang="ts">
 defineProps(["size", "title", "active"]);
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use "@/assets/style/variables" as v;
 
 .button {
+  all: unset;
   display: inline-block;
   padding: v.$gap-small-normal v.$gap-small-half;
   &.fit-width {
@@ -31,7 +32,9 @@ defineProps(["size", "title", "active"]);
   &:last-of-type {
     padding-right: v.$gap-small-normal;
   }
-
+  &:focus span {
+    outline: 1px solid red;
+  }
   span {
     text-align: center;
     display: block;
