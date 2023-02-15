@@ -29,18 +29,6 @@
       </notif-item>
     </notif-list>
   </aside>
-  <Button
-    @click="
-      notificationsData.sendNotification({
-        type: ['success', 'error', 'warning', 'info'][
-          Math.floor(Math.random() * 4)
-        ] as 'success' | 'error' | 'warning' | 'info',
-        message: `${Math.random().toString(36)}`,
-      })
-    "
-  >
-    Click
-  </Button>
 </template>
 
 <script setup lang="ts">
