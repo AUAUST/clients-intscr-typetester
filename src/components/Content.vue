@@ -16,7 +16,6 @@
       </div>
     </div>
   </main>
-  <FriendsAdder></FriendsAdder>
 </template>
 
 <script setup lang="ts">
