@@ -5,7 +5,7 @@
         v-for="contentType in content.allTypes()"
         @click="content.current(contentType)"
         size="fit-width"
-        :active="content.currentId === contentType"
+        :active="content.currentId.value === contentType"
       >
         {{ content.get(contentType).title }}
       </Button>
@@ -17,11 +17,12 @@
 </template>
 
 <script setup lang="ts">
-import { shallowReactive } from "vue";
+import { shallowReactive, computed } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
-import FriendsAdder from "@/components/ui/FriendsAdder.vue";
 import Button from "@/components/ui/Button.vue";
+
+import { localStorageData } from "~/composables/useLocalStorage";
 
 const content = shallowReactive({
   // config available contents
@@ -36,7 +37,11 @@ const content = shallowReactive({
     },
   },
   // set the default component to show
-  currentId: "PARAGRAPH",
+  currentId: computed((): string => {
+    const currentContentTab = localStorageData.get("currentContentTab");
+    if (currentContentTab.exists) return currentContentTab.value as string;
+    else return "PARAGRAPH";
+  }),
   get: function (id: string) {
     // returns content.types.{{id}}
     return this.types[id as keyof typeof this.types];
@@ -50,12 +55,12 @@ const content = shallowReactive({
     if (id) {
       id = id.toUpperCase();
       if (this.allTypes().includes(id)) {
-        this.currentId = id;
+        localStorageData.set("currentContentTab", id);
       } else {
         console.warn(`The content type ${id} doesn't exist.`);
       }
     }
-    return this.get(this.currentId).component;
+    return this.get(this.currentId.value).component;
   },
 });
 
