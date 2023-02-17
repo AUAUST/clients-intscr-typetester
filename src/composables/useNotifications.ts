@@ -1,7 +1,6 @@
 import { computed, reactive, ref } from "vue";
 import type { ComputedRef, Ref } from "vue";
-
-// `ntf-${Math.random().toString(36).substring(2, 9)}`
+import { createId } from "~/modules/utils";
 
 class Notification {
   id: string;
@@ -19,7 +18,7 @@ class Notification {
     message?: string;
     expires?: boolean;
   }) {
-    this.id = `ntf-${Math.random().toString(36).substring(2, 9)}`;
+    this.id = createId("ntf");
     this.type = type;
     this.message = message;
     this.expires = expires;
@@ -105,7 +104,7 @@ class NotificationsData {
     return this;
   }
   startLoading(source?: string) {
-    if (!source) source = `src-${Math.random().toString(36).substring(2, 9)}`;
+    if (!source) source = createId("src");
     this.loadingSources.push(source);
     return source;
   }
