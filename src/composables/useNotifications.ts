@@ -1,5 +1,5 @@
-import { computed, reactive } from "vue";
-import type { ComputedRef } from "vue";
+import { computed, reactive, ref } from "vue";
+import type { ComputedRef, Ref } from "vue";
 
 // `ntf-${Math.random().toString(36).substring(2, 9)}`
 
@@ -8,6 +8,7 @@ class Notification {
   type: "info" | "success" | "error" | "warning";
   message: string;
   expires: boolean;
+  fading: { value: boolean };
 
   constructor({
     type = "info",
@@ -22,6 +23,9 @@ class Notification {
     this.type = type;
     this.message = message;
     this.expires = expires;
+    this.fading = reactive({
+      value: false,
+    });
   }
 }
 
@@ -82,10 +86,17 @@ class NotificationsData {
     return notification.id;
   }
   deleteNotification(id: string) {
-    this.notifications.splice(
-      this.notifications.findIndex((notification) => notification.id === id),
-      1
+    const notification = this.notifications.find(
+      (notification) => notification.id === id
     );
+    if (notification) notification.fading.value = true;
+
+    setTimeout(() => {
+      const index = this.notifications.findIndex(
+        (notification) => notification.id === id
+      );
+      if (index > -1) this.notifications.splice(index, 1);
+    }, 1000);
     return this;
   }
   startLoading(source?: string) {
