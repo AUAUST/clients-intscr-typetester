@@ -11,7 +11,6 @@
     <Content></Content>
     <Notifications></Notifications>
   </div>
-  <FontInput />
 </template>
 
 <script setup lang="ts">

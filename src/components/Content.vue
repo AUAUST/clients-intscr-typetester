@@ -11,7 +11,9 @@
       </Button>
     </nav>
     <div>
-      <component v-bind:is="content.current()"></component>
+      <Suspense>
+        <component v-bind:is="content.current()"></component>
+      </Suspense>
     </div>
   </main>
 </template>
@@ -20,6 +22,7 @@
 import { shallowReactive, computed } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
+import FontInput from "@/components/FontInput.vue";
 import Button from "@/components/ui/Button.vue";
 
 import { localStorageData } from "~/composables/useLocalStorage";
@@ -28,7 +31,7 @@ const content = shallowReactive({
   // config available contents
   types: {
     DIXIE: {
-      component: ParagraphContent,
+      component: FontInput,
       title: "Dixie",
     },
     PARAGRAPH: {
