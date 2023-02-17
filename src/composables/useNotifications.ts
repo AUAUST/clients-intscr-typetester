@@ -28,10 +28,11 @@ class Notification {
 class NotificationsData {
   loading: ComputedRef<boolean>;
   notifications: Notification[];
+  loadingSources: string[];
   titles: Record<"info" | "success" | "error" | "warning", string>;
 
   constructor() {
-    this.loading = computed(() => this.notifications.length > 0);
+    this.loading = computed(() => this.loadingSources.length > 0);
     this.notifications = reactive([]);
     this.titles = {
       info: "Info",
@@ -39,6 +40,7 @@ class NotificationsData {
       error: "Error",
       warning: "Warning",
     };
+    this.loadingSources = reactive([]);
   }
 
   sendNotification({
@@ -84,6 +86,15 @@ class NotificationsData {
       this.notifications.findIndex((notification) => notification.id === id),
       1
     );
+    return this;
+  }
+  startLoading(source?: string) {
+    if (!source) source = `src-${Math.random().toString(36).substring(2, 9)}`;
+    this.loadingSources.push(source);
+    return source;
+  }
+  stopLoading(source: string) {
+    this.loadingSources.splice(this.loadingSources.indexOf(source), 1);
     return this;
   }
 }

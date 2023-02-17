@@ -1,6 +1,6 @@
 <template>
   <aside id="notifications-container">
-    <notif-loader v-show="notificationsData.loading">
+    <notif-loader :class="{ loading: notificationsData.loading.value }">
       <div>
         <div></div>
         <div></div>
@@ -54,6 +54,11 @@ aside {
   flex-direction: column;
   padding: v.$gap-small-normal;
   notif-loader {
+    display: none;
+    &.loading {
+      display: block;
+    }
+
     --background-color: #{v.$c-gray-4};
     --spinner-color: #{v.$c-gray-9};
     $spinner-size: 50px;
@@ -61,7 +66,7 @@ aside {
     width: $spinner-size;
     height: $spinner-size;
     padding: v.$gap-small-normal;
-    display: block;
+
     border-radius: v.$radius-small;
     background-color: var(--background-color);
     div {
