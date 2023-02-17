@@ -45,6 +45,13 @@
         textColor = null;
         localStorageData.set('userSelectedBackgroundColor', null);
         localStorageData.set('userSelectedTextColor', null);
+
+        notificationsData.sendNotification({
+          message: 'Reset colors to default.',
+          type: ['success', 'info', 'warning', 'error'][
+            Math.floor(Math.random() * 4)
+          ] as ['success', 'info', 'warning', 'error'][number],
+        });
       "
     >
       Reset
@@ -66,6 +73,7 @@
 import { ref } from "vue";
 import { windowData } from "~/composables/useWindow";
 import { localStorageData } from "~/composables/useLocalStorage";
+import { notificationsData } from "~/composables/useNotifications";
 
 const brightness = windowData.brightness;
 

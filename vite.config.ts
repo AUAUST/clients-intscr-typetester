@@ -27,7 +27,13 @@ export default defineConfig(({ mode }) => ({
   },
 
   plugins: [
-    Vue(),
+    Vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes("-"),
+        },
+      },
+    }),
     // https://github.com/antfu/unplugin-vue-components
     Components({
       dirs: ["components"],
