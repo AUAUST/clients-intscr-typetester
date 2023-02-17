@@ -1,22 +1,26 @@
-import Dexie, { Table } from "dexie";
+import Dexie from "dexie";
+import type { Table } from "dexie";
 
-export interface Friend {
+export interface Font {
   id?: number;
   name: string;
-  age: number;
+  size: number;
+  fileName: string;
+  type: string;
+  file: File;
 }
 
-export class MySubClassedDexie extends Dexie {
-  // 'friends' is added by dexie when declaring the stores()
+export class FontsStorageDexie extends Dexie {
+  // 'fonts' is added by dexie when declaring the stores()
   // We just tell the typing system this is the case
-  friends!: Table<Friend>;
+  fonts!: Table<Font>;
 
   constructor() {
-    super("myDatabase");
+    super("fontsStorage");
     this.version(1).stores({
-      friends: "++id, name, age", // Primary key and indexed props
+      fonts: "++id, name, fileName, file",
     });
   }
 }
 
-export const database = new MySubClassedDexie();
+export const database = new FontsStorageDexie();

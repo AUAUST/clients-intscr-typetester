@@ -21,5 +21,6 @@ export function uploadFont() {
   const fileInput = document.getElementById("font-input");
   if (fileInput) {
     fileInput.click();
+  } else {
   }
 }
