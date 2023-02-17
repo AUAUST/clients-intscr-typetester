@@ -3,6 +3,9 @@
     class="button"
     :class="[size, active ? 'active' : '']"
     :title="title ?? 'A clickable button.'"
+    @click="
+      notificationsData.sendNotification({ message: title, type: 'info' })
+    "
   >
     <span class="text-small">
       <slot></slot>
@@ -11,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { notificationsData } from "~/composables/useNotifications";
 defineProps(["size", "title", "active"]);
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <aside id="notifications-container">
-    <notif-loader>
+    <notif-loader v-show="notificationsData.loading">
       <div>
         <div></div>
         <div></div>
@@ -11,7 +11,10 @@
       <notif-item
         v-for="notification of notificationsData.notifications"
         :key="notification.id"
-        :class="`type-${notification.type}`"
+        :class="[
+          `type-${notification.type}`,
+          `${notification.expires ? 'expires' : ''}`,
+        ]"
       >
         <notif-content>
           <h6>
@@ -40,20 +43,65 @@ import { notificationsData } from "~/composables/useNotifications";
 aside {
   position: fixed;
   top: 0;
-  right: 100px;
+  right: 0;
   width: 300px;
   height: fit-content;
   max-height: 100vh;
   z-index: 100;
   overflow-y: auto;
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+  padding: v.$gap-small-normal;
   notif-loader {
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+    --background-color: #{v.$c-gray-4};
+    --spinner-color: #{v.$c-gray-9};
+    $spinner-size: 50px;
+
+    width: $spinner-size;
+    height: $spinner-size;
+    padding: v.$gap-small-normal;
+    display: block;
+    border-radius: v.$radius-small;
+    background-color: var(--background-color);
     div {
-      display: inline-block;
-      width: 80px;
-      height: 80px;
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      animation: notif-loader-rotate-full 1s ease infinite -0.5s;
+
+      @keyframes notif-loader-rotate-full {
+        0% {
+          transform: rotate(0turn);
+        }
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+      @keyframes notif-loader-comeAndGo-full {
+        0% {
+          transform: rotate(0turn);
+        }
+        50% {
+          transform: rotate(0.6turn);
+        }
+        100% {
+          transform: rotate(0turn);
+        }
+      }
+      @keyframes notif-loader-comeAndGo-half {
+        0% {
+          transform: rotate(0turn);
+        }
+        50% {
+          transform: rotate(0.3turn);
+        }
+        100% {
+          transform: rotate(0turn);
+        }
+      }
+
       div {
         position: absolute;
         top: 0;
@@ -61,27 +109,27 @@ aside {
         bottom: 0;
         left: 0;
         border-radius: 50%;
-        background: conic-gradient(black 0 33%, transparent 33% 100%);
-
-        animation: notif-loader-rotate 1.2s infinite;
-
-        @keyframes notif-loader-rotate {
-          0% {
-            transform: rotate(0turn);
-          }
-          100% {
-            transform: rotate(1turn);
-          }
-        }
+        background: conic-gradient(
+          var(--spinner-color) 0 33%,
+          transparent 33% 100%
+        );
       }
       div:nth-child(1) {
-        animation-delay: 0s;
+        animation: notif-loader-comeAndGo-half 3s ease infinite;
       }
       div:nth-child(2) {
-        animation-delay: -0.4s;
+        animation: notif-loader-comeAndGo-full 3s ease infinite;
       }
       div:nth-child(3) {
-        animation-delay: -0.8s;
+        animation: notif-loader-comeAndGo-half 0s ease infinite;
+        $spinner-weight: calc($spinner-size / 2 - v.$gap-small-normal * 2);
+        background: radial-gradient(
+            var(--background-color) 0%,
+            var(--background-color) $spinner-weight,
+            transparent $spinner-weight,
+            transparent 100%
+          ),
+          conic-gradient(var(--spinner-color) 0 33%, transparent 33% 100%);
       }
     }
   }

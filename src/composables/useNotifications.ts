@@ -7,17 +7,21 @@ class Notification {
   id: string;
   type: "info" | "success" | "error" | "warning";
   message: string;
+  expires: boolean;
 
   constructor({
     type = "info",
     message = "No message provided.",
+    expires = true,
   }: {
     type?: "info" | "success" | "error" | "warning";
     message?: string;
+    expires?: boolean;
   }) {
     this.id = `ntf-${Math.random().toString(36).substring(2, 9)}`;
     this.type = type;
     this.message = message;
+    this.expires = expires;
   }
 }
 
