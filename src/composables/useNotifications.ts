@@ -51,10 +51,12 @@ class NotificationsData {
     type = "info",
     message = "No message provided.",
     expires,
+    forConsole = undefined,
   }: {
     type?: "info" | "success" | "error" | "warning";
     message?: string;
     expires?: boolean;
+    forConsole?: any;
   }) {
     const notification = new Notification({ type, message });
     this.notifications.push(notification);
@@ -81,6 +83,9 @@ class NotificationsData {
       case "warning":
         console.warn(message);
         break;
+    }
+    if (forConsole !== undefined) {
+      console.log("Additional information:", forConsole);
     }
     console.groupEnd();
     return notification.id;
