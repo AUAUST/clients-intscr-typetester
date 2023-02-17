@@ -1,6 +1,8 @@
 // import vue's reaction function
 import { reactive } from "vue";
 
+import { createId } from "~/modules/utils";
+
 import { notificationsData } from "./useNotifications";
 
 class FontsData {
@@ -32,7 +34,7 @@ class FontsData {
       const files = this.fontInput.files;
       if (files) {
         const file = files[0];
-        this.parseFontFile(file);
+        this.handleFontFile(file);
       }
     } else {
       notificationsData.sendNotification({
@@ -42,25 +44,35 @@ class FontsData {
       });
     }
   }
-  parseFontFile(file: File) {
-    try
+  handleFontFile(file: File) {
     const reader = new FileReader();
     reader.onload = (event) => {
-      const fontName = file.name.split(".")[0];
-      const fontType = file.name.split(".")[1];
-      this.fonts[Date.now()] = {
-        name: fontName,
-        fileName: file.name,
-        type: fontType,
-        file: file,
-      };
-      const font = new FontFace(fontName, `url(${reader.result})`);
-      font.load().then((loadedFont) => {
-        (document as any).fonts.add(loadedFont);
-        document.body.style.setProperty("--loadedFont", fontName);
-      });
-      console.log(this.fonts);
-      console.log(file);
+      // Imported Font File
+      const fontName = createId("iff");
+
+      const fontFace = new FontFace(fontName, `url(${reader.result})`);
+      fontFace
+        .load()
+        .then((loadedFont) => {
+          (document as any).fonts.add(loadedFont);
+          document.body.style.setProperty("--f-user-loaded", fontName);
+        })
+        .catch((error) => {
+          notificationsData.sendNotification({
+            type: "error",
+            message: `Could not load the file. Is it a valid font ?`,
+            forConsole: [error, file],
+          });
+        });
+      // const fontName = file.name;
+      // // this.fonts[Date.now()] = {
+      // //   name: fontName,
+      // //   fileName: file.name,
+      // //   type: fontType,
+      // //   file: file,
+      // // };
+
+      // console.log(file, reader);
     };
     reader.readAsDataURL(file);
   }

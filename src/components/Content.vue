@@ -1,5 +1,5 @@
 <template>
-  <main id="content-container" style="font-family: 'Dixie'">
+  <main id="content-container">
     <nav>
       <Button
         v-for="contentType in content.allTypes()"
@@ -90,13 +90,14 @@ const content = shallowReactive({
 
   display: grid;
   grid-template-rows: auto 1fr;
-  nav {
+  > nav {
     display: flex;
     flex-direction: row;
   }
-  div {
+  > div {
     height: auto;
     overflow-y: auto;
+    font-family: var(--f-user-loaded, inherit);
   }
 }
 .view-normal {
