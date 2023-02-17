@@ -14,6 +14,7 @@
         :class="[
           `type-${notification.type}`,
           `${notification.expires ? 'expires' : ''}`,
+          `${notification.fading.value ? '' : 'visible'}`,
         ]"
       >
         <notif-content>
@@ -153,6 +154,26 @@ aside {
 
       margin-bottom: v.$gap-small-normal;
       border-radius: v.$radius-small;
+
+      transition: all 0.6s cubic-bezier(0.36, 0, 0.66, -0.225);
+
+      &:not(.visible) {
+        transform: translateX(105%);
+        pointer-events: none;
+      }
+      &.visible {
+        transform: translateX(0);
+
+        animation: notif-item-appear 0.3s ease-out;
+        @keyframes notif-item-appear {
+          0% {
+            transform: scale(0) translateY(-100%);
+          }
+          100% {
+            transform: scale(1) translateY(0);
+          }
+        }
+      }
 
       &.type-success {
         background: v.$c-green-9;

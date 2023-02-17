@@ -48,8 +48,9 @@
 
         notificationsData.sendNotification({
           message: 'Reset colors to default.',
-          type: 'info',
-          expires: true,
+          type: ['success', 'info', 'warning', 'error'][
+            Math.floor(Math.random() * 4)
+          ] as ['success', 'info', 'warning', 'error'][number],
         });
       "
     >

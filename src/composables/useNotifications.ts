@@ -96,7 +96,7 @@ class NotificationsData {
         (notification) => notification.id === id
       );
       if (index > -1) this.notifications.splice(index, 1);
-    }, 1000);
+    }, 600);
     return this;
   }
   startLoading(source?: string) {
