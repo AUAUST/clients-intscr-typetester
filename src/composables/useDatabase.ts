@@ -4,8 +4,6 @@ import type { Table } from "dexie";
 export interface Font {
   id?: number;
   name: string;
-  size: number;
-  fileName: string;
   type: string;
   file: File;
 }
@@ -16,9 +14,9 @@ export class FontsStorageDexie extends Dexie {
   fonts!: Table<Font>;
 
   constructor() {
-    super("fontsStorage");
+    super("typetesterStorage");
     this.version(1).stores({
-      fonts: "++id, name, fileName, file",
+      fonts: "++id, name, type, file",
     });
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <main id="content-container">
+  <main id="content-container" style="font-family: 'Dixie'">
     <nav>
       <Button
         v-for="contentType in content.allTypes()"
