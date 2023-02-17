@@ -20,7 +20,7 @@
           <h6>
             {{ notificationsData.titles[notification.type] }}
           </h6>
-          <p>{{ notification.message }}</p>
+          <p class="text-small">{{ notification.message }}</p>
         </notif-content>
         <notif-close>
           <Button
@@ -53,6 +53,7 @@ aside {
   align-items: end;
   flex-direction: column;
   padding: v.$gap-small-normal;
+
   notif-loader {
     display: none;
     &.loading {
@@ -141,11 +142,18 @@ aside {
   notif-list {
     display: flex;
     flex-direction: column-reverse;
+
+    width: 100%;
+
     notif-item {
       display: flex;
       justify-content: space-between;
 
-      border-bottom: 1px solid red;
+      width: 100%;
+
+      margin-bottom: v.$gap-small-normal;
+      border-radius: v.$radius-small;
+
       &.type-success {
         background: v.$c-green-9;
       }
@@ -158,7 +166,14 @@ aside {
       &.type-info {
         background: v.$c-blue-9;
       }
-      notic-content {
+
+      notif-content {
+        h6 {
+          padding: v.$gap-small-half v.$gap-small-normal 0 v.$gap-small-normal;
+        }
+        p {
+          padding: 0 v.$gap-small-normal v.$gap-small-half v.$gap-small-normal;
+        }
       }
     }
   }

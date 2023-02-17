@@ -4,7 +4,11 @@
     :class="[size, active ? 'active' : '']"
     :title="title ?? 'A clickable button.'"
     @click="
-      notificationsData.sendNotification({ message: title, type: 'info' })
+      notificationsData.sendNotification({
+        message: title,
+        type: 'info',
+        expires: true,
+      })
     "
   >
     <span class="text-small">
