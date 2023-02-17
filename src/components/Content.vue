@@ -1,19 +1,17 @@
 <template>
-  <main>
+  <main id="content-container">
+    <nav>
+      <Button
+        v-for="contentType in content.allTypes()"
+        @click="content.current(contentType)"
+        size="fit-width"
+        :active="content.currentId === contentType"
+      >
+        {{ content.get(contentType).title }}
+      </Button>
+    </nav>
     <div>
-      <nav style="display: grid; grid-template-columns: 1fr 1fr">
-        <Button
-          v-for="contentType in content.allTypes()"
-          @click="content.current(contentType)"
-          size="fit-width"
-          :active="content.currentId === contentType"
-        >
-          {{ content.get(contentType).title }}
-        </Button>
-      </nav>
-      <div>
-        <component v-bind:is="content.current()"></component>
-      </div>
+      <component v-bind:is="content.current()"></component>
     </div>
   </main>
 </template>
@@ -70,22 +68,34 @@ const content = shallowReactive({
 // }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
-main {
+#content-container {
   background-color: var(--auaust-background-color);
   color: var(--auaust-text-color);
+  height: 100vh;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  nav {
+    display: flex;
+    flex-direction: row;
+  }
+  div {
+    height: auto;
+    overflow-y: auto;
+  }
 }
 .view-normal {
-  main {
+  #content-container {
     width: 100%;
     grid-column: 2;
   }
 }
 .view-narrow,
 .view-x-narrow {
-  main {
+  #content-container {
     width: 100vw;
     height: 100vh;
   }
