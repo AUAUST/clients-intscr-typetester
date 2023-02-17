@@ -12,6 +12,14 @@
   <br />
   loading: {{ notificationsData.loading }}<br />
   loading sources: {{ notificationsData.loadingSources }}<br />
+  <br />
+  notifications:
+  <p
+    v-for="notification of notificationsData.notifications"
+    :key="notification.id"
+  >
+    {{ notification }}
+  </p>
 </template>
 
 <script setup lang="ts">
