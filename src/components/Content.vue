@@ -27,6 +27,10 @@ import { localStorageData } from "~/composables/useLocalStorage";
 const content = shallowReactive({
   // config available contents
   types: {
+    DIXIE: {
+      component: ParagraphContent,
+      title: "Dixie",
+    },
     PARAGRAPH: {
       component: ParagraphContent,
       title: "Paragraph",
