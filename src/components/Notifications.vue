@@ -46,7 +46,45 @@ aside {
   max-height: 100vh;
   z-index: 100;
   overflow-y: auto;
+  notif-loader {
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    div {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 50%;
+        background: conic-gradient(black 0 33%, transparent 33% 100%);
 
+        animation: notif-loader-rotate 1.2s infinite;
+
+        @keyframes notif-loader-rotate {
+          0% {
+            transform: rotate(0turn);
+          }
+          100% {
+            transform: rotate(1turn);
+          }
+        }
+      }
+      div:nth-child(1) {
+        animation-delay: 0s;
+      }
+      div:nth-child(2) {
+        animation-delay: -0.4s;
+      }
+      div:nth-child(3) {
+        animation-delay: -0.8s;
+      }
+    }
+  }
   notif-list {
     display: flex;
     flex-direction: column-reverse;
