@@ -27,13 +27,6 @@ class Tab {
     this.typeId = type;
     this.title = title;
   }
-
-  get isOpen() {
-    return tabs.listed.includes(this);
-  }
-  get isActive() {
-    return tabs.activeTab.value === this;
-  }
 }
 
 class TabType {
