@@ -5,18 +5,19 @@ import { createId } from "~/modules/utils";
 
 import { notificationsData } from "./useNotifications";
 
+type FontOverview = {
+  name: string;
+  fileName: string;
+  lastModified: number;
+  type: string;
+  id: string;
+};
+
 class FontsData {
-  fonts: {
-    [i: number]: {
-      name: string;
-      fileName: string;
-      type: string;
-      file: File;
-    };
-  };
+  list: FontOverview[];
   fontInput: HTMLInputElement | undefined = undefined;
   constructor() {
-    this.fonts = reactive({});
+    this.list = reactive([]);
   }
   openFileDialog() {
     if (this.fontInput) {
@@ -44,37 +45,93 @@ class FontsData {
       });
     }
   }
+
+  storeFontToVue({ id, file }: { id: string; file: File }) {
+    this.list.push({
+      name: file.name,
+      fileName: file.name,
+      type: file.type,
+      lastModified: file.lastModified,
+      id: id,
+    });
+  }
+
+  storeFontToDatabase({ id, file }: { id: string; file: File }) {
+    notificationsData.sendNotification({});
+  }
+
   handleFontFile(file: File) {
+    const loadingId = notificationsData.startLoading();
     const reader = new FileReader();
     reader.onload = (event) => {
-      // Imported Font File
-      const fontName = createId("iff");
-
-      const fontFace = new FontFace(fontName, `url(${reader.result})`);
-      fontFace
-        .load()
-        .then((loadedFont) => {
-          (document as any).fonts.add(loadedFont);
-          document.body.style.setProperty("--f-user-loaded", fontName);
-        })
-        .catch((error) => {
+      const fontFace = this.loadFontFace({
+        dataUrl: event.target?.result as string,
+      });
+      fontFace.then((result) => {
+        if (result.valid) {
           notificationsData.sendNotification({
-            type: "error",
-            message: `Could not load the file. Is it a valid font ?`,
-            forConsole: [error, file],
+            type: "success",
+            message: `Font loaded successfully. Starting to process it...`,
+            forConsole: result,
           });
-        });
-      // const fontName = file.name;
-      // // this.fonts[Date.now()] = {
-      // //   name: fontName,
-      // //   fileName: file.name,
-      // //   type: fontType,
-      // //   file: file,
-      // // };
-
-      // console.log(file, reader);
+          this.storeFontToVue({
+            id: result.id,
+            file: file,
+          });
+          this.storeFontToDatabase({
+            id: result.id,
+            file: file,
+          });
+        }
+        notificationsData.stopLoading(loadingId);
+      });
     };
     reader.readAsDataURL(file);
+  }
+
+  async loadFontFace({
+    id = createId("iff"),
+    dataUrl,
+  }: {
+    id?: string;
+    dataUrl: string;
+  }) {
+    let isValid = false;
+
+    type FontUploadSuccess = {
+      valid: true;
+      id: string;
+      dataUrl: string;
+    };
+    type FontUploadFailure = {
+      valid: false;
+    };
+
+    const fontFace = new FontFace(id, `url(${dataUrl})`);
+
+    await fontFace
+      .load()
+      .then((loadedFont) => {
+        (document as any).fonts.add(loadedFont);
+        isValid = true;
+      })
+      .catch((error) => {
+        notificationsData.sendNotification({
+          type: "error",
+          message: `Could not load the file. Is it a valid font ?`,
+          forConsole: [error, dataUrl],
+        });
+      });
+    if (isValid) {
+      return {
+        valid: true,
+        id,
+        dataUrl,
+      } as FontUploadSuccess;
+    }
+    return {
+      valid: false,
+    } as FontUploadFailure;
   }
 }
 

@@ -11,7 +11,13 @@
     "
     hidden
   />
-  <p style="font-family: var(--loadedFont)">{{ fonts }}</p>
+  <p style="font-family: var(--loadedFont)">
+    Fonts:<br />
+    <span v-for="font of fonts.list">
+      {{ font }}
+      <br />
+    </span>
+  </p>
 </template>
 
 <script setup lang="ts">
