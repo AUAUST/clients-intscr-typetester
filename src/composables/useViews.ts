@@ -9,13 +9,13 @@ class View {
   id: string;
   active: boolean;
   activeTabId: Ref<string>;
-  activeTab: Ref<Tab>;
+  activeTab: Ref<Tab | undefined>;
 
   constructor() {
     this.id = createId("viw");
     this.active = false;
-    this.activeTabId = ref(tabs.listed[0].id);
-    this.activeTab = ref(tabs.listed[0]);
+    this.activeTabId = ref("");
+    this.activeTab = ref();
   }
 
   close() {
@@ -27,7 +27,7 @@ class View {
 }
 
 class ViewsData {
-  listed: View[] = [new View()];
+  listed: View[] = [new View(), new View(), new View()];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
 

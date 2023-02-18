@@ -22,7 +22,10 @@
   </p>
   <br /><br />
   tabs:
-  {{ tabs }}
+  {{ tabs }}<br />
+  <br />
+  views:
+  {{ views }}<br />
 </template>
 
 <script setup lang="ts">
@@ -30,4 +33,5 @@ import { windowData } from "~/composables/useWindow";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { notificationsData } from "~/composables/useNotifications";
 import { tabs } from "~/composables/useTabs";
+import { views } from "~/composables/useViews";
 </script>

@@ -1,19 +1,23 @@
 <template>
   <main id="content-container">
-    <nav>
-      <!-- <Button
-        v-for="contentType in content.allTypes"
-        @click="content.current(contentType)"
-        size="fit-width"
-        :active="content.currentId.value === contentType"
-      > -->
-      <Button v-for="tab in tabs.listed" size="fit-width">
-        {{ tab.title }}
-      </Button>
-    </nav>
-    <div>
-      <component v-bind:is="tabs.tabTypes[2].component"></component>
-    </div>
+    <view-container>
+      <view-item v-for="view in views.listed" :key="view.id">
+        <nav>
+          <!-- <Button
+          v-for="contentType in content.allTypes"
+          @click="content.current(contentType)"
+          size="fit-width"
+          :active="content.currentId.value === contentType"
+        > -->
+          <Button v-for="tab in tabs.listed" size="fit-width">
+            {{ tab.title }}
+          </Button>
+        </nav>
+        <view-component>
+          <component v-bind:is="tabs.tabTypes[2].component"></component>
+        </view-component>
+      </view-item>
+    </view-container>
   </main>
 </template>
 
@@ -25,6 +29,7 @@ import Button from "@/components/ui/Button.vue";
 
 import { localStorageData } from "~/composables/useLocalStorage";
 import { tabs } from "~/composables/useTabs";
+import { views } from "~/composables/useViews";
 
 const content = shallowReactive({
   // config available contents
