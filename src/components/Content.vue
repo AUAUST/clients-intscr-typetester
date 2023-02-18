@@ -47,7 +47,6 @@ const content = shallowReactive({
     return this.types[id as keyof typeof this.types];
   },
   allTypes: function () {
-    // returns content.types.{{all keys here}}
     return Object.keys(this.types);
   },
   current: function (id?: string) {
@@ -60,17 +59,12 @@ const content = shallowReactive({
         console.warn(`The content type ${id} doesn't exist.`);
       }
     }
+    if (!this.allTypes().includes(this.currentId.value)) {
+      return this.get(this.allTypes()[0]).component;
+    }
     return this.get(this.currentId.value).component;
   },
 });
-
-// const currentComponent = reactive(contentTypes["GLYPHS"].component);
-
-// function showComponent(component: string) {
-//   currentComponent.value =
-//     contentTypes[component as keyof typeof contentTypes].component;
-//   console.log(currentComponent);
-// }
 </script>
 
 <style lang="scss">
