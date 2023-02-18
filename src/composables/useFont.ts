@@ -5,6 +5,8 @@ import { createId } from "~/modules/utils";
 
 import { notificationsData } from "./useNotifications";
 
+import opentype from "opentype.js";
+
 type FontOverview = {
   name: string;
   fileName: string;
@@ -57,7 +59,11 @@ class FontsData {
   }
 
   storeFontToDatabase({ id, file }: { id: string; file: File }) {
-    notificationsData.sendNotification({});
+    notificationsData.sendNotification({
+      type: "warning",
+      message: `Database is to be implemented.`,
+      expires: true,
+    });
   }
 
   handleFontFile(file: File) {
