@@ -2,7 +2,7 @@
   <main id="content-container">
     <nav>
       <Button
-        v-for="contentType in content.allTypes()"
+        v-for="contentType in content.allTypes"
         @click="content.current(contentType)"
         size="fit-width"
         :active="content.currentId.value === contentType"
@@ -46,22 +46,22 @@ const content = shallowReactive({
     // returns content.types.{{id}}
     return this.types[id as keyof typeof this.types];
   },
-  allTypes: function () {
+  get allTypes() {
     return Object.keys(this.types);
   },
   current: function (id?: string) {
     // if an ID is provided and exists, sets the new current to be the input
     if (id) {
       id = id.toUpperCase();
-      if (this.allTypes().includes(id)) {
+      if (this.allTypes.includes(id)) {
         localStorageData.set("currentContentTab", id);
       } else {
         console.warn(`The content type ${id} doesn't exist.`);
       }
     }
     // if the stored current doesn't exist, set it to the first existing type
-    if (!this.allTypes().includes(this.currentId.value)) {
-      return this.get(this.allTypes()[0]).component;
+    if (!this.allTypes.includes(this.currentId.value)) {
+      return this.get(this.allTypes[0]).component;
     }
 
     return this.get(this.currentId.value).component;
