@@ -9,7 +9,7 @@ import TabComponentParagraph from "@/components/content/Paragraph.vue";
 import TabComponentGlyphs from "@/components/content/Glyphs.vue";
 import TabComponentDebug from "@/components/content/Debug.vue";
 
-class Tab {
+export class Tab {
   id: string;
   title: string;
   typeId: string;
@@ -29,7 +29,7 @@ class Tab {
   }
 }
 
-class TabType {
+export class TabType {
   id: string;
   title: string;
   hidden: boolean;
@@ -86,9 +86,7 @@ class TabsData {
     const defaultTabs: Tab[] = [];
     this.tabTypes.forEach((tabType) => {
       if (!tabType.hidden) {
-        const tab = new Tab({ title: tabType.title, type: tabType.id });
-        console.log(tab, JSON.stringify(tab));
-        defaultTabs.push(tab);
+        defaultTabs.push(new Tab({ title: tabType.title, type: tabType.id }));
       }
     });
     return defaultTabs;
