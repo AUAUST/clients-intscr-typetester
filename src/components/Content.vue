@@ -13,9 +13,11 @@
             {{ tab.title }}
           </Button>
         </nav>
-        <view-component>
-          <component v-bind:is="tabs.tabTypes[2].component"></component>
-        </view-component>
+        <view-overflow>
+          <view-component>
+            <component v-bind:is="tabs.tabTypes[2].component"></component>
+          </view-component>
+        </view-overflow>
       </view-item>
     </view-container>
   </main>
@@ -44,28 +46,31 @@ import { views } from "~/composables/useViews";
   grid-template-rows: auto 1fr;
 
   view-container {
-    display: flex;
+    display: block flex;
     flex-direction: row;
+
+    height: 100%;
+    overflow: hidden;
+
     view-item {
-      position: relative;
+      display: block grid;
+      grid-template-rows: auto 1fr;
+
+      overflow: hidden;
+
       &:not(:last-of-type) {
-        &:after {
-          content: "";
-          display: block;
-          position: absolute;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          width: 5px;
-          height: 100%;
-          background-color: v.$c-gray-4;
-        }
-        margin-right: -5px;
         border-right: 1px solid v.$c-gray-4;
       }
       nav {
       }
-      view-component {
+      view-overflow {
+        display: block;
+        height: 100%;
+        overflow-y: auto;
+        view-component {
+          display: block;
+          margin: v.$gap-small-normal;
+        }
       }
     }
   }
