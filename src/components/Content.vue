@@ -96,6 +96,34 @@ const content = shallowReactive({
 
   display: grid;
   grid-template-rows: auto 1fr;
+
+  view-container {
+    display: flex;
+    flex-direction: row;
+    view-item {
+      position: relative;
+      &:not(:last-of-type) {
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 5px;
+          height: 100%;
+          background-color: v.$c-gray-4;
+        }
+        margin-right: -5px;
+        border-right: 1px solid v.$c-gray-4;
+      }
+      nav {
+      }
+      view-component {
+      }
+    }
+  }
+
   nav {
     display: flex;
     flex-direction: row;
