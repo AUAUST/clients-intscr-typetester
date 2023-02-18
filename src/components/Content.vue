@@ -64,7 +64,20 @@ import { views } from "~/composables/useViews";
       view-resize-container {
         display: none;
         view-resize-handle {
-          display: none;
+          display: block;
+          cursor: ew-resize;
+
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%);
+
+          width: 0;
+          height: 0;
+          transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+          border-radius: 50%;
+          background-color: v.$c-gray-4;
         }
       }
 
@@ -87,20 +100,8 @@ import { views } from "~/composables/useViews";
 
           &:hover {
             view-resize-handle {
-              display: block;
-              cursor: ew-resize;
-
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translateX(-50%);
-
-              $size: 1.2rem;
-              width: $size;
-              height: $size;
-
-              border-radius: 50%;
-              background-color: v.$c-gray-4;
+              width: 1.2rem;
+              height: 1.2rem;
             }
           }
         }
