@@ -1,17 +1,18 @@
 <template>
   <main id="content-container">
     <nav>
-      <Button
+      <!-- <Button
         v-for="contentType in content.allTypes"
         @click="content.current(contentType)"
         size="fit-width"
         :active="content.currentId.value === contentType"
-      >
-        {{ content.get(contentType).title }}
+      > -->
+      <Button v-for="tab in tabs.listed" size="fit-width">
+        {{ tab.title }}
       </Button>
     </nav>
     <div>
-      <component v-bind:is="content.current()"></component>
+      <component v-bind:is="tabs.tabTypes[2].component"></component>
     </div>
   </main>
 </template>
@@ -23,6 +24,7 @@ import GlyphsContent from "@/components/content/Glyphs.vue";
 import Button from "@/components/ui/Button.vue";
 
 import { localStorageData } from "~/composables/useLocalStorage";
+import { tabs } from "~/composables/useTabs";
 
 const content = shallowReactive({
   // config available contents

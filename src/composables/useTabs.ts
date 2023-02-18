@@ -12,7 +12,7 @@ import TabComponentDebug from "@/components/content/Debug.vue";
 class Tab {
   id: string;
   title: string;
-  type: string;
+  typeId: string;
 
   constructor({
     id = createId("tab"),
@@ -24,12 +24,12 @@ class Tab {
     type: string;
   }) {
     this.id = id;
-    this.type = type;
+    this.typeId = type;
     this.title = title;
   }
 
   get isOpen() {
-    return tabs.openedTabs.includes(this);
+    return tabs.listed.includes(this);
   }
   get isActive() {
     return tabs.activeTab.value === this;
@@ -61,8 +61,7 @@ class TabType {
 }
 
 class TabsData {
-  tabs: Tab[];
-  openedTabs: Tab[];
+  listed: Tab[];
   activeTabId: Ref<string>;
   tabTypes: TabType[] = [
     new TabType({
@@ -81,18 +80,43 @@ class TabsData {
   ];
 
   constructor() {
-    this.tabs = reactive([]);
-    this.tabTypes = [];
-    this.openedTabs = reactive([]);
+    const cachedTabs = localStorageData.get("previouslyOpenedTabs");
+    if (cachedTabs.exists) {
+      this.listed = reactive(cachedTabs.value as Tab[]);
+    } else {
+      this.listed = reactive(this.getDefaultTabs());
+    }
     this.activeTabId = ref("");
   }
 
+  getDefaultTabs() {
+    const defaultTabs: Tab[] = [];
+    this.tabTypes.forEach((tabType) => {
+      if (!tabType.hidden) {
+        const tab = new Tab({ title: tabType.title, type: tabType.id });
+        console.log(tab, JSON.stringify(tab));
+        defaultTabs.push(tab);
+      }
+    });
+    return defaultTabs;
+  }
+  // computed(() => this.listed.filter((tab) => !tab.hidden));
+
+  createTab(tabType: TabType) {
+    const tab = new Tab({
+      title: tabType.title,
+      type: tabType.id,
+    });
+
+    this.listed.push(tab);
+  }
+
   activeTab = computed(() =>
-    this.tabs.find((tab) => tab.id === this.activeTabId.value)
+    this.listed.find((tab) => tab.id === this.activeTabId.value)
   );
 
   get canOpenMore() {
-    return this.openedTabs.length < 3;
+    return this.listed.length < 3;
   }
 }
 
