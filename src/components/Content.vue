@@ -18,6 +18,9 @@
             <component v-bind:is="tabs.tabTypes[2].component"></component>
           </view-component>
         </view-overflow>
+        <view-resize-container>
+          <view-resize-handle></view-resize-handle>
+        </view-resize-container>
       </view-item>
     </view-container>
   </main>
@@ -46,20 +49,61 @@ import { views } from "~/composables/useViews";
   grid-template-rows: auto 1fr;
 
   view-container {
-    display: block flex;
+    display: flex;
     flex-direction: row;
 
     height: 100%;
     overflow: hidden;
 
     view-item {
-      display: block grid;
+      position: relative;
+
+      display: grid;
       grid-template-rows: auto 1fr;
 
-      overflow: hidden;
+      view-resize-container {
+        display: none;
+        view-resize-handle {
+          display: none;
+        }
+      }
 
       &:not(:last-of-type) {
         border-right: 1px solid v.$c-gray-4;
+
+        view-resize-container {
+          display: block;
+
+          position: absolute;
+          z-index: 1;
+
+          top: 0;
+          right: 0;
+          bottom: 0;
+
+          transform: translateX(calc(50% + 0.5px));
+
+          width: 10px;
+
+          &:hover {
+            view-resize-handle {
+              display: block;
+              cursor: ew-resize;
+
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translateX(-50%);
+
+              $size: 1.2rem;
+              width: $size;
+              height: $size;
+
+              border-radius: 50%;
+              background-color: v.$c-gray-4;
+            }
+          }
+        }
       }
       nav {
       }
@@ -67,6 +111,7 @@ import { views } from "~/composables/useViews";
         display: block;
         height: 100%;
         overflow-y: auto;
+
         view-component {
           display: block;
           margin: v.$gap-small-normal;
