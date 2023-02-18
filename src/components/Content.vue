@@ -30,60 +30,6 @@ import Button from "@/components/ui/Button.vue";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { tabs } from "~/composables/useTabs";
 import { views } from "~/composables/useViews";
-
-const content = shallowReactive({
-  // config available contents
-  types: {
-    PARAGRAPH: {
-      component: ParagraphContent,
-      title: "Paragraph",
-    },
-    GLYPHS: {
-      component: GlyphsContent,
-      title: "Glyphs",
-    },
-  },
-  tabs: reactive([
-    {
-      type: "PARAGRAPH",
-    },
-    {
-      type: "GLYPHS",
-    },
-  ] as {
-    type: string;
-  }[]),
-  // set the default component to show
-  currentId: computed((): string => {
-    const currentContentTab = localStorageData.get("currentContentTab");
-    if (currentContentTab.exists) return currentContentTab.value as string;
-    else return "PARAGRAPH";
-  }),
-  get: function (id: string) {
-    // returns content.types.{{id}}
-    return this.types[id as keyof typeof this.types];
-  },
-  get allTypes() {
-    return Object.keys(this.types);
-  },
-  current: function (id?: string) {
-    // if an ID is provided and exists, sets the new current to be the input
-    if (id) {
-      id = id.toUpperCase();
-      if (this.allTypes.includes(id)) {
-        localStorageData.set("currentContentTab", id);
-      } else {
-        console.warn(`The content type ${id} doesn't exist.`);
-      }
-    }
-    // if the stored current doesn't exist, set it to the first existing type
-    if (!this.allTypes.includes(this.currentId.value)) {
-      return this.get(this.allTypes[0]).component;
-    }
-
-    return this.get(this.currentId.value).component;
-  },
-});
 </script>
 
 <style lang="scss">
