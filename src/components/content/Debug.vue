@@ -1,0 +1,33 @@
+<template>
+  height: {{ windowData.size.height }}<br />
+  width: {{ windowData.size.width }}<br />
+  clicking: {{ windowData.clicking }}<br />
+  <br />
+  sidebar hideable: {{ windowData.size.sideBarHideable }}<br />
+  scale: {{ windowData.size.currentScale }}<br />
+  <br />
+  brightness: {{ windowData.brightness }}<br />
+  <br />
+  vue localStorage: {{ localStorageData.storage }}<br />
+  <br />
+  loading: {{ notificationsData.loading }}<br />
+  loading sources: {{ notificationsData.loadingSources }}<br />
+  <br />
+  notifications:
+  <p
+    v-for="notification of notificationsData.notifications"
+    :key="notification.id"
+  >
+    {{ notification }}
+  </p>
+  <br /><br />
+  tabs:
+  {{ tabs }}
+</template>
+
+<script setup lang="ts">
+import { windowData } from "~/composables/useWindow";
+import { localStorageData } from "~/composables/useLocalStorage";
+import { notificationsData } from "~/composables/useNotifications";
+import { tabs } from "~/composables/useTabs";
+</script>

@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { shallowReactive, computed } from "vue";
+import { shallowReactive, computed, reactive } from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
 import Button from "@/components/ui/Button.vue";
@@ -36,6 +36,16 @@ const content = shallowReactive({
       title: "Glyphs",
     },
   },
+  tabs: reactive([
+    {
+      type: "PARAGRAPH",
+    },
+    {
+      type: "GLYPHS",
+    },
+  ] as {
+    type: string;
+  }[]),
   // set the default component to show
   currentId: computed((): string => {
     const currentContentTab = localStorageData.get("currentContentTab");

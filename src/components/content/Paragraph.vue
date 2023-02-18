@@ -1,32 +1,7 @@
 <template>
-  height: {{ windowData.size.height }}<br />
-  width: {{ windowData.size.width }}<br />
-  clicking: {{ windowData.clicking }}<br />
-  <br />
-  sidebar hideable: {{ windowData.size.sideBarHideable }}<br />
-  scale: {{ windowData.size.currentScale }}<br />
-  <br />
-  brightness: {{ windowData.brightness }}<br />
-  <br />
-  vue localStorage: {{ localStorageData.storage }}<br />
-  <br />
-  loading: {{ notificationsData.loading }}<br />
-  loading sources: {{ notificationsData.loadingSources }}<br />
-  <br />
-  notifications:
-  <p
-    v-for="notification of notificationsData.notifications"
-    :key="notification.id"
-  >
-    {{ notification }}
-  </p>
-
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  test
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem a doloribus
+  explicabo. Placeat reprehenderit minus at et? A, ipsam aut. Sequi,
+  voluptatibus voluptatem. Quia fuga veniam voluptatum repellat quis nemo. Sit
+  voluptas, quae, quod, voluptate quidem voluptatum quibusdam quos
+  necessitatibus quia voluptates quas dolorum. Quisquam, quibusdam.
 </template>
-
-<script setup lang="ts">
-import { windowData } from "~/composables/useWindow";
-import { localStorageData } from "~/composables/useLocalStorage";
-import { notificationsData } from "~/composables/useNotifications";
-</script>
