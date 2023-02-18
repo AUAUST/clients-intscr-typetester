@@ -59,9 +59,11 @@ const content = shallowReactive({
         console.warn(`The content type ${id} doesn't exist.`);
       }
     }
+    // if the stored current doesn't exist, set it to the first existing type
     if (!this.allTypes().includes(this.currentId.value)) {
       return this.get(this.allTypes()[0]).component;
     }
+
     return this.get(this.currentId.value).component;
   },
 });
