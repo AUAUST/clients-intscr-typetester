@@ -36,38 +36,38 @@ export class View {
     }
   }
 
-  canResize(width: number) {
-    if (this.width.value) {
-      if (this.width.value - width >= 50) {
-        console.log(this.width.value - width);
-        return true;
-      } else {
-        console.log(this.width.value - width, this.width.value, width);
-        return false;
-      }
-    } else {
-      console.warn("no width");
-      return false;
-    }
-  }
+  // canResize(width: number) {
+  //   if (this.width.value) {
+  //     if (this.width.value - width >= 50) {
+  //       console.log(this.width.value - width);
+  //       return true;
+  //     } else {
+  //       console.log(this.width.value - width, this.width.value, width);
+  //       return false;
+  //     }
+  //   } else {
+  //     console.warn("no width");
+  //     return false;
+  //   }
+  // }
 
   resize(width: number) {
     const nextView = views.listed[views.listed.indexOf(this) + 1];
     if (this.width.value) {
       if (nextView.width.value) {
-        if (this.canResize(-width) && nextView.canResize(width)) {
-          this.width.value += width;
-          nextView.width.value -= width;
-        } else {
-          console.warn("can't resize");
-        }
+        // if (this.canResize(-width) && nextView.canResize(width)) {
+        this.width.value += width;
+        nextView.width.value -= width;
+        // } else {
+        //   console.warn("can't resize");
+        // }
       }
     } else console.warn("no width");
   }
 }
 
 class Views {
-  listed: View[] = [new View(), new View(), new View(), new View()];
+  listed: View[] = [new View(), new View()];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
   // this value is set by the Content.vue component automatically on mount

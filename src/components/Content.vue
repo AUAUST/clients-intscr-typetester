@@ -120,6 +120,8 @@ const resizer: {
       display: grid;
       grid-template-rows: auto 1fr;
 
+      min-width: 50px;
+
       view-resize-container {
         display: none;
         view-resize-handle {
