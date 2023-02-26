@@ -35,12 +35,32 @@ export class View {
       views.listed.splice(index, 1);
     }
   }
+
+  canResize(width: number) {
+    if (this.width.value) {
+      if (this.width.value - width >= 50) {
+        console.log(this.width.value - width);
+        return true;
+      } else {
+        console.log(this.width.value - width, this.width.value, width);
+        return false;
+      }
+    } else {
+      console.warn("no width");
+      return false;
+    }
+  }
+
   resize(width: number) {
     const nextView = views.listed[views.listed.indexOf(this) + 1];
     if (this.width.value) {
       if (nextView.width.value) {
-        this.width.value += width;
-        nextView.width.value -= width;
+        if (this.canResize(-width) && nextView.canResize(width)) {
+          this.width.value += width;
+          nextView.width.value -= width;
+        } else {
+          console.warn("can't resize");
+        }
       }
     } else console.warn("no width");
   }
@@ -93,7 +113,7 @@ class Views {
           }
         }
 
-        view.width.value = newViewWidth;
+        view.width.value = newViewWidth < 50 ? 50 : newViewWidth;
       });
     }
   }
