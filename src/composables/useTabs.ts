@@ -36,12 +36,12 @@ export class TabType {
   component: typeof import("*.vue");
 
   constructor({
-    id = createId("tat"),
+    id,
     title,
     hidden = false,
     component,
   }: {
-    id?: string;
+    id: string;
     title: string;
     hidden?: boolean;
     component: typeof import("*.vue");
@@ -58,14 +58,17 @@ class TabsData {
   activeTabId: Ref<string>;
   tabTypes: TabType[] = [
     new TabType({
+      id: "tat-paragraph",
       title: "Paragraph",
       component: TabComponentParagraph,
     }),
     new TabType({
+      id: "tat-glyphs",
       title: "Glyphs",
       component: TabComponentGlyphs,
     }),
     new TabType({
+      id: "tat-debug",
       title: "Debug",
       component: TabComponentDebug,
       hidden: true,

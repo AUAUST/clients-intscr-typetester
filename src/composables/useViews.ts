@@ -8,15 +8,25 @@ import { createId } from "~/modules/utils";
 class View {
   id: string;
   active: boolean;
-  activeTabId: Ref<string>;
+  activeTabId: ComputedRef<string | undefined>;
   activeTab: Ref<Tab | undefined>;
+  listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
 
-  constructor() {
+  constructor({
+    active = false,
+    activeTabId,
+  }: {
+    active?: boolean;
+    activeTabId?: string;
+  } = {}) {
     this.id = createId("viw");
-    this.active = false;
-    this.activeTabId = ref("");
+    this.active = active;
+    this.activeTabId = computed(() => {
+      return this.activeTab.value?.id;
+    });
     this.activeTab = ref();
+    this.listedTabs = [];
   }
 
   close() {
@@ -27,7 +37,7 @@ class View {
   }
 }
 
-class ViewsData {
+class Views {
   listed: View[] = [new View(), new View(), new View(), new View()];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
@@ -48,4 +58,4 @@ class ViewsData {
   }
 }
 
-export const views = new ViewsData();
+export const views = new Views();
