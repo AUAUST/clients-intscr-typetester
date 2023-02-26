@@ -145,8 +145,10 @@ aside {
     display: flex;
     flex-direction: column-reverse;
 
-    width: 100%;
+    width: calc(100% + 10px);
+    padding-left: 10px;
 
+    overflow-x: hidden;
     notif-item {
       display: flex;
       justify-content: space-between;
