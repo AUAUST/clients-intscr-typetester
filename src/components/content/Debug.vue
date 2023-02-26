@@ -25,6 +25,7 @@
   tabs:
   {{ tabs }}<br />
   <br />
+  max views: {{ views.maxViews }}<br />
   views:
   {{ views }}<br />
 </template>

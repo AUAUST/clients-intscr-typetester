@@ -5,6 +5,8 @@ import { Tab, TabType, tabs } from "./useTabs";
 
 import { createId } from "~/modules/utils";
 
+const MINIMUM_WIDTH = 50;
+
 export class View {
   id: string;
   active: boolean;
@@ -39,7 +41,7 @@ export class View {
 
   // canResize(width: number) {
   //   if (this.width.value) {
-  //     if (this.width.value - width >= 50) {
+  //     if (this.width.value - width >= MINIMUM_WIDTH) {
   //       console.log(this.width.value - width);
   //       return true;
   //     } else {
@@ -68,23 +70,20 @@ export class View {
 }
 
 class Views {
-  listed: View[] = [
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-  ];
+  listed: View[] = [new View(), new View()];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
   // this value is set by the Content.vue component automatically on mount
   fullWidth: Ref<number | undefined> = ref(undefined);
 
   get canCreate() {
-    return this.listed.length < 3;
+    return (
+      ((this.fullWidth.value ?? 0 / MINIMUM_WIDTH) || 1) > this.listed.length
+    );
+  }
+  get maxViews() {
+    console.log(Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1);
+    return Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1;
   }
   get canClose() {
     return this.listed.length > 1;
@@ -104,7 +103,7 @@ class Views {
   setWidthsFromState() {
     this.listed.forEach((view) => {
       const realWidth = view.DOMElement.value?.offsetWidth ?? 0;
-      view.width.value = realWidth >= 50 ? realWidth : 50;
+      view.width.value = realWidth >= MINIMUM_WIDTH ? realWidth : MINIMUM_WIDTH;
     });
   }
   calculateWidths() {
@@ -129,7 +128,8 @@ class Views {
           }
         }
 
-        view.width.value = newViewWidth < 50 ? 50 : newViewWidth;
+        view.width.value =
+          newViewWidth < MINIMUM_WIDTH ? MINIMUM_WIDTH : newViewWidth;
       });
     }
   }
