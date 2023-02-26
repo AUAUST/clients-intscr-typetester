@@ -77,11 +77,6 @@ class Views {
     new View(),
     new View(),
     new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
-    new View(),
   ];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
@@ -108,7 +103,7 @@ class Views {
 
   setWidthsFromState() {
     this.listed.forEach((view) => {
-      console.log(view);
+      view.width.value = view.DOMElement.value?.clientWidth;
     });
   }
   calculateWidths() {

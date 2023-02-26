@@ -86,10 +86,9 @@ const resizer: {
 
   mouseUp: () => {
     window.removeEventListener("mousemove", resizer.mouseMove);
-    views.calculateWidths();
+    views.setWidthsFromState();
   },
   mouseDown: (event: MouseEvent, viewId: string) => {
-    views.setWidthsFromState();
     resizer.lastX = event.clientX;
     resizer.currentView = views.viewById(viewId);
     window.addEventListener("mousemove", resizer.mouseMove);
