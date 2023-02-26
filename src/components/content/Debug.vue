@@ -1,6 +1,7 @@
 <template>
   height: {{ windowData.size.height }}<br />
   width: {{ windowData.size.width }}<br />
+  content width: {{ views.fullWidth }}<br />
   clicking: {{ windowData.clicking }}<br />
   <br />
   sidebar hideable: {{ windowData.size.sideBarHideable }}<br />

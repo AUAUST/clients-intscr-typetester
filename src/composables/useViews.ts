@@ -10,6 +10,7 @@ class View {
   active: boolean;
   activeTabId: Ref<string>;
   activeTab: Ref<Tab | undefined>;
+  width: Ref<number | undefined> = ref(undefined);
 
   constructor() {
     this.id = createId("viw");
@@ -27,9 +28,10 @@ class View {
 }
 
 class ViewsData {
-  listed: View[] = [new View(), new View(), new View()];
+  listed: View[] = [new View(), new View(), new View(), new View()];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
+  fullWidth: Ref<number | undefined> = ref(undefined);
 
   get canCreate() {
     return this.listed.length < 3;

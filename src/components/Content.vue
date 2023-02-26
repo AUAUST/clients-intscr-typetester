@@ -1,7 +1,13 @@
 <template>
   <main id="content-container">
-    <view-container>
-      <view-item v-for="view in views.listed" :key="view.id">
+    <view-container ref="viewContainer">
+      <view-item
+        v-for="view in views.listed"
+        :key="view.id"
+        :style="{
+          width: view.width.value + 'px',
+        }"
+      >
         <nav>
           <!-- <Button
           v-for="contentType in content.allTypes"
@@ -27,7 +33,14 @@
 </template>
 
 <script setup lang="ts">
-import { shallowReactive, computed, reactive } from "vue";
+import {
+  shallowReactive,
+  computed,
+  reactive,
+  ref,
+  onMounted,
+  onUnmounted,
+} from "vue";
 import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
 import Button from "@/components/ui/Button.vue";
@@ -35,6 +48,20 @@ import Button from "@/components/ui/Button.vue";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { tabs } from "~/composables/useTabs";
 import { views } from "~/composables/useViews";
+
+const viewContainer = ref();
+
+const updateViewContainerWidth = () => {
+  views.fullWidth.value = viewContainer.value.offsetWidth;
+};
+onMounted(() => {
+  updateViewContainerWidth();
+  window.addEventListener("resize", updateViewContainerWidth);
+});
+onUnmounted(() => {
+  views.fullWidth.value = undefined;
+  window.removeEventListener("resize", updateViewContainerWidth);
+});
 </script>
 
 <style lang="scss">
