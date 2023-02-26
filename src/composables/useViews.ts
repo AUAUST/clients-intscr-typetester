@@ -12,6 +12,7 @@ export class View {
   activeTab: Ref<Tab | undefined>;
   listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
+  DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
   constructor({
     active = false,
@@ -67,7 +68,21 @@ export class View {
 }
 
 class Views {
-  listed: View[] = [new View(), new View()];
+  listed: View[] = [
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+    new View(),
+  ];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
   // this value is set by the Content.vue component automatically on mount
@@ -91,6 +106,11 @@ class Views {
     return this.listed.find((view) => view.id === id);
   }
 
+  setWidthsFromState() {
+    this.listed.forEach((view) => {
+      console.log(view);
+    });
+  }
   calculateWidths() {
     const fullWidth = this.fullWidth.value;
     if (fullWidth) {

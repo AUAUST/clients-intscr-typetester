@@ -7,6 +7,7 @@
         :style="{
           width: view.width.value + 'px',
         }"
+        ref="viewDOMElements"
       >
         <nav>
           <!-- <Button
@@ -52,6 +53,7 @@ import { tabs } from "~/composables/useTabs";
 import { views, View } from "~/composables/useViews";
 
 const viewContainer = ref();
+const viewDOMElements = ref([]);
 
 const updateViewContainerWidth = () => {
   views.fullWidth.value = viewContainer.value.offsetWidth;
@@ -60,10 +62,16 @@ const updateViewContainerWidth = () => {
 onMounted(() => {
   updateViewContainerWidth();
   window.addEventListener("resize", updateViewContainerWidth);
+  viewDOMElements.value.forEach((viewElement, index) => {
+    views.listed[index].DOMElement.value = viewElement;
+  });
 });
 onUnmounted(() => {
   views.fullWidth.value = undefined;
   window.removeEventListener("resize", updateViewContainerWidth);
+  views.listed.forEach((view) => {
+    view.DOMElement.value = undefined;
+  });
 });
 
 const resizer: {
@@ -81,7 +89,7 @@ const resizer: {
     views.calculateWidths();
   },
   mouseDown: (event: MouseEvent, viewId: string) => {
-    views.calculateWidths();
+    views.setWidthsFromState();
     resizer.lastX = event.clientX;
     resizer.currentView = views.viewById(viewId);
     window.addEventListener("mousemove", resizer.mouseMove);
