@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import Components from "unplugin-vue-components/vite";
+import autoprefixer from "autoprefixer";
 
 const root = "./src";
 
@@ -40,6 +41,12 @@ export default defineConfig(({ mode }) => ({
       dts: "components.d.ts",
     }),
   ],
+
+  css: {
+    postcss: {
+      plugins: [autoprefixer()],
+    },
+  },
 
   test: {
     // enable jest-like global test APIs
