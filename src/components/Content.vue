@@ -171,6 +171,15 @@ const resizer: {
 
           border-radius: 50%;
           background-color: v.$c-gray-4;
+
+          @media (hover: none) {
+            top: 0;
+            bottom: 0;
+
+            width: 4px;
+            height: 100%;
+            border-radius: 0;
+          }
         }
       }
 
@@ -191,10 +200,12 @@ const resizer: {
 
           width: 10px;
 
-          &:hover {
-            view-resize-handle {
-              width: 1.5rem;
-              height: 1.5rem;
+          @media (hover: hover) {
+            &:hover {
+              view-resize-handle {
+                width: 1.5rem;
+                height: 1.5rem;
+              }
             }
           }
         }
