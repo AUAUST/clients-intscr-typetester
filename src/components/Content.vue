@@ -25,7 +25,9 @@
           </view-component>
         </view-overflow>
         <view-resize-container>
-          <view-resize-handle></view-resize-handle>
+          <view-resize-handle
+            @mousedown="resizer.mouseDown($event, view.id)"
+          ></view-resize-handle>
         </view-resize-container>
       </view-item>
     </view-container>
@@ -47,12 +49,13 @@ import Button from "@/components/ui/Button.vue";
 
 import { localStorageData } from "~/composables/useLocalStorage";
 import { tabs } from "~/composables/useTabs";
-import { views } from "~/composables/useViews";
+import { views, View } from "~/composables/useViews";
 
 const viewContainer = ref();
 
 const updateViewContainerWidth = () => {
   views.fullWidth.value = viewContainer.value.offsetWidth;
+  views.calculateWidths();
 };
 onMounted(() => {
   updateViewContainerWidth();
@@ -62,6 +65,35 @@ onUnmounted(() => {
   views.fullWidth.value = undefined;
   window.removeEventListener("resize", updateViewContainerWidth);
 });
+
+const resizer: {
+  lastX: number;
+  currentView: View | undefined;
+  mouseUp: () => void;
+  mouseDown: (event: MouseEvent, viewId: string) => void;
+  mouseMove: (event: MouseEvent) => void;
+} = {
+  lastX: 0,
+  currentView: undefined,
+
+  mouseUp: () => {
+    window.removeEventListener("mousemove", resizer.mouseMove);
+    views.calculateWidths();
+  },
+  mouseDown: (event: MouseEvent, viewId: string) => {
+    views.calculateWidths();
+    resizer.lastX = event.clientX;
+    resizer.currentView = views.viewById(viewId);
+    window.addEventListener("mousemove", resizer.mouseMove);
+    window.addEventListener("mouseup", resizer.mouseUp, { once: true });
+  },
+  mouseMove: (event) => {
+    if (resizer.currentView) {
+      resizer.currentView.resize(event.clientX - resizer.lastX);
+    }
+    resizer.lastX = event.clientX;
+  },
+};
 </script>
 
 <style lang="scss">
