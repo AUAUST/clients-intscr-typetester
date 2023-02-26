@@ -178,11 +178,14 @@ const resizer: {
         }
       }
       nav {
+        width: 100%;
+        overflow-x: scroll;
       }
       view-overflow {
         display: block;
         height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
 
         view-component {
           display: block;
