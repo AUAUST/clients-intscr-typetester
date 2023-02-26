@@ -131,9 +131,12 @@ const resizer: {
 
       view-resize-container {
         display: none;
+        user-select: none;
+
         view-resize-handle {
           display: block;
           cursor: ew-resize;
+          user-select: none;
 
           position: absolute;
           top: 50%;
@@ -168,8 +171,8 @@ const resizer: {
 
           &:hover {
             view-resize-handle {
-              width: 1.2rem;
-              height: 1.2rem;
+              width: 1.5rem;
+              height: 1.5rem;
             }
           }
         }

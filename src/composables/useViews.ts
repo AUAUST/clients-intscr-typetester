@@ -103,7 +103,8 @@ class Views {
 
   setWidthsFromState() {
     this.listed.forEach((view) => {
-      view.width.value = view.DOMElement.value?.clientWidth;
+      const realWidth = view.DOMElement.value?.offsetWidth ?? 0;
+      view.width.value = realWidth >= 50 ? realWidth : 50;
     });
   }
   calculateWidths() {
