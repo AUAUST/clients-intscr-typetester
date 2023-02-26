@@ -25,6 +25,7 @@
         </notif-content>
         <notif-close>
           <Button
+            title="Close notification."
             @click="notificationsData.deleteNotification(notification.id)"
           >
             X
