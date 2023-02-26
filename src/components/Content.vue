@@ -78,16 +78,12 @@ const resizer: {
   lastX: number;
   currentView: View | undefined;
   mouseUp: () => void;
-  mouseDown: (event: MouseEvent, viewId: string) => void;
   mouseMove: (event: MouseEvent) => void;
+  mouseDown: (event: MouseEvent, viewId: string) => void;
 } = {
   lastX: 0,
   currentView: undefined,
 
-  mouseUp: () => {
-    window.removeEventListener("mousemove", resizer.mouseMove);
-    views.setWidthsFromState();
-  },
   mouseDown: (event: MouseEvent, viewId: string) => {
     resizer.lastX = event.clientX;
     resizer.currentView = views.viewById(viewId);
@@ -99,6 +95,10 @@ const resizer: {
       resizer.currentView.resize(event.clientX - resizer.lastX);
     }
     resizer.lastX = event.clientX;
+  },
+  mouseUp: () => {
+    window.removeEventListener("mousemove", resizer.mouseMove);
+    views.setWidthsFromState();
   },
 };
 </script>
