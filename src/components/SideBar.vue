@@ -54,7 +54,7 @@ import UiSettings from "@/components/sidebar/UiSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 #sidebar {

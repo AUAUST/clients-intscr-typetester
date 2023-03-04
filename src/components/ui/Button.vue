@@ -15,7 +15,7 @@ import { notificationsData } from "~/composables/useNotifications";
 defineProps(["size", "title", "active"]);
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 .button {

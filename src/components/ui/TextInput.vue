@@ -24,7 +24,7 @@ defineProps(["size", "placeholder", "title", "modelValue", "before", "after"]);
 defineEmits(["update:modelValue"]);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 .input {

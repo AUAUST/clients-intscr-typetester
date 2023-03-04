@@ -40,7 +40,7 @@
 import { notificationsData } from "~/composables/useNotifications";
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 aside {
   position: fixed;

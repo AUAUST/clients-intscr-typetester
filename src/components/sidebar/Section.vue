@@ -41,7 +41,7 @@ onMounted(() => {});
 onUnmounted(() => {});
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 section {
