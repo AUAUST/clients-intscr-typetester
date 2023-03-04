@@ -57,18 +57,6 @@ import SideBarSection from "@/components/sidebar/Section.vue";
 <style lang="scss">
 @use "@/assets/style/variables" as v;
 
-#sidebar {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-
-  width: 100%;
-  height: 100%;
-  background-color: v.$c-gray-2;
-  border-right: 1px solid v.$c-gray-4;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
 #sidebar-container {
   &.hideable {
     transition: transform 0.3s linear;
@@ -81,7 +69,18 @@ import SideBarSection from "@/components/sidebar/Section.vue";
   position: relative;
 }
 
-// }
+#sidebar {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+
+  width: 100%;
+  height: 100%;
+  background-color: v.$c-gray-2;
+  border-right: 1px solid v.$c-gray-4;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .view-narrow,
 .view-x-narrow {
   #sidebar-container {

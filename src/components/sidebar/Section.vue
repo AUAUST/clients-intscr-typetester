@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { windowData } from "~/composables/useWindow";
 
 const props = defineProps({
   title: String,

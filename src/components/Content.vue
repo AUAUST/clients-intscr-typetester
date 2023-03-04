@@ -10,12 +10,6 @@
         ref="viewDOMElements"
       >
         <nav>
-          <!-- <Button
-          v-for="contentType in content.allTypes"
-          @click="content.current(contentType)"
-          size="fit-width"
-          :active="content.currentId.value === contentType"
-        > -->
           <Button v-for="tab in tabs.listed" size="fit-width">
             {{ tab.title }}
           </Button>
@@ -37,21 +31,11 @@
 </template>
 
 <script setup lang="ts">
-import {
-  shallowReactive,
-  computed,
-  reactive,
-  ref,
-  onMounted,
-  onUnmounted,
-} from "vue";
-import ParagraphContent from "@/components/content/Paragraph.vue";
-import GlyphsContent from "@/components/content/Glyphs.vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import Button from "@/components/ui/Button.vue";
 
-import { localStorageData } from "~/composables/useLocalStorage";
-import { tabs } from "~/composables/useTabs";
 import { views, View } from "~/composables/useViews";
+import { tabs } from "~/composables/useTabs";
 
 const viewContainer = ref();
 const viewDOMElements = ref([]);
