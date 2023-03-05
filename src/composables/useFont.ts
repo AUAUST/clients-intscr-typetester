@@ -5,7 +5,7 @@ import { createId } from "~/modules/utils";
 
 import { notifications } from "./useNotifications";
 
-import opentype from "opentype.js";
+// import opentype from "opentype.js";
 
 type FontOverview = {
   name: string;
@@ -25,7 +25,7 @@ class FontsData {
     if (this.fontInput) {
       this.fontInput.click();
     } else {
-      notificationsData.sendNotification({
+      notifications.sendNotification({
         type: "error",
         message:
           "Could not find the font input element. Try reloading the page.",
@@ -40,7 +40,7 @@ class FontsData {
         this.handleFontFile(file);
       }
     } else {
-      notificationsData.sendNotification({
+      notifications.sendNotification({
         type: "error",
         message:
           "Could not find the font input element. Try reloading the page.",
@@ -59,7 +59,7 @@ class FontsData {
   }
 
   storeFontToDatabase({ id, file }: { id: string; file: File }) {
-    notificationsData.sendNotification({
+    notifications.sendNotification({
       type: "warning",
       message: `Database is to be implemented.`,
       expires: true,
@@ -67,7 +67,7 @@ class FontsData {
   }
 
   handleFontFile(file: File) {
-    const loadingId = notificationsData.startLoading();
+    const loadingId = notifications.startLoading();
     const reader = new FileReader();
     reader.onload = (event) => {
       const fontFace = this.loadFontFace({
@@ -75,7 +75,7 @@ class FontsData {
       });
       fontFace.then((result) => {
         if (result.valid) {
-          notificationsData.sendNotification({
+          notifications.sendNotification({
             type: "success",
             message: `Font loaded successfully. Starting to process it...`,
             forConsole: result,
@@ -89,7 +89,7 @@ class FontsData {
             file: file,
           });
         }
-        notificationsData.stopLoading(loadingId);
+        notifications.stopLoading(loadingId);
       });
     };
     reader.readAsDataURL(file);
@@ -122,7 +122,7 @@ class FontsData {
         isValid = true;
       })
       .catch((error) => {
-        notificationsData.sendNotification({
+        notifications.sendNotification({
           type: "error",
           message: `Could not load the file. Is it a valid font ?`,
           forConsole: [error, dataUrl],
