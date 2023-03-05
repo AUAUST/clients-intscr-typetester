@@ -20,7 +20,7 @@ const clicking = reactive({
 document.body.onmousedown = () => (clicking.isClicking = true);
 document.body.onmouseup = () => (clicking.isClicking = false);
 
-class WindowData {
+class ViewportData {
   size: scaleObjectType;
   brightness: brightessObjectType;
 
@@ -170,4 +170,4 @@ class WindowData {
     return this;
   }
 }
-export const viewport = new WindowData().initialize();
+export const viewport = new ViewportData().initialize();
