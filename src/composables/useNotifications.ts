@@ -31,13 +31,13 @@ class Notification {
 
 class NotificationsData {
   loading: ComputedRef<boolean>;
-  notifications: Notification[];
+  listed: Notification[];
   loadingSources: string[];
   titles: Record<"info" | "success" | "error" | "warning", string>;
 
   constructor() {
     this.loading = computed(() => this.loadingSources.length > 0);
-    this.notifications = reactive([]);
+    this.listed = reactive([]);
     this.titles = {
       info: "Info",
       success: "Success",
@@ -63,7 +63,7 @@ class NotificationsData {
       else expires = true;
     }
     const notification = new Notification({ type, message, expires });
-    this.notifications.push(notification);
+    this.listed.push(notification);
     if (expires) {
       setTimeout(() => {
         this.deleteNotification(notification.id);
@@ -91,16 +91,16 @@ class NotificationsData {
     return notification.id;
   }
   deleteNotification(id: string) {
-    const notification = this.notifications.find(
+    const notification = this.listed.find(
       (notification) => notification.id === id
     );
     if (notification) notification.fading.value = true;
 
     setTimeout(() => {
-      const index = this.notifications.findIndex(
+      const index = this.listed.findIndex(
         (notification) => notification.id === id
       );
-      if (index > -1) this.notifications.splice(index, 1);
+      if (index > -1) this.listed.splice(index, 1);
     }, 600);
     return this;
   }
@@ -115,4 +115,4 @@ class NotificationsData {
   }
 }
 
-export const notificationsData = new NotificationsData();
+export const notifications = new NotificationsData();
