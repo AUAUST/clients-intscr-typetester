@@ -8,6 +8,12 @@
     :class="[viewport.size.currentScale, viewport.brightness.className]"
     @dragenter="(event) => shoutInConsole(event, 'dragenter')"
     @dragleave="(event) => shoutInConsole(event, 'dragleave')"
+    @dragover="
+      (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    "
     @drop="(event) => shoutInConsole(event, 'drop')"
   >
     <SideBar />
