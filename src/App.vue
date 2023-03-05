@@ -8,7 +8,11 @@
     :class="[viewport.size.currentScale, viewport.brightness.className]"
     @dragenter="(event) => onDragEnter(event)"
     @dragover="(event) => onDragOver(event)"
-    @dragleave="(event) => onDragLeave(event)"
+    @dragleave="
+      (event) => {
+        onDragLeave(event);
+      }
+    "
     @drop="(event) => onDrop(event)"
   >
     <SideBar />
@@ -42,12 +46,12 @@ function eventIsRelevent(event: DragEvent) {
 
 function onDragEnter(event: DragEvent) {
   if (eventIsRelevent(event)) {
-    console.log("dragEnter");
+    viewport.dropZoneVisible.value = true;
   }
 }
 function onDragLeave(event: DragEvent) {
   if (eventIsRelevent(event)) {
-    console.log("dragLeave");
+    viewport.dropZoneVisible.value = false;
   }
 }
 function onDragOver(event: DragEvent) {
@@ -57,7 +61,7 @@ function onDragOver(event: DragEvent) {
 }
 function onDrop(event: DragEvent) {
   if (eventIsRelevent(event)) {
-    console.log("drop");
+    viewport.dropZoneVisible.value = false;
   }
 }
 
