@@ -12,13 +12,11 @@
   },
   "dependencies": {
     "dexie": "^3.2.3",
-    "fontkit": "^2.0.2",
     "vue": "^3.2.45"
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.19.2",
     "@testing-library/vue": "^6.6.1",
-    "@types/fontkit": "^2.0.2",
     "@types/node": "^18.11.18",
     "@types/opentype.js": "^1.3.4",
     "@vitejs/plugin-vue": "^4.0.0",

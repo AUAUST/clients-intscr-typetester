@@ -56,7 +56,14 @@ class FontsData {
         files = [input];
       }
       files.forEach((file) => {
-        console.log("handleFontFile", file);
+        //
+        // handle font file here
+        //
+      });
+    } else {
+      notifications.sendNotification({
+        type: "error",
+        message: "No file was selected.",
       });
     }
   }

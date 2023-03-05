@@ -45,7 +45,6 @@ function onDragOver(event: DragEvent) {
 function onDrop(event: DragEvent) {
   if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = false;
-    notifications.startLoading("added-file");
     fonts.handleNewFontFile(event.dataTransfer!.files);
   }
 }
