@@ -1,5 +1,6 @@
 import { storage } from "./useStorage";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+import type { Ref } from "vue";
 
 type scaleObjectType = {
   sideBarHideable: boolean;
@@ -23,6 +24,7 @@ document.body.onmouseup = () => (clicking.isClicking = false);
 class ViewportData {
   size: scaleObjectType;
   brightness: brightessObjectType;
+  dropZoneVisible: Ref<boolean>;
 
   constructor() {
     const browserDefault = this.getBrowserDefault();
@@ -54,6 +56,7 @@ class ViewportData {
       sideBarHideable: this.isSideBarHideable(),
       sideBarHidden: false,
     });
+    this.dropZoneVisible = ref(false);
   }
   get clicking() {
     return clicking.isClicking;
