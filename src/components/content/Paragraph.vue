@@ -8,7 +8,7 @@
   <br />
   brightness: {{ viewport.brightness }}<br />
   <br />
-  vue localStorage: {{ localStorageData.storage }}<br />
+  vue localStorage: {{ storage.storage }}<br />
   <br />
   loading: {{ notifications.loading }}<br />
   loading sources: {{ notifications.loadingSources }}<br />
@@ -24,6 +24,6 @@
 
 <script setup lang="ts">
 import { viewport } from "~/composables/useViewport";
-import { localStorageData } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useLocalStorage";
 import { notifications } from "~/composables/useNotifications";
 </script>

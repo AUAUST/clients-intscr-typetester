@@ -18,7 +18,7 @@
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import { computed } from "vue";
-import { localStorageData } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useLocalStorage";
 import { viewport } from "~/composables/useViewport";
 
 function parseCSSColor(color: unknown) {
@@ -29,10 +29,10 @@ function parseCSSColor(color: unknown) {
 }
 
 const backgroundColor = computed(() =>
-  parseCSSColor(localStorageData.get("userSelectedBackgroundColor").value)
+  parseCSSColor(storage.get("userSelectedBackgroundColor").value)
 );
 const textColor = computed(() =>
-  parseCSSColor(localStorageData.get("userSelectedTextColor").value)
+  parseCSSColor(storage.get("userSelectedTextColor").value)
 );
 </script>
 

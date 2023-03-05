@@ -22,7 +22,7 @@ import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
 import Button from "@/components/ui/Button.vue";
 
-import { localStorageData } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useLocalStorage";
 
 const content = shallowReactive({
   // config available contents
@@ -38,7 +38,7 @@ const content = shallowReactive({
   },
   // set the default component to show
   currentId: computed((): string => {
-    const currentContentTab = localStorageData.get("currentContentTab");
+    const currentContentTab = storage.get("currentContentTab");
     if (currentContentTab.exists) return currentContentTab.value as string;
     else return "PARAGRAPH";
   }),
@@ -54,7 +54,7 @@ const content = shallowReactive({
     if (id) {
       id = id.toUpperCase();
       if (this.allTypes.includes(id)) {
-        localStorageData.set("currentContentTab", id);
+        storage.set("currentContentTab", id);
       } else {
         console.warn(`The content type ${id} doesn't exist.`);
       }

@@ -33,9 +33,7 @@
       before="#"
       title="Background's color."
       v-model="backgroundColor"
-      @input="
-        localStorageData.set('userSelectedBackgroundColor', backgroundColor)
-      "
+      @input="storage.set('userSelectedBackgroundColor', backgroundColor)"
     >
       Text
     </TextInput>
@@ -43,8 +41,8 @@
       @click="
         backgroundColor = null;
         textColor = null;
-        localStorageData.set('userSelectedBackgroundColor', null);
-        localStorageData.set('userSelectedTextColor', null);
+        storage.set('userSelectedBackgroundColor', null);
+        storage.set('userSelectedTextColor', null);
 
         notifications.sendNotification({
           message: 'Reset colors to default.',
@@ -62,7 +60,7 @@
       before="#"
       title="Text's color."
       v-model="textColor"
-      @input="localStorageData.set('userSelectedTextColor', textColor)"
+      @input="storage.set('userSelectedTextColor', textColor)"
     >
       Text
     </TextInput>
@@ -72,13 +70,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { viewport } from "~/composables/useViewport";
-import { localStorageData } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useLocalStorage";
 import { notifications } from "~/composables/useNotifications";
 
 const brightness = viewport.brightness;
 
-const backgroundColor = ref(
-  localStorageData.get("userSelectedBackgroundColor").value
-);
-const textColor = ref(localStorageData.get("userSelectedTextColor").value);
+const backgroundColor = ref(storage.get("userSelectedBackgroundColor").value);
+const textColor = ref(storage.get("userSelectedTextColor").value);
 </script>
