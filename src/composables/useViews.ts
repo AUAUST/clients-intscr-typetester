@@ -70,7 +70,10 @@ export class View {
 }
 
 class Views {
-  listed: View[] = [new View(), new View()];
+  listed: View[] = [
+    new View(),
+    // , new View()
+  ];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
   // this value is set by the Content.vue component automatically on mount

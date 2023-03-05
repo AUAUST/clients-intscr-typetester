@@ -131,7 +131,7 @@ const resizer: {
       display: grid;
       grid-template-rows: auto 1fr;
 
-      width: clamp(50px, var(--width, unset), calc(100% - 50px));
+      width: clamp(50px, var(--width, unset), 100%);
 
       view-resize-container {
         display: none;
