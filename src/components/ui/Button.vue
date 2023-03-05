@@ -35,8 +35,10 @@ defineProps(["size", "title", "active"]);
   &:last-of-type {
     padding-right: v.$gap-small-normal;
   }
-  &:focus span {
-    outline: 1px solid red;
+  &:focus {
+    span {
+      outline: v.$gap-small-half solid red;
+    }
   }
   span {
     display: block;
