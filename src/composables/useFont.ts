@@ -1,5 +1,6 @@
 // import vue's reaction function
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+import type { Ref } from "vue";
 
 import { createId } from "~/modules/utils";
 
@@ -18,8 +19,11 @@ type FontOverview = {
 class FontsData {
   list: FontOverview[];
   fontInput: HTMLInputElement | undefined = undefined;
+  currentFont: Ref<opentype.Font | undefined>;
+
   constructor() {
     this.list = reactive([]);
+    this.currentFont = ref(undefined);
   }
   openFileDialog() {
     if (this.fontInput) {
@@ -63,8 +67,7 @@ class FontsData {
         const buffer = file.arrayBuffer();
         buffer.then((data) => {
           const font = opentype.parse(data);
-          // ... play with `font` ...
-          console.log(font);
+          this.currentFont.value = font;
         });
         //
       });
