@@ -6,7 +6,10 @@
       '--auaust-text-color': textColor,
     }"
     :class="[viewport.size.currentScale, viewport.brightness.className]"
+    @dragover="(event) => shoutInConsole(event, false)"
+    @drop="(event) => shoutInConsole(event, true)"
   >
+    <!-- @dragover="shoutInConsole" -->
     <SideBar />
     <Content />
     <Notifications />
@@ -22,6 +25,11 @@ import FontInput from "./components/FontInput.vue";
 import { computed } from "vue";
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
+
+function shoutInConsole(event: DragEvent, actuallyShout: boolean) {
+  event.preventDefault();
+  if (actuallyShout) console.log("Shouting in console from App.vue!");
+}
 
 function parseCSSColor(color: unknown) {
   if (!color) return undefined;
