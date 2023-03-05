@@ -1,6 +1,6 @@
 <template>
   <aside id="notifications-container">
-    <notif-loader :class="{ loading: notificationsData.loading.value }">
+    <notif-loader :class="{ loading: notifications.loading.value }">
       <div>
         <div></div>
         <div></div>
@@ -9,7 +9,7 @@
     </notif-loader>
     <notif-list>
       <notif-item
-        v-for="notification of notificationsData.notifications"
+        v-for="notification of notifications.listed"
         :key="notification.id"
         :class="[
           `type-${notification.type}`,
@@ -19,14 +19,14 @@
       >
         <notif-content>
           <h6>
-            {{ notificationsData.titles[notification.type] }}
+            {{ notifications.titles[notification.type] }}
           </h6>
           <p class="text-small">{{ notification.message }}</p>
         </notif-content>
         <notif-close>
           <Button
             title="Close notification."
-            @click="notificationsData.deleteNotification(notification.id)"
+            @click="notifications.deleteNotification(notification.id)"
           >
             X
           </Button>
@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { notificationsData } from "~/composables/useNotifications";
+import { notifications } from "~/composables/useNotifications";
 </script>
 
 <style scoped lang="scss">

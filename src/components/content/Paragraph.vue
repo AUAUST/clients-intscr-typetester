@@ -10,14 +10,11 @@
   <br />
   vue localStorage: {{ localStorageData.storage }}<br />
   <br />
-  loading: {{ notificationsData.loading }}<br />
-  loading sources: {{ notificationsData.loadingSources }}<br />
+  loading: {{ notifications.loading }}<br />
+  loading sources: {{ notifications.loadingSources }}<br />
   <br />
   notifications:
-  <p
-    v-for="notification of notificationsData.notifications"
-    :key="notification.id"
-  >
+  <p v-for="notification of notifications.listed" :key="notification.id">
     {{ notification }}
   </p>
 
@@ -28,5 +25,5 @@
 <script setup lang="ts">
 import { windowData } from "~/composables/useWindow";
 import { localStorageData } from "~/composables/useLocalStorage";
-import { notificationsData } from "~/composables/useNotifications";
+import { notifications } from "~/composables/useNotifications";
 </script>

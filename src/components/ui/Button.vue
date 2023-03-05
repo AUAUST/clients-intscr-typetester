@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { notificationsData } from "~/composables/useNotifications";
+import { notifications } from "~/composables/useNotifications";
 defineProps(["size", "title", "active"]);
 </script>
 
