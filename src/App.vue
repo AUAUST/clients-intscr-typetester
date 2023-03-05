@@ -25,21 +25,10 @@ import FontInput from "./components/FontInput.vue";
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 
-function eventIsRelevent(event: DragEvent) {
-  if (
-    event.dataTransfer?.types.some(
-      (type) => !["Files", "application/x-moz-file"].includes(type)
-    )
-  ) {
-    return false;
-  }
-  event.preventDefault();
-  event.stopPropagation();
-  return true;
-}
+function eventIsRelevent(event: DragEvent) {}
 
 function onDragEnter(event: DragEvent) {
-  if (eventIsRelevent(event)) {
+  if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = true;
   }
 }

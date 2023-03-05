@@ -35,30 +35,18 @@ import { notifications } from "~/composables/useNotifications";
 
 const fontInput = ref<HTMLInputElement>();
 
-function eventIsRelevent(event: DragEvent) {
-  if (
-    event.dataTransfer?.types.some(
-      (type) => !["Files", "application/x-moz-file"].includes(type)
-    )
-  ) {
-    return false;
-  }
-  event.preventDefault();
-  event.stopPropagation();
-  return true;
-}
 function onDragLeave(event: DragEvent) {
-  if (eventIsRelevent(event)) {
+  if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = false;
   }
 }
 function onDragOver(event: DragEvent) {
   // this function returns true if the event is relevent, but also handles the event
   // so we still need to call it here
-  eventIsRelevent(event);
+  viewport.isDropZoneEventRelevant(event);
 }
 function onDrop(event: DragEvent) {
-  if (eventIsRelevent(event)) {
+  if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = false;
     notifications.startLoading("added-file");
   }

@@ -172,5 +172,17 @@ class ViewportData {
     }
     return this;
   }
+  isDropZoneEventRelevant(event: DragEvent) {
+    if (
+      event.dataTransfer?.types.some(
+        (type) => !["Files", "application/x-moz-file"].includes(type)
+      )
+    ) {
+      return false;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    return true;
+  }
 }
 export const viewport = new ViewportData().initialize();
