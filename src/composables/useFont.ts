@@ -5,6 +5,8 @@ import { createId } from "~/modules/utils";
 
 import { notifications } from "./useNotifications";
 
+import opentype from "opentype.js";
+
 type FontOverview = {
   name: string;
   fileName: string;
@@ -58,6 +60,12 @@ class FontsData {
       files.forEach((file) => {
         //
         // handle font file here
+        const buffer = file.arrayBuffer();
+        buffer.then((data) => {
+          const font = opentype.parse(data);
+          // ... play with `font` ...
+          console.log(font);
+        });
         //
       });
     } else {

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "dexie": "^3.2.3",
+    "opentype.js": "^1.3.4",
     "vue": "^3.2.45"
   },
   "devDependencies": {
