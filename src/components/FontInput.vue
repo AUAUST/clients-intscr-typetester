@@ -5,11 +5,7 @@
       type="file"
       accept="*.ttf, *.otf, *.woff, *.woff2"
       ref="fontInput"
-      @change="(event) => {
-      fonts.fontInputChanged({
-        file: (event.target as HTMLInputElement).files![0],
-      })}
-      "
+      @change="(event) => fonts.handleNewFontFile((event.target as HTMLInputElement).files)"
       hidden
     />
     <font-input-overlay :visible="viewport.dropZoneVisible.value">
@@ -50,6 +46,7 @@ function onDrop(event: DragEvent) {
   if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = false;
     notifications.startLoading("added-file");
+    fonts.handleNewFontFile(event.dataTransfer!.files);
   }
 }
 

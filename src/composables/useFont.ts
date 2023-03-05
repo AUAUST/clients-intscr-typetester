@@ -30,18 +30,33 @@ class FontsData {
       });
     }
   }
-  fontInputChanged({ file }: { file: File }) {
-    if (this.fontInput) {
-      const files = this.fontInput.files;
-      if (files) {
-        const file = files[0];
-        this.handleFontFile(file);
+  // fontInputChanged(input: ) {
+  //   if (this.fontInput) {
+  //     const files = this.fontInput.files;
+  //     if (files) {
+  //       const file = files[0];
+  //       this.handleFontFile(file);
+  //     }
+  //   } else {
+  //     notifications.sendNotification({
+  //       type: "error",
+  //       message:
+  //         "Could not find the font input element. Try reloading the page.",
+  //     });
+  //   }
+  // }
+  handleNewFontFile(input: File | File[] | FileList | null) {
+    if (input) {
+      let files: File[] = [];
+      if (Array.isArray(input)) {
+        files = input;
+      } else if (input instanceof FileList) {
+        files = Array.from(input);
+      } else {
+        files = [input];
       }
-    } else {
-      notifications.sendNotification({
-        type: "error",
-        message:
-          "Could not find the font input element. Try reloading the page.",
+      files.forEach((file) => {
+        console.log("handleFontFile", file);
       });
     }
   }
