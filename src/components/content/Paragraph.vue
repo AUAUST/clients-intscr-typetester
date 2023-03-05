@@ -1,12 +1,12 @@
 <template>
-  height: {{ windowData.size.height }}<br />
-  width: {{ windowData.size.width }}<br />
-  clicking: {{ windowData.clicking }}<br />
+  height: {{ viewport.size.height }}<br />
+  width: {{ viewport.size.width }}<br />
+  clicking: {{ viewport.clicking }}<br />
   <br />
-  sidebar hideable: {{ windowData.size.sideBarHideable }}<br />
-  scale: {{ windowData.size.currentScale }}<br />
+  sidebar hideable: {{ viewport.size.sideBarHideable }}<br />
+  scale: {{ viewport.size.currentScale }}<br />
   <br />
-  brightness: {{ windowData.brightness }}<br />
+  brightness: {{ viewport.brightness }}<br />
   <br />
   vue localStorage: {{ localStorageData.storage }}<br />
   <br />
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { windowData } from "~/composables/useWindow";
+import { viewport } from "~/composables/useViewport";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { notifications } from "~/composables/useNotifications";
 </script>

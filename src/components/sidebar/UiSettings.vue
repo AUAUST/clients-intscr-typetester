@@ -1,7 +1,7 @@
 <template>
   <ButtonsGroup title="Theme">
     <Button
-      @click="windowData.setBrightness('theme-light')"
+      @click="viewport.setBrightness('theme-light')"
       size="fit-width"
       title="A lighter interface."
       :active="
@@ -10,14 +10,14 @@
       >Light</Button
     >
     <Button
-      @click="windowData.setBrightness(null)"
+      @click="viewport.setBrightness(null)"
       size="fit-width"
       title="Use the user's settings to determine wether to use dark or light mode."
       :active="brightness.userSelected === null"
       >Auto</Button
     >
     <Button
-      @click="windowData.setBrightness('theme-dark')"
+      @click="viewport.setBrightness('theme-dark')"
       size="fit-width"
       title="A darker interface."
       :active="
@@ -71,11 +71,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { windowData } from "~/composables/useWindow";
+import { viewport } from "~/composables/useViewport";
 import { localStorageData } from "~/composables/useLocalStorage";
 import { notifications } from "~/composables/useNotifications";
 
-const brightness = windowData.brightness;
+const brightness = viewport.brightness;
 
 const backgroundColor = ref(
   localStorageData.get("userSelectedBackgroundColor").value

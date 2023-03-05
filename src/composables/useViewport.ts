@@ -170,4 +170,4 @@ class WindowData {
     return this;
   }
 }
-export const windowData = new WindowData().initialize();
+export const viewport = new WindowData().initialize();
