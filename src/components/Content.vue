@@ -5,7 +5,7 @@
         v-for="view in views.listed"
         :key="view.id"
         :style="{
-          width: view.width.value + 'px',
+          '--width': view.width.value + 'px',
         }"
         ref="viewDOMElements"
       >
@@ -115,10 +115,8 @@ const resizer: {
 #content-container {
   background-color: var(--auaust-background-color);
   color: var(--auaust-text-color);
-  height: 100vh;
-
-  display: grid;
-  grid-template-rows: auto 1fr;
+  isolation: isolate;
+  overflow: hidden;
 
   view-container {
     display: flex;
@@ -133,7 +131,7 @@ const resizer: {
       display: grid;
       grid-template-rows: auto 1fr;
 
-      min-width: 50px;
+      width: clamp(50px, var(--width, unset), calc(100% - 50px));
 
       view-resize-container {
         display: none;
@@ -221,12 +219,12 @@ const resizer: {
     overflow-y: auto;
   }
 }
-.view-normal {
-  #content-container {
-    width: 100%;
-    grid-column: 2;
-  }
-}
+// .view-normal {
+//   #content-container {
+//     width: 100%;
+//     grid-column: 2;
+//   }
+// }
 .view-narrow,
 .view-x-narrow {
   #content-container {

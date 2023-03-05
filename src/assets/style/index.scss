@@ -51,7 +51,6 @@
 }
 
 * {
-  font-family: "Arzier", "Zapfino";
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -59,6 +58,7 @@
 body {
   overflow: hidden;
   font-size: 1.5rem;
+  font-family: "Arzier", "Zapfino";
 }
 p,
 h1,
