@@ -7,13 +7,6 @@
     }"
     :class="[viewport.size.currentScale, viewport.brightness.className]"
     @dragenter="(event) => onDragEnter(event)"
-    @dragover="(event) => onDragOver(event)"
-    @dragleave="
-      (event) => {
-        onDragLeave(event);
-      }
-    "
-    @drop="(event) => onDrop(event)"
   >
     <SideBar />
     <Content />
@@ -47,21 +40,6 @@ function eventIsRelevent(event: DragEvent) {
 function onDragEnter(event: DragEvent) {
   if (eventIsRelevent(event)) {
     viewport.dropZoneVisible.value = true;
-  }
-}
-function onDragLeave(event: DragEvent) {
-  if (eventIsRelevent(event)) {
-    viewport.dropZoneVisible.value = false;
-  }
-}
-function onDragOver(event: DragEvent) {
-  // this function returns true if the event is relevent, but also handles the event
-  // so we still need to call it here
-  eventIsRelevent(event);
-}
-function onDrop(event: DragEvent) {
-  if (eventIsRelevent(event)) {
-    viewport.dropZoneVisible.value = false;
   }
 }
 
