@@ -16,11 +16,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import FontInput from "./components/FontInput.vue";
 
-import { computed } from "vue";
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 

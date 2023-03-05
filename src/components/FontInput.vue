@@ -31,6 +31,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 import { viewport } from "~/composables/useViewport";
+import { notifications } from "~/composables/useNotifications";
 
 const fontInput = ref<HTMLInputElement>();
 
@@ -59,6 +60,7 @@ function onDragOver(event: DragEvent) {
 function onDrop(event: DragEvent) {
   if (eventIsRelevent(event)) {
     viewport.dropZoneVisible.value = false;
+    notifications.startLoading("added-file");
   }
 }
 
