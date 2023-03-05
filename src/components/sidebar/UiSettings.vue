@@ -70,7 +70,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { viewport } from "~/composables/useViewport";
-import { storage } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useStorage";
 import { notifications } from "~/composables/useNotifications";
 
 const brightness = viewport.brightness;

@@ -24,6 +24,6 @@
 
 <script setup lang="ts">
 import { viewport } from "~/composables/useViewport";
-import { storage } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useStorage";
 import { notifications } from "~/composables/useNotifications";
 </script>

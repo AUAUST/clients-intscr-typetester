@@ -22,7 +22,7 @@ import ParagraphContent from "@/components/content/Paragraph.vue";
 import GlyphsContent from "@/components/content/Glyphs.vue";
 import Button from "@/components/ui/Button.vue";
 
-import { storage } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useStorage";
 
 const content = shallowReactive({
   // config available contents

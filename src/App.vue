@@ -18,7 +18,7 @@
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import { computed } from "vue";
-import { storage } from "~/composables/useLocalStorage";
+import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 
 function parseCSSColor(color: unknown) {

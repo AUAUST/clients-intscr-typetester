@@ -1,7 +1,7 @@
 // import vue's reaction function
 import { reactive } from "vue";
 
-import { storage } from "./useLocalStorage";
+import { storage } from "./useStorage";
 
 class FontsData {
   fonts: { [i: number]: { name: string } };

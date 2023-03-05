@@ -1,4 +1,4 @@
-import { storage } from "./useLocalStorage";
+import { storage } from "./useStorage";
 import { reactive } from "vue";
 
 type scaleObjectType = {
