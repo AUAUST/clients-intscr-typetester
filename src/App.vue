@@ -6,10 +6,10 @@
       '--auaust-text-color': textColor,
     }"
     :class="[viewport.size.currentScale, viewport.brightness.className]"
-    @dragover="(event) => shoutInConsole(event, false)"
-    @drop="(event) => shoutInConsole(event, true)"
+    @dragenter="(event) => shoutInConsole(event, 'dragenter')"
+    @dragleave="(event) => shoutInConsole(event, 'dragleave')"
+    @drop="(event) => shoutInConsole(event, 'drop')"
   >
-    <!-- @dragover="shoutInConsole" -->
     <SideBar />
     <Content />
     <Notifications />
@@ -26,9 +26,10 @@ import { computed } from "vue";
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 
-function shoutInConsole(event: DragEvent, actuallyShout: boolean) {
+function shoutInConsole(event: DragEvent, whatToShout?: string) {
   event.preventDefault();
-  if (actuallyShout) console.log("Shouting in console from App.vue!");
+  if (whatToShout)
+    console.log("Shouting in console from App.vue!", whatToShout);
 }
 
 function parseCSSColor(color: unknown) {
