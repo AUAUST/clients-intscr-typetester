@@ -2,8 +2,8 @@
   <div
     id="sidebar-container"
     :class="{
-      closed: windowData.size.sideBarHidden,
-      hideable: windowData.size.sideBarHideable,
+      closed: viewport.size.sideBarHidden,
+      hideable: viewport.size.sideBarHideable,
     }"
   >
     <menu id="sidebar">
@@ -37,15 +37,15 @@
     </menu>
     <div id="toggle-sidebar-button">
       <Button
-        v-show="windowData.size.sideBarHideable"
-        @click="windowData.toggleSideBar()"
-        >{{ windowData.size.sideBarHidden ? "→" : "←" }}</Button
+        v-show="viewport.size.sideBarHideable"
+        @click="viewport.toggleSideBar()"
+        >{{ viewport.size.sideBarHidden ? "→" : "←" }}</Button
       >
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { windowData } from "~/composables/useWindow";
+import { viewport } from "~/composables/useViewport";
 
 import { fonts } from "~/composables/useFont";
 

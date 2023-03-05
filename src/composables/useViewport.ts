@@ -1,4 +1,4 @@
-import { localStorageData } from "./useLocalStorage";
+import { storage } from "./useStorage";
 import { reactive } from "vue";
 
 type scaleObjectType = {
@@ -29,14 +29,14 @@ class WindowData {
 
     this.brightness = reactive({
       get userSelected() {
-        const key = localStorageData.get("userSelectedBrightness");
+        const key = storage.get("userSelectedBrightness");
         if (key.exists && typeof key.value === "string") {
           return key.value;
         }
         return null;
       },
       set userSelected(value) {
-        localStorageData.set("userSelectedBrightness", value);
+        storage.set("userSelectedBrightness", value);
       },
       get className() {
         const userSelected = this.userSelected;
@@ -170,4 +170,4 @@ class WindowData {
     return this;
   }
 }
-export const windowData = new WindowData().initialize();
+export const viewport = new WindowData().initialize();

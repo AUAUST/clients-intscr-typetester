@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { windowData } from "~/composables/useWindow";
+import { viewport } from "~/composables/useViewport";
 
 const props = defineProps({
   title: String,

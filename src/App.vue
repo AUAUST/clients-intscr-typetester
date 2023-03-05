@@ -5,7 +5,7 @@
       '--auaust-background-color': backgroundColor,
       '--auaust-text-color': textColor,
     }"
-    :class="[windowData.size.currentScale, windowData.brightness.className]"
+    :class="[viewport.size.currentScale, viewport.brightness.className]"
   >
     <SideBar></SideBar>
     <Content></Content>
@@ -17,8 +17,8 @@
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import { computed } from "vue";
-import { localStorageData } from "~/composables/useLocalStorage";
-import { windowData } from "~/composables/useWindow";
+import { storage } from "~/composables/useStorage";
+import { viewport } from "~/composables/useViewport";
 
 function parseCSSColor(color: unknown) {
   if (!color) return undefined;
@@ -28,10 +28,10 @@ function parseCSSColor(color: unknown) {
 }
 
 const backgroundColor = computed(() =>
-  parseCSSColor(localStorageData.get("userSelectedBackgroundColor").value)
+  parseCSSColor(storage.get("userSelectedBackgroundColor").value)
 );
 const textColor = computed(() =>
-  parseCSSColor(localStorageData.get("userSelectedTextColor").value)
+  parseCSSColor(storage.get("userSelectedTextColor").value)
 );
 </script>
 

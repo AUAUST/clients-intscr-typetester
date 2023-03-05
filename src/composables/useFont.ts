@@ -3,7 +3,7 @@ import { reactive } from "vue";
 
 import { createId } from "~/modules/utils";
 
-import { notificationsData } from "./useNotifications";
+import { notifications } from "./useNotifications";
 
 import opentype from "opentype.js";
 

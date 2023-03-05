@@ -1,7 +1,7 @@
 <template>
   <ButtonsGroup title="Theme">
     <Button
-      @click="windowData.setBrightness('theme-light')"
+      @click="viewport.setBrightness('theme-light')"
       size="fit-width"
       title="A lighter interface."
       :active="
@@ -10,14 +10,14 @@
       >Light</Button
     >
     <Button
-      @click="windowData.setBrightness(null)"
+      @click="viewport.setBrightness(null)"
       size="fit-width"
       title="Use the user's settings to determine wether to use dark or light mode."
       :active="brightness.userSelected === null"
       >Auto</Button
     >
     <Button
-      @click="windowData.setBrightness('theme-dark')"
+      @click="viewport.setBrightness('theme-dark')"
       size="fit-width"
       title="A darker interface."
       :active="
@@ -33,9 +33,7 @@
       before="#"
       title="Background's color."
       v-model="backgroundColor"
-      @input="
-        localStorageData.set('userSelectedBackgroundColor', backgroundColor)
-      "
+      @input="storage.set('userSelectedBackgroundColor', backgroundColor)"
     >
       Text
     </TextInput>
@@ -43,10 +41,10 @@
       @click="
         backgroundColor = null;
         textColor = null;
-        localStorageData.set('userSelectedBackgroundColor', null);
-        localStorageData.set('userSelectedTextColor', null);
+        storage.set('userSelectedBackgroundColor', null);
+        storage.set('userSelectedTextColor', null);
 
-        notificationsData.sendNotification({
+        notifications.sendNotification({
           message: 'Reset colors to default.',
           type: ['success', 'info', 'warning', 'error'][
             Math.floor(Math.random() * 4)
@@ -62,7 +60,7 @@
       before="#"
       title="Text's color."
       v-model="textColor"
-      @input="localStorageData.set('userSelectedTextColor', textColor)"
+      @input="storage.set('userSelectedTextColor', textColor)"
     >
       Text
     </TextInput>
@@ -71,14 +69,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { windowData } from "~/composables/useWindow";
-import { localStorageData } from "~/composables/useLocalStorage";
-import { notificationsData } from "~/composables/useNotifications";
+import { viewport } from "~/composables/useViewport";
+import { storage } from "~/composables/useStorage";
+import { notifications } from "~/composables/useNotifications";
 
-const brightness = windowData.brightness;
+const brightness = viewport.brightness;
 
-const backgroundColor = ref(
-  localStorageData.get("userSelectedBackgroundColor").value
-);
-const textColor = ref(localStorageData.get("userSelectedTextColor").value);
+const backgroundColor = ref(storage.get("userSelectedBackgroundColor").value);
+const textColor = ref(storage.get("userSelectedTextColor").value);
 </script>
