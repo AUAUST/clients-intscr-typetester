@@ -6,15 +6,10 @@
       '--auaust-text-color': textColor,
     }"
     :class="[viewport.size.currentScale, viewport.brightness.className]"
-    @dragenter="(event) => shoutInConsole(event, 'dragenter')"
-    @dragleave="(event) => shoutInConsole(event, 'dragleave')"
-    @dragover="
-      (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    "
-    @drop="(event) => shoutInConsole(event, 'drop')"
+    @dragenter="(event) => onDragEnter(event)"
+    @dragover="(event) => onDragOver(event)"
+    @dragleave="(event) => onDragLeave(event)"
+    @drop="(event) => onDrop(event)"
   >
     <SideBar />
     <Content />
@@ -32,10 +27,34 @@ import { computed } from "vue";
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 
-function shoutInConsole(event: DragEvent, whatToShout?: string) {
+function eventIsRelevent(event: DragEvent) {
+  if (event.dataTransfer?.types.some((type) => type !== "Files")) {
+    return false;
+  }
   event.preventDefault();
-  if (whatToShout)
-    console.log("Shouting in console from App.vue!", whatToShout);
+  event.stopPropagation();
+  return true;
+}
+
+function onDragEnter(event: DragEvent) {
+  if (eventIsRelevent(event)) {
+    console.log("dragEnter");
+  }
+}
+function onDragLeave(event: DragEvent) {
+  if (eventIsRelevent(event)) {
+    console.log("dragLeave");
+  }
+}
+function onDragOver(event: DragEvent) {
+  // this function returns true if the event is relevent, but also handles the event
+  // so we still need to call it here
+  eventIsRelevent(event);
+}
+function onDrop(event: DragEvent) {
+  if (eventIsRelevent(event)) {
+    console.log("drop");
+  }
 }
 
 function parseCSSColor(color: unknown) {
