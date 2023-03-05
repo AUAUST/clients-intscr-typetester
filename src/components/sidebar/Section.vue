@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { viewport } from "~/composables/useViewport";
 
 const props = defineProps({
   title: String,
@@ -41,7 +40,7 @@ onMounted(() => {});
 onUnmounted(() => {});
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 section {

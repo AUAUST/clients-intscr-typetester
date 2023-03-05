@@ -11,39 +11,49 @@
 </template>
 
 <script setup lang="ts">
-import { notifications } from "~/composables/useNotifications";
 defineProps(["size", "title", "active"]);
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 
 .button {
   all: unset;
+  user-select: none;
+
   display: inline-block;
-  padding: v.$gap-small-normal v.$gap-small-half;
+
+  padding-block: v.$gap-small-normal;
+  padding-inline: v.$gap-small-half;
+
   &.fit-width {
     width: 100%;
   }
-  user-select: none;
-  -webkit-user-select: none;
   &:first-of-type {
     padding-left: v.$gap-small-normal;
   }
   &:last-of-type {
     padding-right: v.$gap-small-normal;
   }
-  &:focus span {
-    outline: 1px solid red;
+  &:focus {
+    span {
+      outline: v.$gap-small-half solid red;
+    }
   }
   span {
-    text-align: center;
     display: block;
-    padding: v.$gap-small-normal v.$gap-small-double v.$gap-small-half
-      v.$gap-small-double;
-    cursor: pointer;
+
+    text-align: center;
+    text-overflow: ellipsis;
+
+    padding-top: v.$gap-small-normal;
+    padding-inline: v.$gap-small-double;
+    padding-bottom: v.$gap-small-half;
+
     color: v.$c-gray-1;
     background-color: v.$c-auaust-7;
+    cursor: pointer;
+
     &:hover {
       background-color: v.$c-auaust-8;
     }

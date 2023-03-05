@@ -1,29 +1,7 @@
 <template>
-  height: {{ viewport.size.height }}<br />
-  width: {{ viewport.size.width }}<br />
-  clicking: {{ viewport.clicking }}<br />
-  <br />
-  sidebar hideable: {{ viewport.size.sideBarHideable }}<br />
-  scale: {{ viewport.size.currentScale }}<br />
-  <br />
-  brightness: {{ viewport.brightness }}<br />
-  <br />
-  vue localStorage: {{ storage.storage }}<br />
-  <br />
-  loading: {{ notifications.loading }}<br />
-  loading sources: {{ notifications.loadingSources }}<br />
-  <br />
-  notifications:
-  <p v-for="notification of notifications.listed" :key="notification.id">
-    {{ notification }}
-  </p>
-
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  test
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem a doloribus
+  explicabo. Placeat reprehenderit minus at et? A, ipsam aut. Sequi,
+  voluptatibus voluptatem. Quia fuga veniam voluptatum repellat quis nemo. Sit
+  voluptas, quae, quod, voluptate quidem voluptatum quibusdam quos
+  necessitatibus quia voluptates quas dolorum. Quisquam, quibusdam.
 </template>
-
-<script setup lang="ts">
-import { viewport } from "~/composables/useViewport";
-import { storage } from "~/composables/useStorage";
-import { notifications } from "~/composables/useNotifications";
-</script>

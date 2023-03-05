@@ -40,7 +40,7 @@
 import { notifications } from "~/composables/useNotifications";
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @use "@/assets/style/variables" as v;
 aside {
   position: fixed;
@@ -149,6 +149,7 @@ aside {
     padding-left: 10px;
 
     overflow-x: hidden;
+
     notif-item {
       display: flex;
       justify-content: space-between;
