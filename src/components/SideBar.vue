@@ -9,7 +9,7 @@
     <menu id="sidebar">
       <SideBarSection title="Font in use" id="font-selected" :resizable="false">
         <ButtonsGroup>
-          <Button @click="uploadFont()"> Select a file </Button>
+          <Button @click="fonts.openFileDialog()"> Select a file </Button>
         </ButtonsGroup>
       </SideBarSection>
       <SideBarSection
@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { viewport } from "~/composables/useViewport";
 
-import { uploadFont } from "~/composables/useFont";
+import { fonts } from "~/composables/useFont";
 
 import Button from "@/components/ui/Button.vue";
 import UiSettings from "@/components/sidebar/UiSettings.vue";

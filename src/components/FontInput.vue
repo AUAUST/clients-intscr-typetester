@@ -4,37 +4,34 @@
     type="file"
     accept="*.ttf, *.otf, *.woff, *.woff2"
     ref="fontInput"
+    @change="
+      fonts.fontInputChanged({
+        file: ($event.target as HTMLInputElement).files![0],
+      })
+    "
     hidden
   />
+  <p style="font-family: var(--loadedFont)">
+    Fonts:<br />
+    <span v-for="font of fonts.list">
+      {{ font }}
+      <br />
+    </span>
+  </p>
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 
-const fontInput = ref();
+import { fonts } from "~/composables/useFont";
+
+const fontInput = ref<HTMLInputElement>();
 
 onMounted(() => {
-  fontInput.value.onchange = (event: InputEvent) => {
-    if (event.target && event.type === "change") {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (
-        ["font/ttf", "font/otf", "font/woff", "font/woff2"].includes(
-          file?.type!
-        )
-      ) {
-        const fileData = {
-          name: file?.name,
-          size: file?.size,
-          type: file?.type,
-        };
-      } else {
-        console.error("Invalid file type", file);
-      }
-    }
-  };
+  fonts.fontInput = fontInput.value;
 });
 onUnmounted(() => {
-  fontInput.value.onchange = null;
+  fonts.fontInput = undefined;
 });
 </script>
 
