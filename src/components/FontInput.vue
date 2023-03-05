@@ -41,7 +41,8 @@ function onDragLeave(event: DragEvent) {
   }
 }
 function onDragOver(event: DragEvent) {
-  // this function returns true if the event is relevent, but also handles the event
+  // this function returns true if the event is relevent,
+  // but also handles the event by preventing the default if it is required
   // so we still need to call it here
   viewport.isDropZoneEventRelevant(event);
 }

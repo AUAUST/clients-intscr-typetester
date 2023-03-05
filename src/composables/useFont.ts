@@ -65,6 +65,7 @@ class FontsData {
   }
 
   async handleFontFile(file: File) {
+    console.log("handleFontFile", file);
     // const loadingId = notifications.startLoading();
     // const reader = new FileReader();
     // reader.onload = (event) => {
