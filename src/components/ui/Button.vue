@@ -19,13 +19,16 @@ defineProps(["size", "title", "active"]);
 
 .button {
   all: unset;
+  user-select: none;
+
   display: inline-block;
-  padding: v.$gap-small-normal v.$gap-small-half;
+
+  padding-block: v.$gap-small-normal;
+  padding-inline: v.$gap-small-half;
+
   &.fit-width {
     width: 100%;
   }
-  user-select: none;
-  -webkit-user-select: none;
   &:first-of-type {
     padding-left: v.$gap-small-normal;
   }
@@ -36,13 +39,19 @@ defineProps(["size", "title", "active"]);
     outline: 1px solid red;
   }
   span {
-    text-align: center;
     display: block;
-    padding: v.$gap-small-normal v.$gap-small-double v.$gap-small-half
-      v.$gap-small-double;
-    cursor: pointer;
+
+    text-align: center;
+    text-overflow: ellipsis;
+
+    padding-top: v.$gap-small-normal;
+    padding-inline: v.$gap-small-double;
+    padding-bottom: v.$gap-small-half;
+
     color: v.$c-gray-1;
     background-color: v.$c-auaust-7;
+    cursor: pointer;
+
     &:hover {
       background-color: v.$c-auaust-8;
     }
