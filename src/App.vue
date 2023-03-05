@@ -28,7 +28,11 @@ import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
 
 function eventIsRelevent(event: DragEvent) {
-  if (event.dataTransfer?.types.some((type) => type !== "Files")) {
+  if (
+    event.dataTransfer?.types.some(
+      (type) => !["Files", "application/x-moz-file"].includes(type)
+    )
+  ) {
     return false;
   }
   event.preventDefault();
