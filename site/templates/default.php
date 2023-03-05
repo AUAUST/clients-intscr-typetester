@@ -25,16 +25,9 @@
                   ->url() ?>);
     }
   </style>
-  <script>
-    function dragOverHandler(ev) {
-      console.log('File(s) in drop zone');
-
-      ev.preventDefault();
-    }
-  </script>
 </head>
 
-<body ondragover="dragOverHandler(event);">
+<body>
   <div id="app"></div>
   <script id="data-site" type="application/json">
     <?= \Kirby\Data\Json::encode($data) ?>
