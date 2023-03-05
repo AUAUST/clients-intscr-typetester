@@ -18,7 +18,8 @@
 
   <style>
     @font-face {
-      font-family: "Arzier";
+      font-family: "IS-Arzier";
+      font-weight: 300 700;
       src: url(<?= $site
                   ->defaultUIFont()
                   ->toFile()
