@@ -4,10 +4,10 @@
     type="file"
     accept="*.ttf, *.otf, *.woff, *.woff2"
     ref="fontInput"
-    @change="
+    @change="(event) => {
       fonts.fontInputChanged({
-        file: ($event.target as HTMLInputElement).files![0],
-      })
+        file: (event.target as HTMLInputElement).files![0],
+      })}
     "
     hidden
   />
