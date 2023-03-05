@@ -1,24 +1,21 @@
 <template>
-  height: {{ windowData.size.height }}<br />
-  width: {{ windowData.size.width }}<br />
+  height: {{ viewport.size.height }}<br />
+  width: {{ viewport.size.width }}<br />
   content width: {{ views.fullWidth }}<br />
-  clicking: {{ windowData.clicking }}<br />
+  clicking: {{ viewport.clicking }}<br />
   <br />
-  sidebar hideable: {{ windowData.size.sideBarHideable }}<br />
-  scale: {{ windowData.size.currentScale }}<br />
+  sidebar hideable: {{ viewport.size.sideBarHideable }}<br />
+  scale: {{ viewport.size.currentScale }}<br />
   <br />
-  brightness: {{ windowData.brightness }}<br />
+  brightness: {{ viewport.brightness }}<br />
   <br />
-  vue localStorage: {{ localStorageData.storage }}<br />
+  vue localStorage: {{ storage.storage }}<br />
   <br />
-  loading: {{ notificationsData.loading }}<br />
-  loading sources: {{ notificationsData.loadingSources }}<br />
+  loading: {{ notifications.loading }}<br />
+  loading sources: {{ notifications.loadingSources }}<br />
   <br />
   notifications:
-  <p
-    v-for="notification of notificationsData.notifications"
-    :key="notification.id"
-  >
+  <p v-for="notification of notifications.listed" :key="notification.id">
     {{ notification }}
   </p>
   <br /><br />
@@ -31,9 +28,9 @@
 </template>
 
 <script setup lang="ts">
-import { windowData } from "~/composables/useWindow";
-import { localStorageData } from "~/composables/useLocalStorage";
-import { notificationsData } from "~/composables/useNotifications";
+import { viewport } from "~/composables/useViewport";
+import { storage } from "~/composables/useStorage";
+import { notifications } from "~/composables/useNotifications";
 import { tabs } from "~/composables/useTabs";
 import { views } from "~/composables/useViews";
 </script>

@@ -1,7 +1,7 @@
 import { reactive, ref, computed } from "vue";
 import type { Ref } from "vue";
 
-import { localStorageData } from "./useLocalStorage";
+import { storage } from "./useStorage";
 
 import { createId } from "~/modules/utils";
 
@@ -76,7 +76,7 @@ class TabsData {
   ];
 
   constructor() {
-    const cachedTabs = localStorageData.get("previouslyOpenedTabs");
+    const cachedTabs = storage.get("previouslyOpenedTabs");
     if (cachedTabs.exists) {
       this.listed = reactive(cachedTabs.value as Tab[]);
     } else {
