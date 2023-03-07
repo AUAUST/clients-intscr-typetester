@@ -62,12 +62,20 @@ class FontsData {
         files = [input];
       }
       files.forEach((file) => {
-        //
         // handle font file here
         const buffer = file.arrayBuffer();
         buffer.then((data) => {
-          const font = opentype.parse(data);
-          this.currentFont.value = font;
+          try {
+            const font = opentype.parse(data);
+            this.currentFont.value = font;
+          } catch (e) {
+            notifications.sendNotification({
+              type: "error",
+              message: `Could not load the file. Is it a valid font ?`,
+              expires: true,
+              forConsole: e,
+            });
+          }
         });
         //
       });
