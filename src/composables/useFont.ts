@@ -79,6 +79,19 @@ class FontsData {
           try {
             const font = opentype.parse(data);
             this.currentFont.value = font;
+            console.log("font", font);
+            console.log("glyphs", font.glyphs);
+            console.log(
+              "glyphs.glyphs",
+              Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
+                return font.glyphs.get(n);
+              })
+            );
+            console.log("tables", font.tables);
+            console.log("ascender", font.ascender);
+            console.log("descender", font.descender);
+            console.log("unitsPerEm", font.unitsPerEm);
+            console.log("encoding", font.encoding);
           } catch (e) {
             let message: string;
             if ((e as Error).message.match(/wOF2/)) {
