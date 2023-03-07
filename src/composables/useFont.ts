@@ -62,9 +62,20 @@ class FontsData {
         files = [input];
       }
       files.forEach((file) => {
-        // handle font file here
-        const buffer = file.arrayBuffer();
-        buffer.then((data) => {
+        if (
+          !file.name.match(/\.(ttf|otf|woff|woff2)$/) &&
+          !file.type.match(/^font\/\w+/)
+        ) {
+          notifications.sendNotification({
+            type: "error",
+            message: `The file you selected appears not to be a font.`,
+            forConsole: file,
+            expires: true,
+          });
+          return;
+        }
+        const promise = file.arrayBuffer();
+        promise.then((data) => {
           try {
             const font = opentype.parse(data);
             this.currentFont.value = font;
@@ -83,6 +94,7 @@ class FontsData {
             });
           }
         });
+
         //
       });
     } else {
