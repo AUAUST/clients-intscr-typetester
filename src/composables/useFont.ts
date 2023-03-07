@@ -69,9 +69,15 @@ class FontsData {
             const font = opentype.parse(data);
             this.currentFont.value = font;
           } catch (e) {
+            let message: string;
+            if ((e as Error).message.match(/wOF2/)) {
+              message = `Woff2 is not supported yet.`;
+            } else {
+              message = `Could not load the file. Is it a valid font ?`;
+            }
             notifications.sendNotification({
               type: "error",
-              message: `Could not load the file. Is it a valid font ?`,
+              message: `${message}`,
               expires: true,
               forConsole: e,
             });
