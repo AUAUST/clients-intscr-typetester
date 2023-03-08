@@ -39,32 +39,12 @@ export class View {
     }
   }
 
-  // canResize(width: number) {
-  //   if (this.width.value) {
-  //     if (this.width.value - width >= MINIMUM_WIDTH) {
-  //       console.log(this.width.value - width);
-  //       return true;
-  //     } else {
-  //       console.log(this.width.value - width, this.width.value, width);
-  //       return false;
-  //     }
-  //   } else {
-  //     console.warn("no width");
-  //     return false;
-  //   }
-  // }
-
   resize(width: number) {
-    console.log(this);
     if (this.width.value) {
       const nextView = views.listed[views.listed.indexOf(this) + 1];
       if (nextView.width.value) {
-        // if (this.canResize(-width) && nextView.canResize(width)) {
         this.width.value += width;
         nextView.width.value -= width;
-        // } else {
-        //   console.warn("can't resize");
-        // }
       }
     } else console.warn("no width provided");
   }

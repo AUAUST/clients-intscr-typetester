@@ -38,8 +38,6 @@ const props = defineProps<{
   container: Ref<HTMLElement | null>;
 }>();
 
-console.log("foooooooo", props.container);
-
 const viewElement = ref();
 
 onMounted(() => {
