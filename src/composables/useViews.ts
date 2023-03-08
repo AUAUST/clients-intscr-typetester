@@ -63,7 +63,6 @@ class Views {
     );
   }
   get maxViews() {
-    console.log(Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1);
     return Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1;
   }
   get canClose() {

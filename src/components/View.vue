@@ -62,12 +62,10 @@ const resizer: {
 
   mouseDown: (event: MouseEvent) => {
     resizer.lastX = event.clientX;
-    console.log("mouse down", resizer.lastX);
     window.addEventListener("mousemove", resizer.mouseMove);
     window.addEventListener("mouseup", resizer.mouseUp, { once: true });
   },
   mouseMove: (event) => {
-    console.log(event.clientX - resizer.lastX);
     props.view.resize(event.clientX - resizer.lastX);
     resizer.lastX = event.clientX;
   },
