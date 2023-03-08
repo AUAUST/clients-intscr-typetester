@@ -1,7 +1,7 @@
 <template>
   <view-item
     :style="{
-      // '--width': view.width.value + 'px',
+      '--width': view.width.value + 'px',
     }"
     ref="viewElement"
   >
@@ -17,14 +17,17 @@
     </view-overflow>
     <view-resize-container>
       <view-resize-handle
-        @mousedown="resizer.mouseDown($event, view.id)"
-        @touchstart="resizer.touchStart($event, view.id)"
+        @mousedown="resizer.mouseDown($event)"
+        @touchstart="resizer.touchStart($event)"
       ></view-resize-handle>
     </view-resize-container>
   </view-item>
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref } from "vue";
+import type { Ref } from "vue";
+
 import Button from "@/components/ui/Button.vue";
 
 import { tabs } from "~/composables/useTabs";
@@ -32,49 +35,68 @@ import { View, views } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
+  container: Ref<HTMLElement>;
 }>();
+
+console.log("fooooooooo", props.container);
+
+const viewElement = ref();
+
+const updateViewContainerWidth = () => {
+  views.fullWidth.value = props.container.value.offsetWidth;
+  views.calculateWidths();
+};
+onMounted(() => {
+  updateViewContainerWidth();
+  window.addEventListener("resize", updateViewContainerWidth);
+  views.listed.forEach((view) => {
+    view.DOMElement.value = viewElement.value;
+  });
+  // viewDOMElements.value.forEach((viewElement, index) => {
+  //   views.listed[index].DOMElement.value = viewElement;
+  // });
+});
+onUnmounted(() => {
+  views.fullWidth.value = undefined;
+  window.removeEventListener("resize", updateViewContainerWidth);
+  views.listed.forEach((view) => {
+    view.DOMElement.value = undefined;
+  });
+});
 
 const resizer: {
   lastX: number;
-  currentView: View | undefined;
   mouseUp: () => void;
   mouseMove: (event: MouseEvent) => void;
-  mouseDown: (event: MouseEvent, viewId: string) => void;
+  mouseDown: (event: MouseEvent) => void;
 
-  touchStart: (event: TouchEvent, viewId: string) => void;
+  touchStart: (event: TouchEvent) => void;
   touchMove: (event: TouchEvent) => void;
   touchEnd: () => void;
 } = {
   lastX: 0,
-  currentView: undefined,
 
-  mouseDown: (event: MouseEvent, viewId: string) => {
+  mouseDown: (event: MouseEvent) => {
     resizer.lastX = event.clientX;
-    resizer.currentView = views.viewById(viewId);
     window.addEventListener("mousemove", resizer.mouseMove);
     window.addEventListener("mouseup", resizer.mouseUp, { once: true });
   },
   mouseMove: (event) => {
-    if (resizer.currentView) {
-      resizer.currentView.resize(event.clientX - resizer.lastX);
-    }
+    console.log(event.clientX, resizer.lastX);
+    props.view.resize(event.clientX - resizer.lastX);
     resizer.lastX = event.clientX;
   },
   mouseUp: () => {
     window.removeEventListener("mousemove", resizer.mouseMove);
     views.setWidthsFromState();
   },
-
-  touchStart: (event: TouchEvent, viewId: string) => {
+  touchStart: (event: TouchEvent) => {
     resizer.lastX = event.touches[0].clientX;
-    resizer.currentView = views.viewById(viewId);
     window.addEventListener("touchmove", resizer.touchMove);
     window.addEventListener("touchend", resizer.touchEnd, { once: true });
   },
   touchMove: (event: TouchEvent) => {
-    if (resizer.currentView) {
-      resizer.currentView.resize(event.touches[0].clientX - resizer.lastX);
-    }
+    props.view.resize(event.touches[0].clientX - resizer.lastX);
     resizer.lastX = event.touches[0].clientX;
   },
   touchEnd: () => {

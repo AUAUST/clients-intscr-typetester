@@ -1,38 +1,24 @@
 <template>
   <main id="content-container">
     <view-container ref="viewContainer">
-      <ViewComponent v-for="view in views.listed" :key="view.id" :view="view" />
+      <ViewComponent
+        v-for="view in views.listed"
+        :key="view.id"
+        :view="view"
+        :container="viewContainer"
+      />
     </view-container>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
+import type { Ref } from "vue";
 import ViewComponent from "~/components/View.vue";
 
 import { views, View } from "~/composables/useViews";
 
 const viewContainer = ref();
-const viewDOMElements = ref([]);
-
-const updateViewContainerWidth = () => {
-  views.fullWidth.value = viewContainer.value.offsetWidth;
-  views.calculateWidths();
-};
-onMounted(() => {
-  updateViewContainerWidth();
-  window.addEventListener("resize", updateViewContainerWidth);
-  viewDOMElements.value.forEach((viewElement, index) => {
-    views.listed[index].DOMElement.value = viewElement;
-  });
-});
-onUnmounted(() => {
-  views.fullWidth.value = undefined;
-  window.removeEventListener("resize", updateViewContainerWidth);
-  views.listed.forEach((view) => {
-    view.DOMElement.value = undefined;
-  });
-});
 </script>
 
 <style lang="scss">
