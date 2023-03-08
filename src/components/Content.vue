@@ -19,6 +19,21 @@ import ViewComponent from "~/components/View.vue";
 import { views, View } from "~/composables/useViews";
 
 const viewContainer = ref();
+
+const updateViewContainerWidth = () => {
+  if (viewContainer.value) {
+    views.fullWidth.value = viewContainer.value.offsetWidth;
+    views.calculateWidths();
+  }
+};
+onMounted(() => {
+  updateViewContainerWidth();
+  window.addEventListener("resize", updateViewContainerWidth);
+});
+onUnmounted(() => {
+  views.fullWidth.value = undefined;
+  window.removeEventListener("resize", updateViewContainerWidth);
+});
 </script>
 
 <style lang="scss">

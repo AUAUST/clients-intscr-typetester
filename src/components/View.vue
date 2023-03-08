@@ -35,37 +35,23 @@ import { View, views } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
-  container: Ref<HTMLElement>;
+  container: Ref<HTMLElement | null>;
 }>();
 
-console.log("fooooooooo", props.container);
+console.log("foooooooo", props.container);
 
 const viewElement = ref();
 
-const updateViewContainerWidth = () => {
-  views.fullWidth.value = props.container.value.offsetWidth;
-  views.calculateWidths();
-};
 onMounted(() => {
-  updateViewContainerWidth();
-  window.addEventListener("resize", updateViewContainerWidth);
-  views.listed.forEach((view) => {
-    view.DOMElement.value = viewElement.value;
-  });
-  // viewDOMElements.value.forEach((viewElement, index) => {
-  //   views.listed[index].DOMElement.value = viewElement;
-  // });
+  props.view.DOMElement.value = viewElement.value;
 });
 onUnmounted(() => {
-  views.fullWidth.value = undefined;
-  window.removeEventListener("resize", updateViewContainerWidth);
-  views.listed.forEach((view) => {
-    view.DOMElement.value = undefined;
-  });
+  props.view.DOMElement.value = undefined;
 });
 
 const resizer: {
   lastX: number;
+
   mouseUp: () => void;
   mouseMove: (event: MouseEvent) => void;
   mouseDown: (event: MouseEvent) => void;
@@ -78,11 +64,12 @@ const resizer: {
 
   mouseDown: (event: MouseEvent) => {
     resizer.lastX = event.clientX;
+    console.log("mouse down", resizer.lastX);
     window.addEventListener("mousemove", resizer.mouseMove);
     window.addEventListener("mouseup", resizer.mouseUp, { once: true });
   },
   mouseMove: (event) => {
-    console.log(event.clientX, resizer.lastX);
+    console.log(event.clientX - resizer.lastX);
     props.view.resize(event.clientX - resizer.lastX);
     resizer.lastX = event.clientX;
   },

@@ -55,8 +55,9 @@ export class View {
   // }
 
   resize(width: number) {
-    const nextView = views.listed[views.listed.indexOf(this) + 1];
+    console.log(this);
     if (this.width.value) {
+      const nextView = views.listed[views.listed.indexOf(this) + 1];
       if (nextView.width.value) {
         // if (this.canResize(-width) && nextView.canResize(width)) {
         this.width.value += width;
