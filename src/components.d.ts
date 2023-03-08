@@ -27,5 +27,6 @@ declare module '@vue/runtime-core' {
     TextInput: typeof import('./components/ui/TextInput.vue')['default']
     UiSettings: typeof import('./components/sidebar/UiSettings.vue')['default']
     UISettings: typeof import('./components/sidebar/UISettings.vue')['default']
+    View: typeof import('./components/View.vue')['default']
   }
 }
