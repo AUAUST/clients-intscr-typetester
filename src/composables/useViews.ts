@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, ShallowRef, shallowRef } from "vue";
 import type { Ref, ComputedRef } from "vue";
 
 import { Tab, TabType, tabs } from "./useTabs";
@@ -11,7 +11,7 @@ export class View {
   id: string;
   active: boolean;
   activeTabId: ComputedRef<string | undefined>;
-  activeTab: Ref<Tab | undefined>;
+  activeTab: ShallowRef<Tab | undefined>;
   listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
@@ -28,7 +28,7 @@ export class View {
     this.activeTabId = computed(() => {
       return this.activeTab.value?.id;
     });
-    this.activeTab = ref();
+    this.activeTab = shallowRef();
     this.listedTabs = [];
   }
 
