@@ -29,31 +29,6 @@
   <ButtonsGroup title="Colors">
     <ColorInput
       size="fit-width"
-      title="Background's color."
-      v-model="backgroundColor"
-      @input="storage.set('userSelectedBackgroundColor', backgroundColor)"
-    >
-      Text
-    </ColorInput>
-    <Button
-      @click="
-        backgroundColor = null;
-        textColor = null;
-        storage.set('userSelectedBackgroundColor', null);
-        storage.set('userSelectedTextColor', null);
-
-        notifications.sendNotification({
-          message: 'Reset colors to default.',
-          type: ['success', 'info', 'warning', 'error'][
-            Math.floor(Math.random() * 4)
-          ] as ['success', 'info', 'warning', 'error'][number],
-        });
-      "
-    >
-      Reset
-    </Button>
-    <ColorInput
-      size="fit-width"
       title="Text's color."
       v-model="textColor"
       @input="storage.set('userSelectedTextColor', textColor)"

@@ -10,7 +10,7 @@
         class="text-small"
         :placeholder="placeholder"
         :value="modelValue"
-        @input="inputChange($event)"
+        @input="hexChange($event)"
         style="width: 100px"
       />
       <span v-if="after" class="after">{{ after }}</span>
@@ -28,9 +28,8 @@ defineEmits(["update:modelValue"]);
 const hsl = reactive([0, 0, 0]);
 const hex = ref("000000");
 
-function inputChange($event: Event) {
+function hexChange($event: Event) {
   const target = $event.target as HTMLInputElement;
-  rgb.splice(0, 3, ...hexToRgb(target.value));
 }
 
 function rgbToHex(rgb: number[]) {
