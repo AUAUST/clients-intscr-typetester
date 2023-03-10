@@ -27,16 +27,14 @@
     >
   </ButtonsGroup>
   <ButtonsGroup title="Colors">
-    <TextInput
+    <ColorInput
       size="fit-width"
-      placeholder="000000"
-      before="#"
       title="Background's color."
       v-model="backgroundColor"
       @input="storage.set('userSelectedBackgroundColor', backgroundColor)"
     >
       Text
-    </TextInput>
+    </ColorInput>
     <Button
       @click="
         backgroundColor = null;
@@ -54,16 +52,14 @@
     >
       Reset
     </Button>
-    <TextInput
+    <ColorInput
       size="fit-width"
-      placeholder="000000"
-      before="#"
       title="Text's color."
       v-model="textColor"
       @input="storage.set('userSelectedTextColor', textColor)"
     >
       Text
-    </TextInput>
+    </ColorInput>
   </ButtonsGroup>
 </template>
 
