@@ -15,15 +15,43 @@
       />
       <span v-if="after" class="after">{{ after }}</span>
     </div>
-    <span class="after">{{ rgb }}</span>
+    <span class="after">{{}}</span>
   </div>
+
+  <Button
+    @click="
+      backgroundColor = null;
+      textColor = null;
+      storage.set('userSelectedBackgroundColor', null);
+      storage.set('userSelectedTextColor', null);
+
+      notifications.sendNotification({
+        message: 'Reset colors to default.',
+        type: ['success', 'info', 'warning', 'error'][
+          Math.floor(Math.random() * 4)
+        ] as ['success', 'info', 'warning', 'error'][number],
+      });
+    "
+  >
+    <!-- // size="fit-width"
+      // title="Text's color."
+      // v-model="textColor"
+      // @input="storage.set('userSelectedTextColor', textColor)" -->
+    Reset
+  </Button>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 
+import { storage } from "~/composables/useStorage";
+import { notifications } from "~/composables/useNotifications";
+
 defineProps(["size", "placeholder", "title", "modelValue", "before", "after"]);
 defineEmits(["update:modelValue"]);
+
+const backgroundColor = ref(storage.get("userSelectedBackgroundColor").value);
+const textColor = ref(storage.get("userSelectedTextColor").value);
 
 const hsl = reactive([0, 0, 0]);
 const hex = ref("000000");

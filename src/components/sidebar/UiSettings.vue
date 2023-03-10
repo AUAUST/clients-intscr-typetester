@@ -27,25 +27,13 @@
     >
   </ButtonsGroup>
   <ButtonsGroup title="Colors">
-    <ColorInput
-      size="fit-width"
-      title="Text's color."
-      v-model="textColor"
-      @input="storage.set('userSelectedTextColor', textColor)"
-    >
-      Text
-    </ColorInput>
+    <ColorInput />
   </ButtonsGroup>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { viewport } from "~/composables/useViewport";
-import { storage } from "~/composables/useStorage";
-import { notifications } from "~/composables/useNotifications";
 
 const brightness = viewport.brightness;
-
-const backgroundColor = ref(storage.get("userSelectedBackgroundColor").value);
-const textColor = ref(storage.get("userSelectedTextColor").value);
 </script>
