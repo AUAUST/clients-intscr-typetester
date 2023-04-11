@@ -9,7 +9,7 @@
       />
     </view-container>
     <choose-font v-else>
-      <div>No font</div>
+      <ChooseComponent />
     </choose-font>
   </main>
 </template>
@@ -18,6 +18,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import type { Ref } from "vue";
 import ViewComponent from "~/components/View.vue";
+import ChooseComponent from "~/components/Choose.vue";
 
 import { fonts } from "~/composables/useFont";
 
