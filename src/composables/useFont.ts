@@ -258,10 +258,18 @@ class FontsData {
         c.charCodeAt(0)
       ),
     },
-    frenchAccents: {
-      title: "",
-      description: "",
+    alphanumAndPunctuation: {
+      title: "Alphanumeric and punctuation",
+      description: "Alphanumeric characters and punctuation.",
       hidden: true,
+      extends: "alphanum",
+      value: Array.from(".,;:'\"`~¿?!%&‘’“”«»")
+        .map((c) => c.charCodeAt(0))
+        .sort(),
+    },
+    french: {
+      title: "Baguette",
+      description: "French characters.",
       extends: "alphanum",
       value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ").map((c) =>
         c.charCodeAt(0)
