@@ -3,6 +3,8 @@ import Vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import Components from "unplugin-vue-components/vite";
 
+import babel from "@rollup/plugin-babel";
+
 import autoprefixer from "autoprefixer";
 
 const root = "./src";
@@ -41,6 +43,17 @@ export default defineConfig({
     Components({
       dirs: ["components"],
       dts: "components.d.ts",
+    }),
+    babel({
+      babelHelpers: "bundled",
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            targets: "> 0.25%, not dead",
+          },
+        ],
+      ],
     }),
   ],
 
