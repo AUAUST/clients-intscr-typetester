@@ -65,26 +65,34 @@ class NotificationsData {
       success: {
         title: "Success",
         function: console.log,
-        style:
-          "color: black; font-weight: normal; background-color: #7fff7f; padding: 1px 5px; border-radius: 3px",
+        style: {
+          color: "black",
+          backgroundColor: "#7fff7f",
+        },
       },
       info: {
         title: "Info",
         function: console.info,
-        style:
-          "color: black; font-weight: normal; background-color: #696cfc; padding: 1px 5px; border-radius: 3px",
+        style: {
+          color: "black",
+          backgroundColor: "#696cfc",
+        },
       },
       warning: {
         title: "Warning",
         function: console.warn,
-        style:
-          "color: black; font-weight: normal; background-color: #f79f57; padding: 1px 5px; border-radius: 3px",
+        style: {
+          color: "black",
+          backgroundColor: "#f79f57",
+        },
       },
       error: {
         title: "Error",
         function: console.error,
-        style:
-          "color: black; font-weight: normal; background-color: #f47d78; padding: 1px 5px; border-radius: 3px",
+        style: {
+          color: "black",
+          backgroundColor: "#f47d78",
+        },
       },
     };
     const notification = new Notification({ type, message, expires });
@@ -97,7 +105,8 @@ class NotificationsData {
     const data = notificationTypes[type];
     console.groupCollapsed(
       `%c${data.title}%c Notification %c${new Date().toLocaleTimeString()}`,
-      data.style,
+      `color: ${data.style.color}; background-color: ${data.style.backgroundColor}; font-weight: normal; padding: 1px 5px; border-radius: 3px`,
+      // data.style,
       "color: white; font-weight: normal; padding: 0px 5px;",
       "color: gray; font-weight: normal; font-size: smaller"
     );
