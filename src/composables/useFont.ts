@@ -265,7 +265,7 @@ class FontsData {
       description: "Alphanumeric characters and punctuation.",
       hidden: true,
       extends: "alphanum",
-      value: Array.from("….,;:'\"`~¿?¡!%&‘’“”«»")
+      value: Array.from("….,;:'\"`~¿?¡!%&‘’“”«»-–—")
         .map((c) => c.charCodeAt(0))
         .sort(),
     },
