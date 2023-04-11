@@ -20,7 +20,7 @@ return [
   'kirby-helpers' => [
     'vite' => [
       'server' => [
-        'https' => true
+        'https' => false
       ]
     ]
   ],

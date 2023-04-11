@@ -59,6 +59,6 @@ export default defineConfig({
   },
 
   server: {
-    https: true,
+    https: false,
   },
 });
