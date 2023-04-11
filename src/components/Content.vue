@@ -1,6 +1,6 @@
 <template>
   <main id="content-container">
-    <view-container ref="viewContainer">
+    <view-container v-if="fonts.currentFont.value" ref="viewContainer">
       <ViewComponent
         v-for="view in views.listed"
         :key="view.id"
@@ -8,6 +8,9 @@
         :container="viewContainer"
       />
     </view-container>
+    <choose-font v-else>
+      <div>No font</div>
+    </choose-font>
   </main>
 </template>
 
@@ -15,6 +18,8 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import type { Ref } from "vue";
 import ViewComponent from "~/components/View.vue";
+
+import { fonts } from "~/composables/useFont";
 
 import { views, View } from "~/composables/useViews";
 
