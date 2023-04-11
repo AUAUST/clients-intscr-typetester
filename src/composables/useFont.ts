@@ -213,6 +213,19 @@ class FontsData {
     }
     return false;
   }
+  characterUnicode(id: number) {
+    const unicode = (function () {
+      const char = fonts.characterData(id);
+      if (char) {
+        if (Array.isArray(char)) {
+          return char[0].unicode;
+        }
+        return char.unicode;
+      }
+      return 0;
+    })();
+    return `U+${unicode.toString(16).padStart(4, "0").toUpperCase()}`;
+  }
   static characterSets: {
     [key: string]: {
       title: string;
