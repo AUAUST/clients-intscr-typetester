@@ -279,13 +279,10 @@ class FontsData {
     },
   };
   // id: arg must be a key of characterSets
-  getCharSet(id: keyof typeof FontsData.characterSets) {
+  getCharSet(id: keyof typeof FontsData.characterSets): number[] {
     const data = FontsData.characterSets[id];
     if (data.extends) {
-      return {
-        ...FontsData.characterSets[data.extends].value,
-        ...data.value,
-      };
+      return [...this.getCharSet(data.extends), ...data.value].sort();
     }
     return data.value;
   }
