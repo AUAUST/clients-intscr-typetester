@@ -61,7 +61,7 @@ class FontsData {
             forConsole: file,
             expires: true,
           });
-          return;
+          continue;
         }
 
         const buffer = await file.arrayBuffer();
