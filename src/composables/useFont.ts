@@ -259,7 +259,7 @@ class FontsData {
     },
   };
   // id: arg must be a key of characterSets
-  getFinalCharSet(id: keyof typeof FontsData.characterSets) {
+  getCharSet(id: keyof typeof FontsData.characterSets) {
     const data = FontsData.characterSets[id];
     if (data.extends) {
       return {
