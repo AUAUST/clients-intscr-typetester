@@ -52,7 +52,7 @@ aside {
   z-index: 100;
   overflow-y: auto;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   flex-direction: column;
   padding: v.$gap-small-normal;
 
