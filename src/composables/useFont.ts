@@ -272,7 +272,7 @@ class FontsData {
     french: {
       title: "Baguette",
       description: "French characters.",
-      extends: "alphanum",
+      extends: "alphanumAndPunctuation",
       value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ")
         .map((c) => c.charCodeAt(0))
         .sort(),
