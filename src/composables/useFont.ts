@@ -96,10 +96,15 @@ class FontsData {
           } catch {
             console.log("catch");
             try {
-              console.log("re-try", new Uint8Array(buffer), buffer, decompress);
-              const uint8array = await decompress(Buffer.from(buffer));
+              console.log("re-try");
+              const uint8array = await decompress(new Uint8Array(buffer)).catch(
+                (e) => {
+                  console.log("decompress error", e);
+                  return undefined;
+                }
+              );
               console.log("uint8array", uint8array);
-              font = opentype.parse(uint8array.buffer);
+              font = opentype.parse(uint8array!.buffer);
               console.log("woff2 victory font", font);
             } catch (e) {
               notifications.sendNotification({
@@ -126,17 +131,12 @@ class FontsData {
 
         console.log("font", font);
         console.log("glyphs", font.glyphs);
-        // console.log(
-        //   "glyphs.glyphs",
-        //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
-        //     return font.glyphs.get(n);
-        //   })
-        // );
         console.log("tables", font.tables);
         console.log("ascender", font.ascender);
         console.log("descender", font.descender);
         console.log("unitsPerEm", font.unitsPerEm);
         console.log("encoding", font.encoding);
+
         notifications.sendNotification({
           type: "success",
           message: `Font loaded: ${font.names.fontFamily.en}`,
