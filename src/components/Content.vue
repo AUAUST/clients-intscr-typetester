@@ -1,16 +1,15 @@
 <template>
   <main id="content-container">
-    <view-container v-if="fonts.currentFont.value" ref="viewContainer">
+    <view-container ref="viewContainer">
       <ViewComponent
+        v-if="fonts.currentFont.value"
         v-for="view in views.listed"
         :key="view.id"
         :view="view"
         :container="viewContainer"
       />
+      <ChooseComponent v-else />
     </view-container>
-    <choose-font v-else>
-      <ChooseComponent />
-    </choose-font>
   </main>
 </template>
 
