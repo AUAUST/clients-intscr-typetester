@@ -53,7 +53,7 @@ class FontsData {
       }
       for (const file of files) {
         if (
-          !file.name.match(/\.(ttf|otf|woff|woff2)$/) &&
+          !file.name.match(/\.(ttf|otf|woff|woff2|ttc|dfont)$/) &&
           !file.type.match(/^font\/\w+/)
         ) {
           notifications.sendNotification({
