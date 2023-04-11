@@ -8,6 +8,8 @@ import { notifications } from "./useNotifications";
 
 import opentype from "opentype.js";
 
+import { decompress } from "wawoff2";
+
 type FontOverview = {
   name: string;
   fileName: string;
@@ -75,36 +77,58 @@ class FontsData {
           return;
         }
         const promise = file.arrayBuffer();
-        promise.then((data) => {
+        promise.then((buffer) => {
+          let font: opentype.Font | undefined;
           try {
-            const font = opentype.parse(data);
+            font = opentype.parse(buffer);
             this.currentFont.value = font;
+          } catch (e) {
+            if ((e as Error).message.match(/wOF2/)) {
+              console.log("woff2");
+              const woff2 = decompress(new Uint8Array(buffer));
+
+              woff2.then((result) => {
+                console.log("result", result);
+                font = opentype.parse(result.buffer);
+
+                console.log("font", font);
+                console.log("glyphs", font.glyphs);
+                // console.log(
+                //   "glyphs.glyphs",
+                //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
+                //     return font.glyphs.get(n);
+                //   })
+                // );
+                console.log("tables", font.tables);
+                console.log("ascender", font.ascender);
+                console.log("descender", font.descender);
+                console.log("unitsPerEm", font.unitsPerEm);
+                console.log("encoding", font.encoding);
+              });
+            } else {
+              notifications.sendNotification({
+                type: "error",
+                message: "Could not load the file. Is it a valid font ?",
+                expires: true,
+                forConsole: e,
+              });
+            }
+          }
+
+          if (font) {
             console.log("font", font);
             console.log("glyphs", font.glyphs);
-            console.log(
-              "glyphs.glyphs",
-              Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
-                return font.glyphs.get(n);
-              })
-            );
+            // console.log(
+            //   "glyphs.glyphs",
+            //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
+            //     return font.glyphs.get(n);
+            //   })
+            // );
             console.log("tables", font.tables);
             console.log("ascender", font.ascender);
             console.log("descender", font.descender);
             console.log("unitsPerEm", font.unitsPerEm);
             console.log("encoding", font.encoding);
-          } catch (e) {
-            let message: string;
-            if ((e as Error).message.match(/wOF2/)) {
-              message = `Woff2 is not supported yet.`;
-            } else {
-              message = `Could not load the file. Is it a valid font ?`;
-            }
-            notifications.sendNotification({
-              type: "error",
-              message: `${message}`,
-              expires: true,
-              forConsole: e,
-            });
           }
         });
 
