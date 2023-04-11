@@ -97,9 +97,7 @@ class FontsData {
             console.log("catch");
             try {
               console.log("re-try");
-              const uint8array = await Module.decompress(
-                new Uint8Array(buffer)
-              );
+              const uint8array = await decompress(new Uint8Array(buffer));
               console.log("uint8array", uint8array);
               font = opentype.parse(uint8array!.buffer);
               console.log("woff2 victory font", font);
