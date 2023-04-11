@@ -118,11 +118,6 @@ class FontsData {
         console.log("font", font);
 
         if (!font) {
-          notifications.sendNotification({
-            type: "error",
-            message: "Could not load the file. Is it a valid font ?",
-            expires: true,
-          });
           return;
         }
 
