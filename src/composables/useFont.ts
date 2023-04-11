@@ -397,7 +397,9 @@ class FontsData {
       title: "Programmer",
       description: "The most common characters used in programming languages.",
       extends: "alphanum",
-      value: [],
+      value: Array.from("()[]{}<>!@#$%^&*+=-|\\/?.,;:'\"`~").map((c) =>
+        c.charCodeAt(0)
+      ),
     },
   };
   // id: arg must be a key of characterSets
