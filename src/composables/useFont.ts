@@ -269,6 +269,14 @@ class FontsData {
         .map((c) => c.charCodeAt(0))
         .sort(),
     },
+    numberSupport: {
+      title: "Number support",
+      description: "Improved number support.",
+      extends: "alphanum",
+      value: Array.from("⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ⁄")
+        .map((c) => c.charCodeAt(0))
+        .sort(),
+    },
     french: {
       title: "Baguette",
       description: "French characters.",
