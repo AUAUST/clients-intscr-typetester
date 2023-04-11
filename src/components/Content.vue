@@ -128,10 +128,13 @@ onUnmounted(() => {
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+        user-select: none;
 
         view-component {
           display: block;
           margin: v.$gap-small-normal;
+
+          user-select: auto;
         }
       }
     }
