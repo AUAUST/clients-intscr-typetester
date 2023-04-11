@@ -6,8 +6,6 @@ import { createId } from "~/modules/utils";
 
 import { notifications } from "./useNotifications";
 
-import opentype from "opentype.js";
-
 // import { decompress } from "wawoff2";
 import * as fontkit from "fontkit";
 import type { Font } from "fontkit";
@@ -23,7 +21,7 @@ type FontOverview = {
 class FontsData {
   list: FontOverview[];
   fontInput: HTMLInputElement | undefined = undefined;
-  currentFont: Ref<opentype.Font | undefined>;
+  currentFont: Ref<Font | undefined>;
 
   constructor() {
     this.list = reactive([]);
