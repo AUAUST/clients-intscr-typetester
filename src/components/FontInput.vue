@@ -4,6 +4,7 @@
       id="font-input"
       type="file"
       accept="*.ttf, *.otf, *.woff, *.woff2"
+      multiple="true"
       ref="fontInput"
       @change="(event) => fonts.handleNewFontFile((event.target as HTMLInputElement).files)"
       hidden
