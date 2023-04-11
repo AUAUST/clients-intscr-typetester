@@ -389,7 +389,7 @@ class FontsData {
       ],
     },
     coder: {
-      title: "Coder's Characters Set",
+      title: "Programmer",
       description: "The most common characters used in programming languages.",
       extends: "alphanum",
       value: [],
