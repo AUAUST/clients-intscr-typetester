@@ -61,6 +61,32 @@ class NotificationsData {
       if (["warning", "error"].includes(type)) expires = false;
       else expires = true;
     }
+    const notificationTypes = {
+      success: {
+        title: "Success",
+        function: console.log,
+        style:
+          "color: black; font-weight: normal; background-color: #7fff7f; padding: 1px 5px; border-radius: 3px",
+      },
+      info: {
+        title: "Info",
+        function: console.info,
+        style:
+          "color: black; font-weight: normal; background-color: #696cfc; padding: 1px 5px; border-radius: 3px",
+      },
+      warning: {
+        title: "Warning",
+        function: console.warn,
+        style:
+          "color: black; font-weight: normal; background-color: #f79f57; padding: 1px 5px; border-radius: 3px",
+      },
+      error: {
+        title: "Error",
+        function: console.error,
+        style:
+          "color: black; font-weight: normal; background-color: #f47d78; padding: 1px 5px; border-radius: 3px",
+      },
+    };
     const notification = new Notification({ type, message, expires });
     this.listed.push(notification);
     if (expires) {
@@ -68,24 +94,20 @@ class NotificationsData {
         this.deleteNotification(notification.id);
       }, 5000);
     }
-    console.group(`Notification: ${notification.id}`);
-    switch (type) {
-      case "info":
-        console.info(message);
-        break;
-      case "success":
-        console.log(message);
-        break;
-      case "error":
-        console.error(message);
-        break;
-      case "warning":
-        console.warn(message);
-        break;
-    }
+    const data = notificationTypes[type];
+    console.groupCollapsed(
+      `%c${data.title}%c Notification %c${new Date().toLocaleTimeString()}`,
+      data.style,
+      "color: white; font-weight: normal; padding: 0px 5px;",
+      "color: gray; font-weight: normal; font-size: smaller"
+    );
+    console.log(`Notification ID: "${notification.id}"`);
+
+    data.function(message);
     if (forConsole !== undefined) {
       console.log("Additional information:", forConsole);
     }
+
     console.groupEnd();
     return notification.id;
   }
