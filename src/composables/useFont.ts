@@ -273,7 +273,7 @@ class FontsData {
       title: "Number support",
       description: "Improved number support.",
       extends: "alphanum",
-      value: Array.from("⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ⁄")
+      value: Array.from("⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾ⁿ⁄¼½¾")
         .map((c) => c.charCodeAt(0))
         .sort(),
     },
