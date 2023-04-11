@@ -265,7 +265,7 @@ class FontsData {
       description: "Alphanumeric characters and punctuation.",
       hidden: true,
       extends: "alphanum",
-      value: Array.from(".,;:'\"`~¿?¡!%&‘’“”«»")
+      value: Array.from("….,;:'\"`~¿?¡!%&‘’“”«»")
         .map((c) => c.charCodeAt(0))
         .sort(),
     },
@@ -274,6 +274,14 @@ class FontsData {
       description: "French characters.",
       extends: "alphanumAndPunctuation",
       value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ")
+        .map((c) => c.charCodeAt(0))
+        .sort(),
+    },
+    german: {
+      title: "Bratwurst",
+      description: "German characters.",
+      extends: "alphanumAndPunctuation",
+      value: Array.from("äöüÄÖÜß")
         .map((c) => c.charCodeAt(0))
         .sort(),
     },
