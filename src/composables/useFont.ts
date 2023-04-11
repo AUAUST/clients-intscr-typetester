@@ -53,7 +53,7 @@ class FontsData {
   //     });
   //   }
   // }
-  handleNewFontFile(input: File | File[] | FileList | null) {
+  async handleNewFontFile(input: File | File[] | FileList | null) {
     if (input) {
       let files: File[] = [];
       if (Array.isArray(input)) {
@@ -63,7 +63,7 @@ class FontsData {
       } else {
         files = [input];
       }
-      files.forEach((file) => {
+      for (const file of files) {
         if (
           !file.name.match(/\.(ttf|otf|woff|woff2)$/) &&
           !file.type.match(/^font\/\w+/)
@@ -76,69 +76,53 @@ class FontsData {
           });
           return;
         }
-        const promise = file.arrayBuffer();
-        promise.then((buffer) => {
+        console.log("file", file);
+        const buffer = await file.arrayBuffer();
+        console.log("buffer", buffer);
+        const font = await (async function () {
           let font: opentype.Font | undefined;
           try {
             font = opentype.parse(buffer);
-            this.currentFont.value = font;
-          } catch (e) {
-            if ((e as Error).message.match(/wOF2/)) {
-              console.log("woff2");
-              const woff2 = decompress(new Uint8Array(buffer));
-
-              woff2.then((result) => {
-                console.log("result", result);
-                font = opentype.parse(result.buffer);
-
-                console.log("font", font);
-                console.log("glyphs", font.glyphs);
-                // console.log(
-                //   "glyphs.glyphs",
-                //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
-                //     return font.glyphs.get(n);
-                //   })
-                // );
-                console.log("tables", font.tables);
-                console.log("ascender", font.ascender);
-                console.log("descender", font.descender);
-                console.log("unitsPerEm", font.unitsPerEm);
-                console.log("encoding", font.encoding);
-              });
-            } else {
+          } catch {
+            try {
+              const uint8array = await decompress(new Uint8Array(buffer));
+              font = opentype.parse(uint8array.buffer);
+            } catch (e) {
               notifications.sendNotification({
                 type: "error",
                 message: "Could not load the file. Is it a valid font ?",
                 expires: true,
                 forConsole: e,
               });
+              return undefined;
             }
           }
+          return font;
+        })();
+        console.log("font", font);
 
-          if (font) {
-            console.log("font", font);
-            console.log("glyphs", font.glyphs);
-            // console.log(
-            //   "glyphs.glyphs",
-            //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
-            //     return font.glyphs.get(n);
-            //   })
-            // );
-            console.log("tables", font.tables);
-            console.log("ascender", font.ascender);
-            console.log("descender", font.descender);
-            console.log("unitsPerEm", font.unitsPerEm);
-            console.log("encoding", font.encoding);
-          }
-        });
+        if (!font) {
+          notifications.sendNotification({
+            type: "error",
+            message: "No file was selected.",
+          });
+          return;
+        }
 
-        //
-      });
-    } else {
-      notifications.sendNotification({
-        type: "error",
-        message: "No file was selected.",
-      });
+        console.log("font", font);
+        console.log("glyphs", font.glyphs);
+        // console.log(
+        //   "glyphs.glyphs",
+        //   Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
+        //     return font.glyphs.get(n);
+        //   })
+        // );
+        console.log("tables", font.tables);
+        console.log("ascender", font.ascender);
+        console.log("descender", font.descender);
+        console.log("unitsPerEm", font.unitsPerEm);
+        console.log("encoding", font.encoding);
+      }
     }
   }
 
