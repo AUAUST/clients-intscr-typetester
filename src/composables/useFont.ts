@@ -218,6 +218,7 @@ class FontsData {
       title: string;
       description: string;
       extends?: keyof typeof FontsData.characterSets;
+      hidden?: true;
       value: number[];
     };
   } = {
@@ -254,6 +255,15 @@ class FontsData {
       description: "The most common characters used in programming languages.",
       extends: "alphanum",
       value: Array.from("()[]{}<>!@#$%^&*+=-|\\/?.,;:'\"`~").map((c) =>
+        c.charCodeAt(0)
+      ),
+    },
+    frenchAccents: {
+      title: "",
+      description: "",
+      hidden: true,
+      extends: "alphanum",
+      value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ").map((c) =>
         c.charCodeAt(0)
       ),
     },
