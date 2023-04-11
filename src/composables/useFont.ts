@@ -78,58 +78,12 @@ class FontsData {
           });
           return;
         }
-        // else {
-        // notifications.sendNotification({
-        //   type: "error",
-        //   message: "No file was selected.",
-        // });
-        // return;
-        // }
-        console.log("file", file);
         const buffer = await file.arrayBuffer();
-        console.log("buffer", buffer);
-        const font = await (async function () {
-          let font: Font | undefined;
-          console.log("font or undefined", font);
-          try {
-            console.log("try");
-            // font = opentype.parse(buffer);
-            font = fontkit.create(new Uint8Array(buffer) as Buffer);
-            console.log("victory font", font);
-          } catch (e) {
-            console.log("catch", e);
-            // console.log("catch");
-            // try {
-            //   console.log("re-try");
-            //   const uint8array = await decompress(new Uint8Array(buffer));
-            //   console.log("uint8array", uint8array);
-            //   font = opentype.parse(uint8array!.buffer);
-            //   console.log("woff2 victory font", font);
-            // } catch (e) {
-            //   notifications.sendNotification({
-            //     type: "error",
-            //     message: "Could not load the file. Is it a valid font ?",
-            //     expires: true,
-            //     forConsole: e,
-            //   });
-            //   return undefined;
-            // }
-          }
-          return font;
-        })();
-        console.log("font", font);
+        const font = fontkit.create(new Uint8Array(buffer) as Buffer);
 
         if (!font) {
           return;
         }
-
-        // console.log("font", font);
-        // console.log("glyphs", font.glyphs);
-        // console.log("tables", font.tables);
-        // console.log("ascender", font.ascender);
-        // console.log("descender", font.descender);
-        // console.log("unitsPerEm", font.unitsPerEm);
-        // console.log("encoding", font.encoding);
 
         notifications.sendNotification({
           type: "success",
