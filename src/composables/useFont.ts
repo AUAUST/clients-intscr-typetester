@@ -243,7 +243,9 @@ class FontsData {
       // convert string to array of char codes
       value: Array.from(
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-      ).map((c) => c.charCodeAt(0)),
+      )
+        .map((c) => c.charCodeAt(0))
+        .sort(),
     },
     ASCII: {
       title: "ASCII",
@@ -254,9 +256,9 @@ class FontsData {
       title: "Programmer",
       description: "The most common characters used in programming languages.",
       extends: "alphanum",
-      value: Array.from("()[]{}<>!@#$%^&*+=-|\\/?.,;:'\"`~").map((c) =>
-        c.charCodeAt(0)
-      ),
+      value: Array.from("()[]{}<>!@#$%^&*+=-|\\/?.,;:'\"`~")
+        .map((c) => c.charCodeAt(0))
+        .sort(),
     },
     alphanumAndPunctuation: {
       title: "Alphanumeric and punctuation",
@@ -271,9 +273,9 @@ class FontsData {
       title: "Baguette",
       description: "French characters.",
       extends: "alphanum",
-      value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ").map((c) =>
-        c.charCodeAt(0)
-      ),
+      value: Array.from("àâçéèêëîïôùûüÿÀÂÇÉÈÊËÎÏÔÙÛÜŸ")
+        .map((c) => c.charCodeAt(0))
+        .sort(),
     },
   };
   // id: arg must be a key of characterSets
