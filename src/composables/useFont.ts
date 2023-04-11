@@ -174,7 +174,14 @@ class FontsData {
       valid: false,
     } as FontUploadFailure;
   }
-  static characterSets = {
+  static characterSets: {
+    [key: string]: {
+      title: string;
+      description: string;
+      extends?: keyof typeof FontsData.characterSets;
+      value: { [key: number]: string };
+    };
+  } = {
     alphanum: {
       title: "Alphanumeric",
       description:
@@ -207,6 +214,17 @@ class FontsData {
       value: {},
     },
   };
+  // id: arg must be a key of characterSets
+  getFinalCharSet(id: keyof typeof FontsData.characterSets) {
+    const data = FontsData.characterSets[id];
+    if (data.extends) {
+      return {
+        ...FontsData.characterSets[data.extends].value,
+        ...data.value,
+      };
+    }
+    return data.value;
+  }
 }
 
 export const fonts = new FontsData();
