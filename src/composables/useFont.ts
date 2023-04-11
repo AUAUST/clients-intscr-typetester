@@ -62,12 +62,9 @@ class FontsData {
           });
           return;
         }
+
         const buffer = await file.arrayBuffer();
         const font = fontkit.create(new Uint8Array(buffer) as Buffer);
-
-        if (!font) {
-          return;
-        }
 
         notifications.sendNotification({
           type: "success",
