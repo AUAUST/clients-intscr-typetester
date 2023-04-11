@@ -17,6 +17,13 @@ return [
     }
   ],
 
+  'kirby-helpers' => [
+    'vite' => [
+      'server' => [
+        'https' => true
+      ]
+    ]
+  ],
   'cache' => [
     'pages' => [
       'active' => env('KIRBY_CACHE', false),

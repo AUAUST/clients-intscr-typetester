@@ -2,11 +2,13 @@ import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import Components from "unplugin-vue-components/vite";
+
 import autoprefixer from "autoprefixer";
 
 const root = "./src";
+const mode = process.env.NODE_ENV;
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
   root,
   base: mode === "development" ? "/" : "/dist/",
 
@@ -55,4 +57,8 @@ export default defineConfig(({ mode }) => ({
     // (requires installing happy-dom as a peer dependency)
     environment: "happy-dom",
   },
-}));
+
+  server: {
+    https: true,
+  },
+});

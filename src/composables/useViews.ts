@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref, computed, ShallowRef, shallowRef } from "vue";
 import type { Ref, ComputedRef } from "vue";
 
 import { Tab, TabType, tabs } from "./useTabs";
@@ -11,7 +11,7 @@ export class View {
   id: string;
   active: boolean;
   activeTabId: ComputedRef<string | undefined>;
-  activeTab: Ref<Tab | undefined>;
+  activeTab: ShallowRef<Tab | undefined>;
   listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
@@ -28,7 +28,7 @@ export class View {
     this.activeTabId = computed(() => {
       return this.activeTab.value?.id;
     });
-    this.activeTab = ref();
+    this.activeTab = shallowRef();
     this.listedTabs = [];
   }
 
@@ -39,33 +39,14 @@ export class View {
     }
   }
 
-  // canResize(width: number) {
-  //   if (this.width.value) {
-  //     if (this.width.value - width >= MINIMUM_WIDTH) {
-  //       console.log(this.width.value - width);
-  //       return true;
-  //     } else {
-  //       console.log(this.width.value - width, this.width.value, width);
-  //       return false;
-  //     }
-  //   } else {
-  //     console.warn("no width");
-  //     return false;
-  //   }
-  // }
-
   resize(width: number) {
-    const nextView = views.listed[views.listed.indexOf(this) + 1];
     if (this.width.value) {
+      const nextView = views.listed[views.listed.indexOf(this) + 1];
       if (nextView.width.value) {
-        // if (this.canResize(-width) && nextView.canResize(width)) {
         this.width.value += width;
         nextView.width.value -= width;
-        // } else {
-        //   console.warn("can't resize");
-        // }
       }
-    } else console.warn("no width");
+    } else console.warn("no width provided");
   }
 }
 
@@ -82,7 +63,6 @@ class Views {
     );
   }
   get maxViews() {
-    console.log(Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1);
     return Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1;
   }
   get canClose() {

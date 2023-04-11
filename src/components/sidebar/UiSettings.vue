@@ -27,54 +27,13 @@
     >
   </ButtonsGroup>
   <ButtonsGroup title="Colors">
-    <TextInput
-      size="fit-width"
-      placeholder="000000"
-      before="#"
-      title="Background's color."
-      v-model="backgroundColor"
-      @input="storage.set('userSelectedBackgroundColor', backgroundColor)"
-    >
-      Text
-    </TextInput>
-    <Button
-      @click="
-        backgroundColor = null;
-        textColor = null;
-        storage.set('userSelectedBackgroundColor', null);
-        storage.set('userSelectedTextColor', null);
-
-        notifications.sendNotification({
-          message: 'Reset colors to default.',
-          type: ['success', 'info', 'warning', 'error'][
-            Math.floor(Math.random() * 4)
-          ] as ['success', 'info', 'warning', 'error'][number],
-        });
-      "
-    >
-      Reset
-    </Button>
-    <TextInput
-      size="fit-width"
-      placeholder="000000"
-      before="#"
-      title="Text's color."
-      v-model="textColor"
-      @input="storage.set('userSelectedTextColor', textColor)"
-    >
-      Text
-    </TextInput>
+    <ColorInput />
   </ButtonsGroup>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { viewport } from "~/composables/useViewport";
-import { storage } from "~/composables/useStorage";
-import { notifications } from "~/composables/useNotifications";
 
 const brightness = viewport.brightness;
-
-const backgroundColor = ref(storage.get("userSelectedBackgroundColor").value);
-const textColor = ref(storage.get("userSelectedTextColor").value);
 </script>

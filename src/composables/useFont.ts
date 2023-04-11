@@ -1,11 +1,12 @@
 // import vue's reaction function
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
+import type { Ref } from "vue";
 
 import { createId } from "~/modules/utils";
 
 import { notifications } from "./useNotifications";
 
-// import opentype from "opentype.js";
+import opentype from "opentype.js";
 
 type FontOverview = {
   name: string;
@@ -18,8 +19,11 @@ type FontOverview = {
 class FontsData {
   list: FontOverview[];
   fontInput: HTMLInputElement | undefined = undefined;
+  currentFont: Ref<opentype.Font | undefined>;
+
   constructor() {
     this.list = reactive([]);
+    this.currentFont = ref(undefined);
   }
   openFileDialog() {
     if (this.fontInput) {
@@ -32,18 +36,84 @@ class FontsData {
       });
     }
   }
-  fontInputChanged({ file }: { file: File }) {
-    if (this.fontInput) {
-      const files = this.fontInput.files;
-      if (files) {
-        const file = files[0];
-        this.handleFontFile(file);
+  // fontInputChanged(input: ) {
+  //   if (this.fontInput) {
+  //     const files = this.fontInput.files;
+  //     if (files) {
+  //       const file = files[0];
+  //       this.handleFontFile(file);
+  //     }
+  //   } else {
+  //     notifications.sendNotification({
+  //       type: "error",
+  //       message:
+  //         "Could not find the font input element. Try reloading the page.",
+  //     });
+  //   }
+  // }
+  handleNewFontFile(input: File | File[] | FileList | null) {
+    if (input) {
+      let files: File[] = [];
+      if (Array.isArray(input)) {
+        files = input;
+      } else if (input instanceof FileList) {
+        files = Array.from(input);
+      } else {
+        files = [input];
       }
+      files.forEach((file) => {
+        if (
+          !file.name.match(/\.(ttf|otf|woff|woff2)$/) &&
+          !file.type.match(/^font\/\w+/)
+        ) {
+          notifications.sendNotification({
+            type: "error",
+            message: `The file you selected appears not to be a font.`,
+            forConsole: file,
+            expires: true,
+          });
+          return;
+        }
+        const promise = file.arrayBuffer();
+        promise.then((data) => {
+          try {
+            const font = opentype.parse(data);
+            this.currentFont.value = font;
+            console.log("font", font);
+            console.log("glyphs", font.glyphs);
+            console.log(
+              "glyphs.glyphs",
+              Array.apply(null, Array(font.glyphs.length)).map((_, n) => {
+                return font.glyphs.get(n);
+              })
+            );
+            console.log("tables", font.tables);
+            console.log("ascender", font.ascender);
+            console.log("descender", font.descender);
+            console.log("unitsPerEm", font.unitsPerEm);
+            console.log("encoding", font.encoding);
+          } catch (e) {
+            let message: string;
+            if ((e as Error).message.match(/wOF2/)) {
+              message = `Woff2 is not supported yet.`;
+            } else {
+              message = `Could not load the file. Is it a valid font ?`;
+            }
+            notifications.sendNotification({
+              type: "error",
+              message: `${message}`,
+              expires: true,
+              forConsole: e,
+            });
+          }
+        });
+
+        //
+      });
     } else {
       notifications.sendNotification({
         type: "error",
-        message:
-          "Could not find the font input element. Try reloading the page.",
+        message: "No file was selected.",
       });
     }
   }
@@ -66,33 +136,34 @@ class FontsData {
     });
   }
 
-  handleFontFile(file: File) {
-    const loadingId = notifications.startLoading();
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const fontFace = this.loadFontFace({
-        dataUrl: event.target?.result as string,
-      });
-      fontFace.then((result) => {
-        if (result.valid) {
-          notifications.sendNotification({
-            type: "success",
-            message: `Font loaded successfully. Starting to process it...`,
-            forConsole: result,
-          });
-          this.storeFontToVue({
-            id: result.id,
-            file: file,
-          });
-          this.storeFontToDatabase({
-            id: result.id,
-            file: file,
-          });
-        }
-        notifications.stopLoading(loadingId);
-      });
-    };
-    reader.readAsDataURL(file);
+  async handleFontFile(file: File) {
+    console.log("handleFontFile", file);
+    // const loadingId = notifications.startLoading();
+    // const reader = new FileReader();
+    // reader.onload = (event) => {
+    //   const fontFace = this.loadFontFace({
+    //     dataUrl: event.target?.result as string,
+    //   });
+    //   fontFace.then((result) => {
+    //     if (result.valid) {
+    //       notifications.sendNotification({
+    //         type: "success",
+    //         message: `Font loaded successfully. Starting to process it...`,
+    //         forConsole: result,
+    //       });
+    //       this.storeFontToVue({
+    //         id: result.id,
+    //         file: file,
+    //       });
+    //       this.storeFontToDatabase({
+    //         id: result.id,
+    //         file: file,
+    //       });
+    //     }
+    //     notifications.stopLoading(loadingId);
+    //   });
+    // };
+    // reader.readAsDataURL(file);
   }
 
   async loadFontFace({

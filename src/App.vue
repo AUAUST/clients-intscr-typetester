@@ -6,19 +6,32 @@
       '--auaust-text-color': textColor,
     }"
     :class="[viewport.size.currentScale, viewport.brightness.className]"
+    @dragenter="(event) => onDragEnter(event)"
   >
-    <SideBar></SideBar>
-    <Content></Content>
-    <Notifications></Notifications>
+    <SideBar />
+    <Content />
+    <Notifications />
   </div>
+  <FontInput />
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
-import { computed } from "vue";
+import FontInput from "./components/FontInput.vue";
+
 import { storage } from "~/composables/useStorage";
 import { viewport } from "~/composables/useViewport";
+
+function eventIsRelevent(event: DragEvent) {}
+
+function onDragEnter(event: DragEvent) {
+  if (viewport.isDropZoneEventRelevant(event)) {
+    viewport.dropZoneVisible.value = true;
+  }
+}
 
 function parseCSSColor(color: unknown) {
   if (!color) return undefined;
