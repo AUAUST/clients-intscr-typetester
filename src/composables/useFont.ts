@@ -40,21 +40,7 @@ class FontsData {
       });
     }
   }
-  // fontInputChanged(input: ) {
-  //   if (this.fontInput) {
-  //     const files = this.fontInput.files;
-  //     if (files) {
-  //       const file = files[0];
-  //       this.handleFontFile(file);
-  //     }
-  //   } else {
-  //     notifications.sendNotification({
-  //       type: "error",
-  //       message:
-  //         "Could not find the font input element. Try reloading the page.",
-  //     });
-  //   }
-  // }
+
   async handleNewFontFile(input: File | File[] | FileList | null) {
     if (input) {
       let files: File[] = [];
@@ -91,6 +77,12 @@ class FontsData {
           expires: true,
         });
       }
+    } else {
+      notifications.sendNotification({
+        type: "error",
+        message: `No file selected.`,
+        expires: true,
+      });
     }
   }
 
