@@ -174,6 +174,45 @@ class FontsData {
       valid: false,
     } as FontUploadFailure;
   }
+  characterData(id: string | number) {
+    function getStringChar(char: string) {
+      const id = char.charCodeAt(0);
+      return {
+        unicode: id,
+        lowerCase: char.toLowerCase(),
+        upperCase: char.toUpperCase(),
+        isAscii: id < 128,
+      };
+    }
+    function getNumberChar(id: number) {
+      const char = String.fromCharCode(id);
+      return {
+        unicode: id,
+        lowerCase: char.toLowerCase(),
+        upperCase: char.toUpperCase(),
+        isAscii: id < 128,
+      };
+    }
+    if (typeof id === "string") {
+      if (id !== " ") {
+        id = id.trim();
+      }
+      if (id.length === 1) {
+        return getStringChar(id);
+      } else {
+        const chars = [];
+        for (const char of Array.from(id.trim())) {
+          chars.push(getStringChar(char));
+        }
+        return chars;
+      }
+    }
+    if (typeof id === "number") {
+      id = Math.floor(id);
+      return getNumberChar(id);
+    }
+    return false;
+  }
   static characterSets: {
     [key: string]: {
       title: string;
@@ -182,6 +221,20 @@ class FontsData {
       value: { [key: number]: string };
     };
   } = {
+    get currentFont() {
+      if (fonts.currentFont.value) {
+        return {
+          title: fonts.currentFont.value.familyName,
+          description: `The current font.`,
+          value: fonts.currentFont.value.characterSet,
+        };
+      }
+      return {
+        title: "No font",
+        description: "No font selected.",
+        value: {},
+      };
+    },
     alphanum: {
       title: "Alphanumeric",
       description:
