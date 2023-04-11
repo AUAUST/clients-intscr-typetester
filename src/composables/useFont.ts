@@ -76,17 +76,31 @@ class FontsData {
           });
           return;
         }
+        // else {
+        // notifications.sendNotification({
+        //   type: "error",
+        //   message: "No file was selected.",
+        // });
+        // return;
+        // }
         console.log("file", file);
         const buffer = await file.arrayBuffer();
         console.log("buffer", buffer);
         const font = await (async function () {
           let font: opentype.Font | undefined;
+          console.log("font or undefined", font);
           try {
+            console.log("try");
             font = opentype.parse(buffer);
+            console.log("victory font", font);
           } catch {
+            console.log("catch");
             try {
-              const uint8array = await decompress(new Uint8Array(buffer));
+              console.log("re-try", new Uint8Array(buffer), buffer, decompress);
+              const uint8array = await decompress(Buffer.from(buffer));
+              console.log("uint8array", uint8array);
               font = opentype.parse(uint8array.buffer);
+              console.log("woff2 victory font", font);
             } catch (e) {
               notifications.sendNotification({
                 type: "error",
@@ -104,7 +118,8 @@ class FontsData {
         if (!font) {
           notifications.sendNotification({
             type: "error",
-            message: "No file was selected.",
+            message: "Could not load the file. Is it a valid font ?",
+            expires: true,
           });
           return;
         }
@@ -122,6 +137,11 @@ class FontsData {
         console.log("descender", font.descender);
         console.log("unitsPerEm", font.unitsPerEm);
         console.log("encoding", font.encoding);
+        notifications.sendNotification({
+          type: "success",
+          message: `Font loaded: ${font.names.fontFamily.en}`,
+          expires: true,
+        });
       }
     }
   }
