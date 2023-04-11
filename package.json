@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "kirby": "env-cmd --use-shell \"php -S \\$KIRBY_DEV_HOSTNAME:\\$KIRBY_DEV_PORT -t public vendor/getkirby/cms/router.php\"",
-    "dev": "shx rm -rf public/dist && concurrently \"npm:kirby\" \"vite\"",
+    "dev": "shx rm -rf public/dist && concurrently \"npm:kirby\" \"npm:vite\"",
+    "vite": "vite",
     "build": "vite build",
     "test": "vitest"
   },
