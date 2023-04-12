@@ -70,6 +70,7 @@ class FontsData {
         notifications.sendNotification({
           type: "success",
           message: `Font loaded: ${font.familyName}`,
+          forConsole: font,
           expires: true,
         });
       }
