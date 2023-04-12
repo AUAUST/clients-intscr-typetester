@@ -155,12 +155,6 @@ onUnmounted(() => {
     font-family: var(--f-user-loaded, inherit);
   }
 }
-// .view-normal {
-//   #content-container {
-//     width: 100%;
-//     grid-column: 2;
-//   }
-// }
 .view-narrow,
 .view-x-narrow {
   #content-container {

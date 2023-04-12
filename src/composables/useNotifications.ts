@@ -110,7 +110,6 @@ class NotificationsData {
           : notification.message
       } %c${new Date().toLocaleTimeString()}`,
       `color: ${data.style.color}; background-color: ${data.style.backgroundColor}; font-weight: normal; padding: 1px 5px; border-radius: 3px`,
-      // data.style,
       "color: unset; font-weight: normal; padding: 0px 5px;",
       "color: gray; font-weight: normal; font-size: smaller"
     );

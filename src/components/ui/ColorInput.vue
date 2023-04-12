@@ -33,10 +33,6 @@
       });
     "
   >
-    <!-- // size="fit-width"
-      // title="Text's color."
-      // v-model="textColor"
-      // @input="storage.set('userSelectedTextColor', textColor)" -->
     Reset
   </Button>
 </template>
