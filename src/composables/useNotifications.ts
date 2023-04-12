@@ -107,7 +107,7 @@ class NotificationsData {
       `%c${data.title}%c Notification %c${new Date().toLocaleTimeString()}`,
       `color: ${data.style.color}; background-color: ${data.style.backgroundColor}; font-weight: normal; padding: 1px 5px; border-radius: 3px`,
       // data.style,
-      "color: white; font-weight: normal; padding: 0px 5px;",
+      "color: unset; font-weight: normal; padding: 0px 5px;",
       "color: gray; font-weight: normal; font-size: smaller"
     );
     console.log(`Notification ID: "${notification.id}"`);
