@@ -40,6 +40,8 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 
+import Button from "@/components/ui/Button.vue";
+
 import { storage } from "~/composables/useStorage";
 import { notifications } from "~/composables/useNotifications";
 
