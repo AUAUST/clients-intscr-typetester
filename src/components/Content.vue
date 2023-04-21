@@ -1,12 +1,13 @@
 <template>
   <main id="content-container">
+    // fix error: Argument of type '{ ref: any; }' is not assignable to
+    parameter of type 'never'.ts(2345)
     <view-container ref="viewContainer">
       <ViewComponent
         v-if="fonts.currentFont.value"
         v-for="view in views.listed"
         :key="view.id"
         :view="view"
-        :container="viewContainer"
       />
       <ChooseComponent v-else />
     </view-container>
@@ -15,15 +16,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from "vue";
-import type { Ref } from "vue";
 import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
+import { Ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 
-import { views, View } from "~/composables/useViews";
+import { views } from "~/composables/useViews";
 
-const viewContainer: Ref<HTMLElement | null> = ref(null);
+const viewContainer = ref<HTMLElement | null>(null);
 
 const updateViewContainerWidth = () => {
   if (viewContainer.value) {

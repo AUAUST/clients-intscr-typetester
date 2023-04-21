@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
-import Components from "unplugin-vue-components/vite";
 
 import autoprefixer from "autoprefixer";
 
@@ -36,11 +35,6 @@ export default defineConfig({
           isCustomElement: (tag) => tag.includes("-"),
         },
       },
-    }),
-    // https://github.com/antfu/unplugin-vue-components
-    Components({
-      dirs: ["components"],
-      dts: "components.d.ts",
     }),
   ],
 

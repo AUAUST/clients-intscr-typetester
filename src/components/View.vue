@@ -40,7 +40,6 @@ import { View, views } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
-  container: Ref<HTMLElement | null>;
 }>();
 
 const viewElement = ref();
