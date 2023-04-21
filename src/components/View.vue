@@ -31,7 +31,6 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import type { Ref } from "vue";
 
 import Button from "@/components/ui/Button.vue";
 
