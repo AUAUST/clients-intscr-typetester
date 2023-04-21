@@ -6,12 +6,12 @@
       '--unitsPerEm': font.unitsPerEm,
     }"
   >
-    <div class="char">
-      {{ CHAR }}
-    </div>
+    <div class="char">xpdL</div>
     <div class="ascent" :style="{ '--height': font.ascent }"></div>
-    <div class="descent" :style="{ '--height': font.descent }"></div>
+    <div class="capHeight" :style="{ '--height': font.capHeight }"></div>
+    <div class="xHeight" :style="{ '--height': font.xHeight }"></div>
     <div class="lineGap" :style="{ '--height': font.lineGap }"></div>
+    <div class="descent" :style="{ '--height': font.descent }"></div>
   </div>
 </template>
 
@@ -34,7 +34,7 @@ console.log(font?.glyphsForString(CHAR));
 
 <style lang="scss">
 .container {
-  font-size: 100px;
+  font-size: 300px;
   position: relative;
   --unit: 1em / var(--unitsPerEm);
   .char {
@@ -56,6 +56,18 @@ console.log(font?.glyphsForString(CHAR));
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
     border-bottom: 1px solid yellow;
+    width: 100%;
+  }
+  .xHeight {
+    position: absolute;
+    bottom: calc(var(--height) * var(--unit));
+    border-bottom: 1px solid green;
+    width: 100%;
+  }
+  .capHeight {
+    position: absolute;
+    bottom: calc(var(--height) * var(--unit));
+    border-bottom: 1px solid purple;
     width: 100%;
   }
 }
