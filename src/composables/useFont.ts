@@ -77,6 +77,8 @@ class FontsData {
           continue;
         }
 
+        fonts.currentFont.value = font;
+
         notifications.sendNotification({
           type: "success",
           message: `Font loaded: ${font.familyName}`,
