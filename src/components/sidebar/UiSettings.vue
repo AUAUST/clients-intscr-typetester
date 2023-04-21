@@ -37,6 +37,7 @@ import { viewport } from "~/composables/useViewport";
 
 import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import Button from "@/components/ui/Button.vue";
+import ColorInput from "@/components/ui/ColorInput.vue";
 
 const brightness = viewport.brightness;
 </script>

@@ -30,7 +30,7 @@
         <div>
           <section>
             <h5>Theme</h5>
-            
+
           </section>
         </div>
       </section> -->
@@ -50,6 +50,7 @@ import { viewport } from "~/composables/useViewport";
 import { fonts } from "~/composables/useFont";
 
 import Button from "@/components/ui/Button.vue";
+import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import UiSettings from "@/components/sidebar/UiSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
 </script>

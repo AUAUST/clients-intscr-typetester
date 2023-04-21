@@ -38,6 +38,8 @@
 
 <script setup lang="ts">
 import { notifications } from "~/composables/useNotifications";
+
+import Button from "@/components/ui/Button.vue";
 </script>
 
 <style lang="scss">
