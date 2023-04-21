@@ -23,7 +23,7 @@ import { fonts } from "~/composables/useFont";
 
 import { views, View } from "~/composables/useViews";
 
-const viewContainer = ref();
+const viewContainer: Ref<HTMLElement | null> = ref(null);
 
 const updateViewContainerWidth = () => {
   if (viewContainer.value) {
