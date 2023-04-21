@@ -1,8 +1,6 @@
 <template>
   <main id="content-container">
-    // fix error: Argument of type '{ ref: any; }' is not assignable to
-    parameter of type 'never'.ts(2345)
-    <view-container ref="viewContainer">
+    <view-container ref="viewContainerRef">
       <ViewComponent
         v-if="fonts.currentFont.value"
         v-for="view in views.listed"
@@ -24,11 +22,11 @@ import { fonts } from "~/composables/useFont";
 
 import { views } from "~/composables/useViews";
 
-const viewContainer = ref<HTMLElement | null>(null);
+const viewContainerRef = ref<HTMLElement | null>(null);
 
 const updateViewContainerWidth = () => {
-  if (viewContainer.value) {
-    views.fullWidth.value = viewContainer.value.offsetWidth;
+  if (viewContainerRef.value) {
+    views.fullWidth.value = viewContainerRef.value.offsetWidth;
     views.calculateWidths();
   }
 };
