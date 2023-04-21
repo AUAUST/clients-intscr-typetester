@@ -84,7 +84,7 @@ export class TabType {
     this.id = id;
     this.title = title;
     this.hidden = hidden;
-    this.component = component;
+    this.component = markRaw(component);
   }
 }
 
@@ -99,17 +99,17 @@ export const tabTypes = {
     new TabType({
       id: "tat-paragraph",
       title: "Paragraph",
-      component: markRaw(TabComponentParagraph),
+      component: TabComponentParagraph,
     }),
     new TabType({
       id: "tat-glyphs",
       title: "Glyphs",
-      component: markRaw(TabComponentGlyphs),
+      component: TabComponentGlyphs,
     }),
     new TabType({
       id: "tat-debug",
       title: "Debug",
-      component: markRaw(TabComponentDebug),
+      component: TabComponentDebug,
       hidden: true,
     }),
   ],
