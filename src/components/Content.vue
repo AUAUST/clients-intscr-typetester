@@ -124,7 +124,7 @@ onUnmounted(() => {
       }
       nav {
         width: 100%;
-        overflow-x: scroll;
+        overflow-x: auto;
       }
       view-overflow {
         display: block;
