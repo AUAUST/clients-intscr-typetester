@@ -18,6 +18,8 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import Notifications from "@/components/Notifications.vue";
+
 import SideBar from "@/components/SideBar.vue";
 import Content from "@/components/Content.vue";
 import FontInput from "./components/FontInput.vue";
