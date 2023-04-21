@@ -62,16 +62,11 @@ class FontsData {
           continue;
         }
 
+        let font: fontkit.Font;
+
         try {
           const buffer = await file.arrayBuffer();
-          const font = fontkit.create(new Uint8Array(buffer) as Buffer);
-
-          notifications.sendNotification({
-            type: "success",
-            message: `Font loaded: ${font.familyName}`,
-            forConsole: font,
-            expires: true,
-          });
+          font = fontkit.create(new Uint8Array(buffer) as Buffer);
         } catch (error) {
           notifications.sendNotification({
             type: "error",
@@ -79,7 +74,15 @@ class FontsData {
             forConsole: [error, file],
             expires: true,
           });
+          continue;
         }
+
+        notifications.sendNotification({
+          type: "success",
+          message: `Font loaded: ${font.familyName}`,
+          forConsole: font,
+          expires: true,
+        });
       }
     } else {
       notifications.sendNotification({
