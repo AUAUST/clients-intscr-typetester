@@ -141,7 +141,6 @@ class TabsData {
     });
     return defaultTabs;
   }
-  // computed(() => this.listed.filter((tab) => !tab.hidden));
 
   createTab(tabType: TabType) {
     const tab = new Tab({

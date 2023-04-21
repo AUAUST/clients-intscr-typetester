@@ -1,4 +1,3 @@
-// import vue's reaction function
 import { reactive, ref } from "vue";
 import type { Ref } from "vue";
 
@@ -6,7 +5,6 @@ import { createId } from "~/modules/utils";
 
 import { notifications } from "./useNotifications";
 
-// import { decompress } from "wawoff2";
 import * as fontkit from "fontkit";
 import type { Font } from "fontkit";
 
@@ -254,7 +252,6 @@ class FontsData {
       title: "Alphanumeric",
       description:
         "Simple letters and numbers, no special characters and no accents.",
-      // convert string to array of char codes
       value: Array.from(
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
       )
@@ -308,7 +305,6 @@ class FontsData {
         .sort(),
     },
   };
-  // id: arg must be a key of characterSets
   getCharSet(id: keyof typeof FontsData.characterSets): number[] {
     const data = FontsData.characterSets[id];
     if (data.extends) {
