@@ -1,7 +1,23 @@
 <template>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem a doloribus
-  explicabo. Placeat reprehenderit minus at et? A, ipsam aut. Sequi,
-  voluptatibus voluptatem. Quia fuga veniam voluptatum repellat quis nemo. Sit
-  voluptas, quae, quod, voluptate quidem voluptatum quibusdam quos
-  necessitatibus quia voluptates quas dolorum. Quisquam, quibusdam.
+  <div v-if="font">
+    {{ CHAR }}:
+    <hr />
+  </div>
 </template>
+
+<script setup lang="ts">
+import { fonts } from "~/composables/useFont";
+
+const font = fonts.currentFont.value;
+
+// CHAR = fi ligature
+const CHAR = "ﬁ";
+// const CHAR = "a";
+const UNI = CHAR.charCodeAt(0);
+
+console.log(CHAR, UNI);
+console.log(font?.glyphForCodePoint(UNI));
+console.log(font?.hasGlyphForCodePoint(UNI));
+console.log(font?.glyphsForString(CHAR));
+console.log(font?.layout(CHAR));
+</script>
