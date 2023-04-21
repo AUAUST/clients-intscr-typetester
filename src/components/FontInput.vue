@@ -28,7 +28,6 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 import { viewport } from "~/composables/useViewport";
-import { notifications } from "~/composables/useNotifications";
 
 const fontInput = ref<HTMLInputElement>();
 
