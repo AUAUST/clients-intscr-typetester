@@ -16,7 +16,6 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
-import { Ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 
