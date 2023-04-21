@@ -1,4 +1,4 @@
-import { reactive, ref } from "vue";
+import { markRaw, reactive, ref } from "vue";
 import type { Ref } from "vue";
 
 import { createId } from "~/modules/utils";
@@ -77,7 +77,7 @@ class FontsData {
           continue;
         }
 
-        fonts.currentFont.value = font;
+        fonts.currentFont.value = markRaw(font);
 
         notifications.sendNotification({
           type: "success",

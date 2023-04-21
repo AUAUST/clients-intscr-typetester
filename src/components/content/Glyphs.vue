@@ -1,4 +1,38 @@
 <template>
-  A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m
-  n o p q r s t u v w x y z
+  <div v-if="font">
+    <!-- unitsPerEm, ascent, descent, lineGap, underlinePosition, underlineThickness, italicAngle, capHeight, xHeight, bbox -->
+    unitsPerEm: {{ font.unitsPerEm }}<br />
+    ascent: {{ font.ascent }}<br />
+    descent: {{ font.descent }}<br />
+    lineGap: {{ font.lineGap }}<br />
+    underlinePosition: {{ font.underlinePosition }}<br />
+    underlineThickness: {{ font.underlineThickness }}<br />
+    italicAngle: {{ font.italicAngle }}<br />
+    capHeight: {{ font.capHeight }}<br />
+    xHeight: {{ font.xHeight }}<br />
+    bbox: {{ font.bbox }}<br />
+    <hr />
+    numGlyphs: {{ font.numGlyphs }}<br />
+    availableFeatures: {{ font.availableFeatures }}<br />
+    characterSet: {{ font.characterSet }}<br />
+  </div>
 </template>
+
+<script setup lang="ts">
+import { fonts } from "~/composables/useFont";
+
+const font = fonts.currentFont.value;
+
+// const numGlyphs = (function () {
+//   return markRaw(font?.numGlyphs);
+// })();
+// const availableFeatures = (function () {
+//   return markRaw(font?.availableFeatures);
+// })();
+// const characterSet = (function () {
+//   return font?.characterSet;
+// })();
+
+// console.log(fonts);
+// console.log(fonts.currentFont.value);
+</script>
