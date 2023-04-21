@@ -1,4 +1,4 @@
-import { reactive, ref, computed } from "vue";
+import { reactive, ref, computed, markRaw } from "vue";
 import type { Ref } from "vue";
 
 import { storage } from "./useStorage";
@@ -99,17 +99,17 @@ export const tabTypes = {
     new TabType({
       id: "tat-paragraph",
       title: "Paragraph",
-      component: TabComponentParagraph,
+      component: markRaw(TabComponentParagraph),
     }),
     new TabType({
       id: "tat-glyphs",
       title: "Glyphs",
-      component: TabComponentGlyphs,
+      component: markRaw(TabComponentGlyphs),
     }),
     new TabType({
       id: "tat-debug",
       title: "Debug",
-      component: TabComponentDebug,
+      component: markRaw(TabComponentDebug),
       hidden: true,
     }),
   ],
