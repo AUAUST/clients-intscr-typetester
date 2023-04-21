@@ -62,15 +62,24 @@ class FontsData {
           continue;
         }
 
-        const buffer = await file.arrayBuffer();
-        const font = fontkit.create(new Uint8Array(buffer) as Buffer);
+        try {
+          const buffer = await file.arrayBuffer();
+          const font = fontkit.create(new Uint8Array(buffer) as Buffer);
 
-        notifications.sendNotification({
-          type: "success",
-          message: `Font loaded: ${font.familyName}`,
-          forConsole: font,
-          expires: true,
-        });
+          notifications.sendNotification({
+            type: "success",
+            message: `Font loaded: ${font.familyName}`,
+            forConsole: font,
+            expires: true,
+          });
+        } catch (error) {
+          notifications.sendNotification({
+            type: "error",
+            message: `Could not load the file. Is it a valid font ?`,
+            forConsole: [error, file],
+            expires: true,
+          });
+        }
       }
     } else {
       notifications.sendNotification({
