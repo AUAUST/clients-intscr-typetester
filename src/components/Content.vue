@@ -129,13 +129,18 @@ onUnmounted(() => {
       view-overflow {
         display: block;
         height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow: hidden;
         user-select: none;
+
+        position: relative;
 
         view-component {
           display: block;
           margin: v.$gap-small-normal;
+
+          overflow-y: auto;
+          position: absolute;
+          inset: 0;
 
           user-select: auto;
         }
