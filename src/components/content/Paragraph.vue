@@ -55,33 +55,38 @@ console.log(font?.glyphsForString(CHAR));
     font-size: 10px;
   }
   .ascent {
+    color: red;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid currentColor;
     width: 100%;
   }
   .descent {
+    color: blue;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid orange;
+    border-bottom: 1px solid currentColor;
     width: 100%;
   }
   .lineGap {
+    color: yellow;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid yellow;
+    border-bottom: 1px solid currentColor;
     width: 100%;
   }
   .xHeight {
+    color: green;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid currentColor;
     width: 100%;
   }
   .capHeight {
+    color: purple;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid purple;
+    border-bottom: 1px solid currentColor;
     width: 100%;
   }
 }
