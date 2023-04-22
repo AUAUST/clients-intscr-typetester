@@ -7,13 +7,21 @@
     }"
   >
     <div class="char">xpdL</div>
-    <div class="ascent" :style="{ '--height': font.ascent }">ascent</div>
-    <div class="capHeight" :style="{ '--height': font.capHeight }">
-      capHeight
+    <div class="ascent" :style="{ '--height': font.ascent }">
+      ascent: {{ font.ascent }}
     </div>
-    <div class="xHeight" :style="{ '--height': font.xHeight }">xHeight</div>
-    <div class="lineGap" :style="{ '--height': font.lineGap }">lineGap</div>
-    <div class="descent" :style="{ '--height': font.descent }">descent</div>
+    <div class="capHeight" :style="{ '--height': font.capHeight }">
+      capHeight: {{ font.capHeight }}
+    </div>
+    <div class="xHeight" :style="{ '--height': font.xHeight }">
+      xHeight: {{ font.xHeight }}
+    </div>
+    <div class="lineGap" :style="{ '--height': font.lineGap }">
+      lineGap: {{ font.lineGap }}
+    </div>
+    <div class="descent" :style="{ '--height': font.descent }">
+      descent: {{ font.descent }}
+    </div>
   </div>
 </template>
 
