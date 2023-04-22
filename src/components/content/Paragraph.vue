@@ -11,16 +11,35 @@
         :y1="font.descent"
         :x2="fBbox?.maxX"
         :y2="font.descent"
-        stroke="red"
-        stroke-width="1"
+        class="rule horizontal descent"
       />
       <line
         :x1="fBbox?.minX"
         :y1="font.ascent"
         :x2="fBbox?.maxX"
         :y2="font.ascent"
-        stroke="red"
-        stroke-width="1"
+        class="rule horizontal ascent"
+      />
+      <line
+        :x1="fBbox?.minX"
+        :y1="font.xHeight"
+        :x2="fBbox?.maxX"
+        :y2="font.xHeight"
+        class="rule horizontal xheight"
+      />
+      <line
+        :x1="fBbox?.minX"
+        :y1="font.capHeight"
+        :x2="fBbox?.maxX"
+        :y2="font.capHeight"
+        class="rule horizontal capheight"
+      />
+      <line
+        :x1="fBbox?.minX"
+        :y1="0"
+        :x2="fBbox?.maxX"
+        :y2="0"
+        class="rule horizontal baseline"
       />
     </svg>
   </div>
@@ -49,6 +68,11 @@ const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
   svg {
     display: block;
     overflow: visible;
+
+    .rule {
+      stroke: white;
+      stroke-width: 2;
+    }
   }
 }
 </style>
