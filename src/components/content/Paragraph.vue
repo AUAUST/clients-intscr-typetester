@@ -5,7 +5,6 @@
       :viewBox="viewBox"
       style="transform: scale(1, -1)"
     >
-      <path :d="glyph?.path.toSVG()" />
       <line
         :x1="fBbox?.minX"
         :y1="font.descent"
@@ -41,6 +40,7 @@
         :y2="0"
         class="rule horizontal baseline"
       />
+      <path :d="glyph?.path.toSVG()" />
     </svg>
   </div>
 </template>
