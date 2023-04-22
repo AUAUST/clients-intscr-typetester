@@ -40,6 +40,8 @@ class FontsData {
 
   async handleNewFontFile(input: File | File[] | FileList | null) {
     if (input) {
+      const loadingFont = notifications.startLoading();
+
       let files: File[] = [];
       if (Array.isArray(input)) {
         files = input;
@@ -92,6 +94,8 @@ class FontsData {
           expires: true,
         });
       }
+
+      notifications.stopLoading(loadingFont);
     } else {
       notifications.sendNotification({
         type: "error",
