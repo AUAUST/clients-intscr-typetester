@@ -63,9 +63,9 @@ class FontsData {
         }
 
         let font: fontkit.Font;
+        const buffer = await file.arrayBuffer();
 
         try {
-          const buffer = await file.arrayBuffer();
           font = fontkit.create(new Uint8Array(buffer) as Buffer);
         } catch (error) {
           notifications.sendNotification({
@@ -78,6 +78,12 @@ class FontsData {
         }
 
         fonts.currentFont.value = markRaw(font);
+
+        const fontData = new DataView(buffer);
+        const fontFace = new FontFace(font.familyName, fontData);
+        await fontFace.load();
+        document.fonts.add(fontFace);
+        document.body.style.fontFamily = `${font.familyName}, sans-serif`;
 
         notifications.sendNotification({
           type: "success",
