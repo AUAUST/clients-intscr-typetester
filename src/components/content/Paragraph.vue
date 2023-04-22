@@ -4,6 +4,7 @@
     class="container"
     :style="{
       '--unitsPerEm': font.unitsPerEm,
+      '--descent': font.descent,
     }"
   >
     <div class="char">xpdL</div>
@@ -44,19 +45,25 @@ console.log(font?.glyphsForString(CHAR));
 
 <style lang="scss">
 .container {
+  margin-top: 300px;
+
   --font-size: 300px;
   font-size: var(--font-size);
+  line-height: 1em;
   position: relative;
   --unit: var(--font-size) / var(--unitsPerEm);
+
   .char {
     font-size: 1em;
   }
   *:not(.char) {
     font-size: 10px;
+    line-height: 1em;
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
     border-bottom: 1px solid currentColor;
     width: 100%;
+    transform: translateY(calc(var(--descent) * var(--unit)));
   }
   .ascent {
     color: red;
