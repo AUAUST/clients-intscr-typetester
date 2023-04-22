@@ -7,17 +7,17 @@
     >
       <path :d="glyph?.path.toSVG()" />
       <line
-        :x1="bbox?.minX"
+        :x1="fBbox?.minX"
         :y1="font.descent"
-        :x2="bbox?.maxX"
+        :x2="fBbox?.maxX"
         :y2="font.descent"
         stroke="red"
         stroke-width="1"
       />
       <line
-        :x1="bbox?.minX"
+        :x1="fBbox?.minX"
         :y1="font.ascent"
-        :x2="bbox?.maxX"
+        :x2="fBbox?.maxX"
         :y2="font.ascent"
         stroke="red"
         stroke-width="1"
@@ -33,8 +33,9 @@ const font = fonts.currentFont.value;
 
 const char = "k";
 const glyph = font?.layout(char).glyphs[0];
-const bbox = glyph?.bbox;
-const viewBox = `${bbox?.minX} ${bbox?.minY} ${bbox?.maxX} ${bbox?.maxY}`;
+const gBbox = glyph?.bbox;
+const fBbox = font?.bbox;
+const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
 </script>
 
 <style lang="scss">
