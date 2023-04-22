@@ -17,9 +17,10 @@
     <div class="xHeight" :style="{ '--height': font.xHeight }">
       xHeight: {{ font.xHeight }}
     </div>
-    <div class="lineGap" :style="{ '--height': font.lineGap }">
+    <!-- <div class="lineGap" :style="{ '--height': font.lineGap }">
       lineGap: {{ font.lineGap }}
-    </div>
+    </div> -->
+    <div class="baseline" :style="{ '--height': 0 }">baseline: {{ 0 }}</div>
     <div class="descent" :style="{ '--height': font.descent }">
       descent: {{ font.descent }}
     </div>
@@ -49,36 +50,47 @@ console.log(font?.glyphsForString(CHAR));
 
   --font-size: 300px;
   font-size: var(--font-size);
-  line-height: 1em;
+  line-height: calc(
+    var(--height) * var(--unitsPerEm) / 1000 + var(--lineGap) *
+      var(--unitsPerEm) / 1000
+  );
   position: relative;
-  --unit: var(--font-size) / var(--unitsPerEm);
-
+  --unit: calc(var(--font-size) / var(--unitsPerEm));
+  --0pos: calc(var(--unitsPerEm) + var(--descent) * 0.001em);
   .char {
     font-size: 1em;
+    line-height: 1em;
   }
   *:not(.char) {
     font-size: 10px;
     line-height: 1em;
     position: absolute;
-    bottom: calc(var(--height) * var(--unit));
+    bottom: var(--0pos);
     border-bottom: 1px solid currentColor;
     width: 100%;
-    transform: translateY(calc(var(--descent) * var(--unit)));
   }
   .ascent {
+    display: none;
     color: red;
   }
   .descent {
+    display: none;
     color: blue;
   }
   .lineGap {
+    display: none;
     color: yellow;
   }
   .xHeight {
+    display: none;
     color: green;
   }
   .capHeight {
+    display: none;
     color: purple;
+  }
+  .baseline {
+    color: white;
   }
 }
 </style>
