@@ -24,6 +24,15 @@
     <div class="descent" :style="{ '--height': font.descent }">
       descent: {{ font.descent }}
     </div>
+    <div></div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      :width="font?.layout('a').glyphs[0].bbox.width"
+      :height="font?.layout('a').glyphs[0].bbox.height"
+      style="transform: scale(1, -1)"
+    >
+      <path :d="font?.layout('a').glyphs[0].path.toSVG()" />
+    </svg>
   </div>
 </template>
 
