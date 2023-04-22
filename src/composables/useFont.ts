@@ -8,6 +8,12 @@ import { notifications } from "./useNotifications";
 import * as fontkit from "fontkit";
 import type { Font } from "fontkit";
 
+declare global {
+  interface FontFaceSet {
+    add(font: FontFace): void;
+  }
+}
+
 type FontOverview = {
   name: string;
   fileName: string;
@@ -84,6 +90,7 @@ class FontsData {
         const fontData = new DataView(buffer);
         const fontFace = new FontFace(font.familyName, fontData);
         await fontFace.load();
+
         document.fonts.add(fontFace);
         document.body.style.fontFamily = `${font.familyName}, sans-serif`;
 
