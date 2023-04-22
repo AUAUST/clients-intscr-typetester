@@ -50,7 +50,7 @@ import { fonts } from "~/composables/useFont";
 
 const font = fonts.currentFont.value;
 
-const char = "k";
+const char = "b";
 const glyph = font?.layout(char).glyphs[0];
 const gBbox = glyph?.bbox;
 const fBbox = font?.bbox;
