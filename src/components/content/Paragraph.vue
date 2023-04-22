@@ -53,41 +53,25 @@ console.log(font?.glyphsForString(CHAR));
   }
   *:not(.char) {
     font-size: 10px;
+    position: absolute;
+    bottom: calc(var(--height) * var(--unit));
+    border-bottom: 1px solid currentColor;
+    width: 100%;
   }
   .ascent {
     color: red;
-    position: absolute;
-    bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid currentColor;
-    width: 100%;
   }
   .descent {
     color: blue;
-    position: absolute;
-    bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid currentColor;
-    width: 100%;
   }
   .lineGap {
     color: yellow;
-    position: absolute;
-    bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid currentColor;
-    width: 100%;
   }
   .xHeight {
     color: green;
-    position: absolute;
-    bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid currentColor;
-    width: 100%;
   }
   .capHeight {
     color: purple;
-    position: absolute;
-    bottom: calc(var(--height) * var(--unit));
-    border-bottom: 1px solid currentColor;
-    width: 100%;
   }
 }
 </style>
