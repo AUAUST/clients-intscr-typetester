@@ -7,11 +7,13 @@
     }"
   >
     <div class="char">xpdL</div>
-    <div class="ascent" :style="{ '--height': font.ascent }"></div>
-    <div class="capHeight" :style="{ '--height': font.capHeight }"></div>
-    <div class="xHeight" :style="{ '--height': font.xHeight }"></div>
-    <div class="lineGap" :style="{ '--height': font.lineGap }"></div>
-    <div class="descent" :style="{ '--height': font.descent }"></div>
+    <div class="ascent" :style="{ '--height': font.ascent }">ascent</div>
+    <div class="capHeight" :style="{ '--height': font.capHeight }">
+      capHeight
+    </div>
+    <div class="xHeight" :style="{ '--height': font.xHeight }">xHeight</div>
+    <div class="lineGap" :style="{ '--height': font.lineGap }">lineGap</div>
+    <div class="descent" :style="{ '--height': font.descent }">descent</div>
   </div>
 </template>
 
@@ -34,16 +36,20 @@ console.log(font?.glyphsForString(CHAR));
 
 <style lang="scss">
 .container {
-  font-size: 300px;
+  --font-size: 300px;
+  font-size: var(--font-size);
   position: relative;
-  --unit: 1em / var(--unitsPerEm);
+  --unit: var(--font-size) / var(--unitsPerEm);
   .char {
     font-size: 1em;
+  }
+  *:not(.char) {
+    font-size: 10px;
   }
   .ascent {
     position: absolute;
     bottom: calc(var(--height) * var(--unit));
-    border-top: 1px solid red;
+    border-bottom: 1px solid red;
     width: 100%;
   }
   .descent {
