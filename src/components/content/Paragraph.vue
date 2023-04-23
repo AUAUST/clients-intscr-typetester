@@ -16,37 +16,37 @@
       </g>
       <g class="rules horizontal">
         <line
-          :x1="fBbox?.minX"
+          :x1="fBbox?.minX - margin"
           :y1="font.descent"
-          :x2="fBbox?.maxX"
+          :x2="fBbox?.maxX + margin"
           :y2="font.descent"
           class="rule horizontal descent"
         />
         <line
-          :x1="fBbox?.minX"
+          :x1="fBbox?.minX - margin"
           :y1="font.ascent"
-          :x2="fBbox?.maxX"
+          :x2="fBbox?.maxX + margin"
           :y2="font.ascent"
           class="rule horizontal ascent"
         />
         <line
-          :x1="fBbox?.minX"
+          :x1="fBbox?.minX - margin"
           :y1="font.xHeight"
-          :x2="fBbox?.maxX"
+          :x2="fBbox?.maxX + margin"
           :y2="font.xHeight"
           class="rule horizontal xheight"
         />
         <line
-          :x1="fBbox?.minX"
+          :x1="fBbox?.minX - margin"
           :y1="font.capHeight"
-          :x2="fBbox?.maxX"
+          :x2="fBbox?.maxX + margin"
           :y2="font.capHeight"
           class="rule horizontal capheight"
         />
         <line
-          :x1="fBbox?.minX"
+          :x1="fBbox?.minX - margin"
           :y1="0"
-          :x2="fBbox?.maxX"
+          :x2="fBbox?.maxX + margin"
           :y2="0"
           class="rule horizontal baseline"
         />
@@ -58,34 +58,34 @@
         <g class="rules vertical">
           <line
             :x1="gBbox?.minX"
-            :y1="fBbox?.minY"
+            :y1="fBbox?.minY - margin"
             :x2="gBbox?.minX"
-            :y2="fBbox?.maxY"
+            :y2="fBbox?.maxY + margin"
             class="rule vertical left"
           />
           <line
             :x1="gBbox?.maxX"
-            :y1="fBbox?.minY"
+            :y1="fBbox?.minY - margin"
             :x2="gBbox?.maxX"
-            :y2="fBbox?.maxY"
+            :y2="fBbox?.maxY + margin"
             class="rule vertical right"
           />
           <line
             :x1="width"
-            :y1="fBbox?.minY"
+            :y1="fBbox?.minY - margin"
             :x2="width"
-            :y2="fBbox?.maxY"
+            :y2="fBbox?.maxY + margin"
             class="rule vertical advance"
           />
           <line
             :x1="0"
-            :y1="fBbox?.minY"
+            :y1="fBbox?.minY - margin"
             :x2="0"
-            :y2="fBbox?.maxY"
+            :y2="fBbox?.maxY + margin"
             class="rule vertical start"
           />
         </g>
-        <path :d="glyph?.path.toSVG()" />
+        <path class="glyph" :d="glyph?.path.toSVG()" />
       </g>
     </svg>
   </glyph-grid>
@@ -126,6 +126,10 @@ glyph-grid {
     display: block;
     overflow: visible;
     fill: none;
+
+    .glyph {
+      fill: black;
+    }
 
     .rules {
       &.bbox {
