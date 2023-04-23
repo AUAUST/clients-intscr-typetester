@@ -1,5 +1,5 @@
 <template>
-  <div v-if="font && glyph" class="container">
+  <glyph-grid v-if="font && glyph">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       :viewBox="viewBox"
@@ -65,7 +65,7 @@
       />
       <path :d="glyph?.path.toSVG()" />
     </svg>
-  </div>
+  </glyph-grid>
   <input v-model="char" />
 </template>
 
@@ -98,7 +98,7 @@ const width = computed(
 </script>
 
 <style lang="scss">
-.container {
+glyph-grid {
   display: flex;
   justify-content: center;
   align-items: center;
