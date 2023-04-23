@@ -5,6 +5,15 @@
       :viewBox="viewBox"
       style="transform: scale(1, -1)"
     >
+      <g class="rules bbox">
+        <rect
+          class="bbox"
+          :x="fBbox?.minX"
+          :y="fBbox?.minY"
+          :width="fBbox?.width"
+          :height="fBbox?.height"
+        />
+      </g>
       <g class="rules horizontal">
         <line
           :x1="fBbox?.minX"
@@ -90,6 +99,8 @@ import { fonts } from "~/composables/useFont";
 
 const font = computed(() => fonts.currentFont.value!);
 
+const margin = computed(() => font.value.unitsPerEm / 20);
+
 const char = ref("b");
 const glyph = computed(() => font.value.layout(char.value).glyphs[0]);
 const gBbox = computed(() => glyph.value.bbox);
@@ -114,7 +125,14 @@ glyph-grid {
   svg {
     display: block;
     overflow: visible;
+    fill: none;
 
+    .rules {
+      &.bbox {
+        stroke: red;
+        stroke-width: 1;
+      }
+    }
     .rule {
       stroke: white;
       stroke-width: 2;
