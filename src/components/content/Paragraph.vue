@@ -61,7 +61,14 @@
         :y1="fBbox?.minY"
         :x2="width"
         :y2="fBbox?.maxY"
-        class="rule vertical width"
+        class="rule vertical advance"
+      />
+      <line
+        :x1="0"
+        :y1="fBbox?.minY"
+        :x2="0"
+        :y2="fBbox?.maxY"
+        class="rule vertical start"
       />
       <path :d="glyph?.path.toSVG()" />
     </svg>
