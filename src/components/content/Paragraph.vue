@@ -74,14 +74,6 @@ import { computed, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 
-// const font = fonts.currentFont.value;
-
-// const char = "b";
-// const glyph = font?.layout(char).glyphs[0];
-// const gBbox = glyph?.bbox;
-// const fBbox = font?.bbox;
-// const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
-
 const font = computed(() => fonts.currentFont.value!);
 
 const char = ref("b");
