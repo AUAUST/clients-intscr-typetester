@@ -1,5 +1,5 @@
 <template>
-  <div v-if="font" class="container">
+  <div v-if="font && glyph" class="container">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       :viewBox="viewBox"
@@ -55,6 +55,14 @@
         :y2="fBbox?.maxY"
         class="rule vertical right"
       />
+
+      <line
+        :x1="width"
+        :y1="fBbox?.minY"
+        :x2="width"
+        :y2="fBbox?.maxY"
+        class="rule vertical width"
+      />
       <path :d="glyph?.path.toSVG()" />
     </svg>
   </div>
@@ -74,14 +82,18 @@ import { fonts } from "~/composables/useFont";
 // const fBbox = font?.bbox;
 // const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
 
-const font = computed(() => fonts.currentFont.value);
+const font = computed(() => fonts.currentFont.value!);
+
 const char = ref("b");
-const glyph = computed(() => font.value?.layout(char.value).glyphs[0]);
-const gBbox = computed(() => glyph.value?.bbox);
-const fBbox = computed(() => font.value?.bbox);
+const glyph = computed(() => font.value.layout(char.value).glyphs[0]);
+const gBbox = computed(() => glyph.value.bbox);
+const fBbox = computed(() => font.value.bbox);
 const viewBox = computed(
   () =>
-    `${fBbox.value?.minX} ${fBbox.value?.minY} ${fBbox.value?.maxX} ${fBbox.value?.maxY}`
+    `${fBbox.value.minX} ${fBbox.value.minY} ${fBbox.value.maxX} ${fBbox.value.maxY}`
+);
+const width = computed(
+  () => font.value.layout(char.value).positions[0].xAdvance
 );
 </script>
 
