@@ -42,7 +42,10 @@
           class="rule horizontal baseline"
         />
       </g>
-      <g class="offset">
+      <g
+        class="offset"
+        :transform="`translate(${fBbox?.width / 2 - width / 2}, 0)`"
+      >
         <g class="rules vertical">
           <line
             :x1="gBbox?.minX"
