@@ -99,7 +99,7 @@ import { fonts } from "~/composables/useFont";
 
 const font = computed(() => fonts.currentFont.value!);
 
-const margin = computed(() => font.value.unitsPerEm / 20);
+const margin = computed(() => font.value.unitsPerEm / 10);
 
 const char = ref("b");
 const glyph = computed(() => font.value.layout(char.value).glyphs[0]);
