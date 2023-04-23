@@ -40,6 +40,21 @@
         :y2="0"
         class="rule horizontal baseline"
       />
+      // vertical rules uses the glyph bbox
+      <line
+        :x1="gBbox?.minX"
+        :y1="fBbox?.minY"
+        :x2="gBbox?.minX"
+        :y2="fBbox?.maxY"
+        class="rule vertical left"
+      />
+      <line
+        :x1="gBbox?.maxX"
+        :y1="fBbox?.minY"
+        :x2="gBbox?.maxX"
+        :y2="fBbox?.maxY"
+        class="rule vertical right"
+      />
       <path :d="glyph?.path.toSVG()" />
     </svg>
   </div>
