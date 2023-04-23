@@ -58,18 +58,31 @@
       <path :d="glyph?.path.toSVG()" />
     </svg>
   </div>
+  <input v-model="char" />
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from "vue";
+
 import { fonts } from "~/composables/useFont";
 
-const font = fonts.currentFont.value;
+// const font = fonts.currentFont.value;
 
-const char = "b";
-const glyph = font?.layout(char).glyphs[0];
-const gBbox = glyph?.bbox;
-const fBbox = font?.bbox;
-const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
+// const char = "b";
+// const glyph = font?.layout(char).glyphs[0];
+// const gBbox = glyph?.bbox;
+// const fBbox = font?.bbox;
+// const viewBox = `${fBbox?.minX} ${fBbox?.minY} ${fBbox?.maxX} ${fBbox?.maxY}`;
+
+const font = computed(() => fonts.currentFont.value);
+const char = ref("b");
+const glyph = computed(() => font.value?.layout(char.value).glyphs[0]);
+const gBbox = computed(() => glyph.value?.bbox);
+const fBbox = computed(() => font.value?.bbox);
+const viewBox = computed(
+  () =>
+    `${fBbox.value?.minX} ${fBbox.value?.minY} ${fBbox.value?.maxX} ${fBbox.value?.maxY}`
+);
 </script>
 
 <style lang="scss">
