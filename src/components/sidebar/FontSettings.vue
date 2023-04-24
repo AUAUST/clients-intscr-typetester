@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import Button from "@/components/ui/Button.vue";
-import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import { computed, reactive } from "vue";
 
 import { fonts } from "~/composables/useFont";
