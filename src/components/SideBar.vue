@@ -16,7 +16,9 @@
         title="Font settings"
         id="font-settings"
         :resizable="true"
-      ></SideBarSection>
+      >
+        <FontSettings />
+      </SideBarSection>
       <SideBarSection
         title="Interface settings"
         id="interface-settings"
@@ -52,6 +54,7 @@ import { fonts } from "~/composables/useFont";
 import Button from "@/components/ui/Button.vue";
 import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import UiSettings from "@/components/sidebar/UiSettings.vue";
+import FontSettings from "@/components/sidebar/FontSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
 </script>
 
