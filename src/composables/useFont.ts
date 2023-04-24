@@ -27,6 +27,10 @@ class FontsData {
   fontInput: HTMLInputElement | undefined = undefined;
   currentFont: Ref<Font | undefined>;
 
+  ui = {
+    enabledFontFeatures: reactive(new Set<string>()),
+  };
+
   constructor() {
     this.list = reactive([]);
     this.currentFont = ref(undefined);

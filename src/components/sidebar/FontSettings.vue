@@ -2,21 +2,19 @@
   <Button
     v-for="feature in fontFeatures"
     @click="
-      if (enabledFeatures.has(feature)) {
-        enabledFeatures.delete(feature);
+      if (fonts.ui.enabledFontFeatures.has(feature)) {
+        fonts.ui.enabledFontFeatures.delete(feature);
       } else {
-        enabledFeatures.add(feature);
+        fonts.ui.enabledFontFeatures.add(feature);
       }
     "
     size="fit-width"
     :title="feature"
-    :active="enabledFeatures.has(feature)"
+    :active="fonts.ui.enabledFontFeatures.has(feature)"
   >
     {{ feature }}
   </Button>
-  <div>
-    {{ enabledFeatures }}
-  </div>
+  <div>{{}}</div>
 </template>
 
 <script setup lang="ts">
@@ -30,6 +28,4 @@ const font = computed(() => fonts.currentFont.value);
 const fontFeatures = computed(() =>
   font.value ? font.value.availableFeatures : []
 );
-
-const enabledFeatures = reactive(new Set<string>());
 </script>
