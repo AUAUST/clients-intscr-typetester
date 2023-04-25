@@ -17,7 +17,7 @@ export class View {
 
   constructor(args: {
     id?: string;
-    font: string;
+    fontId: string;
     enabledFontFeatures?: string[];
     axes?: {
       [key: string]: {
@@ -26,7 +26,7 @@ export class View {
     };
     activeTabId?: string;
   }) {
-    const font = fonts.getFont(args.font);
+    const font = fonts.getFont(args.fontId);
 
     this.id = args.id ?? createId("viw");
   }
