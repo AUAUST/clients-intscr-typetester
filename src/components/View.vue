@@ -6,18 +6,18 @@
     ref="viewElement"
   >
     <nav>
-      <!-- <Button
-        v-for="tab in tabs.listed"
+      <Button
+        v-for="tab in view.tabs"
         :key="tab.id"
         size="fit-width"
         @click="props.view.activeTab.value = tab"
       >
         {{ tab.id }}
-      </Button> -->
+      </Button>
     </nav>
     <view-overflow>
       <view-component>
-        <!-- <component v-bind:is="view.activeTab.value?.component"></component> -->
+        <component v-bind:is="view.activeTab.value?.component"></component>
       </view-component>
     </view-overflow>
     <view-resize-container>

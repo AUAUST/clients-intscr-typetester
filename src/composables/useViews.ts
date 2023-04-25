@@ -3,10 +3,9 @@ import type { Ref, ComputedRef } from "vue";
 
 import { FontOverview, fonts } from "./useFont";
 
-import { Tab, TabType } from "./useTabs";
+import { Tab, TabType, tabs } from "./useTabs";
 
 import { createId } from "~/modules/utils";
-import type { Font } from "fontkit";
 import { notifications } from "./useNotifications";
 
 const MINIMUM_WIDTH = 50;
@@ -42,12 +41,15 @@ export class View {
       return;
     }
 
-    const tab = new Tab({
-      id: args.tab?.id,
-      title: font.familyName,
-      type: args.tab?.type ?? "text",
-      font: font,
-    });
+    this.tabs.push(
+      tabs.createDefaultTab({
+        font: args.font,
+        title: font.familyName,
+      })
+    );
+
+    console.log(this.tabs);
+    console.log(this);
   }
 
   close() {

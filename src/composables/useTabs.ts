@@ -1,7 +1,4 @@
-import { reactive, ref, computed, markRaw } from "vue";
-import type { Ref } from "vue";
-
-import { storage } from "./useStorage";
+import { markRaw } from "vue";
 
 import { createId } from "~/modules/utils";
 
@@ -65,7 +62,7 @@ export class TabType {
   }
 }
 
-export const tabTypes = {
+const tabTypes = {
   getTypeById: function (id: string) {
     return this.listed.find((type) => type.id === id);
   },
@@ -90,4 +87,24 @@ export const tabTypes = {
       hidden: true,
     }),
   ],
+};
+
+export const tabs = {
+  get defaultType() {
+    return tabTypes.getDefaultType();
+  },
+
+  get types() {
+    return tabTypes.listed;
+  },
+
+  getTypeById: tabTypes.getTypeById,
+
+  createDefaultTab: function (args: { title: string; font: FontOverview }) {
+    return new Tab({
+      title: args.title,
+      font: args.font,
+      type: this.defaultType,
+    });
+  },
 };
