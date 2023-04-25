@@ -1,30 +1,29 @@
 <template>
-  <!-- <Button
-    v-for="feature in fontFeatures"
+  <Button
+    v-for="feature in font?.availableFeatures"
     @click="
-      if (fonts.ui.enabledFontFeatures.has(feature)) {
-        fonts.ui.enabledFontFeatures.delete(feature);
+      if (views.activeTab.value?.state.enabledFeatures.has(feature)) {
+        views.activeTab.value?.state.enabledFeatures.delete(feature);
       } else {
-        fonts.ui.enabledFontFeatures.add(feature);
+        views.activeTab.value?.state.enabledFeatures.add(feature);
       }
     "
     size="fit-width"
     :title="feature"
-    :active="fonts.ui.enabledFontFeatures.has(feature)"
+    :active="views.activeTab.value?.state.enabledFeatures.has(feature)"
   >
     {{ feature }}
-  </Button> -->
-  <div>{{}}</div>
+  </Button>
 </template>
 
 <script setup lang="ts">
 import Button from "@/components/ui/Button.vue";
-import { computed, reactive } from "vue";
 
-import { fonts } from "~/composables/useFont";
+import { views } from "~/composables/useViews";
+import { computed } from "vue";
 
-// const font = computed(() => fonts.currentFont.value);
-// const fontFeatures = computed(() =>
-//   font.value ? font.value.availableFeatures : []
-// );
+const font = computed(() => views.activeTab.value?.font.object);
+console.log("font", font);
+console.log("tab", views.activeTab.value);
+console.log("views", views);
 </script>

@@ -1,4 +1,4 @@
-import { markRaw } from "vue";
+import { markRaw, reactive } from "vue";
 
 import { createId } from "~/modules/utils";
 
@@ -12,6 +12,10 @@ export class Tab {
   title: string;
   type: TabType;
   font: FontOverview;
+
+  state = {
+    enabledFeatures: reactive(new Set<string>()),
+  };
 
   constructor(args: {
     id?: string;

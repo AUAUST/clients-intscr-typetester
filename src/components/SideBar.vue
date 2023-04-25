@@ -60,21 +60,11 @@ import { ComputedRef, computed } from "vue";
 import { View, views } from "~/composables/useViews";
 import { Tab } from "~/composables/useTabs";
 
-const target: {
+export interface SidebarTarget {
   view: ComputedRef<View | undefined>;
   tab: ComputedRef<Tab | undefined>;
   font: ComputedRef<FontOverview | undefined>;
-} = {
-  view: computed(() => {
-    return views.activeView.value;
-  }),
-  tab: computed(() => {
-    return target.view.value?.activeTab.value;
-  }),
-  font: computed(() => {
-    return target.tab.value?.font;
-  }),
-};
+}
 </script>
 
 <style lang="scss">

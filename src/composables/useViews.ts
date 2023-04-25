@@ -25,7 +25,6 @@ export class View {
       id?: string;
       type: TabType;
     };
-    activeTabId?: string;
   }) {
     this.id = args.id ?? createId("viw");
 
@@ -47,9 +46,6 @@ export class View {
     });
     this.tabs.push(tab);
     this.activeTab.value = tab;
-
-    console.log(this.tabs);
-    console.log(this);
   }
 
   close() {
@@ -72,9 +68,8 @@ export class View {
 
 class Views {
   listed: View[] = [];
-  activeViewId: Ref<string>;
-  activeView: ComputedRef<View | undefined> = computed(() => undefined);
-  // this value is set by the Content.vue component automatically on mount
+  activeView: Ref<View | undefined>;
+  activeTab: ComputedRef<Tab | undefined>;
   fullWidth: Ref<number | undefined> = ref(undefined);
 
   get canCreate() {
@@ -90,16 +85,17 @@ class Views {
   }
 
   constructor() {
-    this.activeViewId = ref("");
-    // this.activeView = computed(() => {
-    //   this.activeViewId.value;
-    // });
+    this.activeView = ref(undefined);
+    this.activeTab = computed(() => {
+      return this.activeView.value?.activeTab.value;
+    });
   }
 
   initFirstView(fontId: string) {
     const view = new View({
       font: fonts.getFont(fontId, true),
     });
+    this.activeView.value = view;
     this.listed.push(view);
   }
 
