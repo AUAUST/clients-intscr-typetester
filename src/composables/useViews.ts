@@ -1,6 +1,8 @@
 import { ref, computed, ShallowRef, shallowRef, reactive } from "vue";
 import type { Ref, ComputedRef } from "vue";
 
+import { fonts } from "./useFont";
+
 import { Tab, TabType, tabs } from "./useTabs";
 
 import { createId } from "~/modules/utils";
@@ -10,15 +12,12 @@ const MINIMUM_WIDTH = 50;
 
 export class View {
   id: string;
-  activeTabId: ComputedRef<string | undefined>;
-  activeTab: ShallowRef<Tab | undefined>;
-  listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
   constructor(args: {
     id?: string;
-    font: Font;
+    font: string;
     enabledFontFeatures?: string[];
     axes?: {
       [key: string]: {
@@ -27,7 +26,7 @@ export class View {
     };
     activeTabId?: string;
   }) {
-    const font = args.font;
+    const font = fonts.getFont(args.font);
 
     this.id = args.id ?? createId("viw");
   }
@@ -51,7 +50,7 @@ export class View {
 }
 
 class Views {
-  listed: View[] = [new View(), new View()];
+  listed: View[] = [];
   activeViewId: Ref<string>;
   activeView: ComputedRef<View | undefined>;
   // this value is set by the Content.vue component automatically on mount
