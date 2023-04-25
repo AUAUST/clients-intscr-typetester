@@ -1,5 +1,5 @@
-import { markRaw, reactive, ref } from "vue";
-import type { Ref } from "vue";
+import { markRaw, reactive, ref, computed } from "vue";
+import type { Ref, ComputedRef } from "vue";
 
 import { createId } from "~/modules/utils";
 
@@ -33,26 +33,48 @@ declare module "fontkit" {
   }
 }
 
-type FontOverview = {
-  name: string;
-  fileName: string;
-  lastModified: number;
-  type: string;
+class FontOverview {
   id: string;
-};
+  familyName: string;
+  subfamilyName: string;
+  isVariable: boolean;
+  font: Font;
+
+  constructor(font: Font, id: string) {
+    this.id = id;
+    this.familyName = font.familyName;
+    this.subfamilyName = font.subfamilyName;
+    this.isVariable = (function () {
+      if (font.variationAxes) {
+        return Object.keys(font.variationAxes).length > 0;
+      }
+      return false;
+    })();
+    this.font = font;
+  }
+}
 
 class FontsData {
-  list: FontOverview[];
   fontInput: HTMLInputElement | undefined = undefined;
   currentFont: Ref<Font | undefined>;
 
-  ui = {
-    enabledFontFeatures: reactive(new Set<string>()),
-  };
+  storage: {
+    [key: string]: FontOverview;
+  } = {};
 
   constructor() {
     this.list = reactive([]);
     this.currentFont = ref(undefined);
+  }
+
+  getFont(id: string): FontOverview | undefined {
+    return this.storage[id];
+  }
+
+  setFont(font: Font) {
+    const id = createId("fnt");
+    this.storage[id] = new FontOverview(font, id);
+    return id;
   }
 
   openFileDialog() {

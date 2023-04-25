@@ -16,24 +16,6 @@ export class View {
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
-  fontSettings: {
-    font: Font;
-
-    availableFontFeatures: ComputedRef<string[]>;
-    fontFeatures: Map<string, boolean>;
-
-    isVariable: ComputedRef<boolean>;
-    axes: ComputedRef<{
-      [key: string]: {
-        name: string;
-        min: number;
-        default: number;
-        max: number;
-        value: number;
-      };
-    }>;
-  };
-
   constructor(args: {
     id?: string;
     font: Font;
@@ -48,59 +30,6 @@ export class View {
     const font = args.font;
 
     this.id = args.id ?? createId("viw");
-
-    this.fontSettings = {
-      font: font,
-
-      availableFontFeatures: computed(() => {
-        return this.fontSettings.font.availableFeatures;
-      }),
-
-      fontFeatures: reactive(
-        new Map(
-          (function () {
-            if (!args.enabledFontFeatures) {
-              return font.availableFeatures.map((feature) => [feature, false]);
-            }
-
-            font.availableFeatures.reduce((acc, feature) => {
-              acc[feature] = args.enabledFontFeatures!.includes(feature);
-              return acc;
-            }, {} as { [key: string]: boolean });
-          })()
-        )
-      ),
-
-      isVariable: computed(() => {
-        return this.fontSettings.font.variationAxes !== undefined;
-      }),
-
-      axes: computed(() => {
-        if (!this.fontSettings.isVariable.value) return {};
-
-        return Object.entries(this.fontSettings.font.variationAxes).reduce(
-          (acc, [key, value]) => {
-            acc[key] = {
-              name: value.name,
-              min: value.min,
-              default: value.default,
-              max: value.max,
-              value: args.axes?.[key]?.value ?? value.default,
-            };
-            return acc;
-          },
-          {} as {
-            [key: string]: {
-              name: string;
-              min: number;
-              default: number;
-              max: number;
-              value: number;
-            };
-          }
-        );
-      }),
-    };
   }
 
   close() {
