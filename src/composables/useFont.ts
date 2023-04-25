@@ -90,71 +90,72 @@ class FontsData {
   }
 
   async handleNewFontFile(input: File | File[] | FileList | null) {
-    if (input) {
-      const loadingFont = notifications.startLoading();
-
-      let files: File[] = [];
-      if (Array.isArray(input)) {
-        files = input;
-      } else if (input instanceof FileList) {
-        files = Array.from(input);
-      } else {
-        files = [input];
-      }
-      for (const file of files) {
-        if (
-          !file.name.match(/\.(ttf|otf|woff|woff2|ttc|dfont)$/) &&
-          !file.type.match(/^font\/\w+/)
-        ) {
-          notifications.sendNotification({
-            type: "error",
-            message: `The file you selected appears not to be a font.`,
-            forConsole: file,
-            expires: true,
-          });
-          continue;
-        }
-
-        let font: fontkit.Font;
-        const buffer = await file.arrayBuffer();
-
-        try {
-          font = fontkit.create(new Uint8Array(buffer) as Buffer);
-        } catch (error) {
-          notifications.sendNotification({
-            type: "error",
-            message: `Could not load the file. Is it a valid font ?`,
-            forConsole: [error, file],
-            expires: true,
-          });
-          continue;
-        }
-
-        fonts.currentFont.value = markRaw(font);
-
-        const fontData = new DataView(buffer);
-        const fontFace = new FontFace(font.familyName, fontData);
-        await fontFace.load();
-
-        document.fonts.add(fontFace);
-        document.body.style.fontFamily = `${font.familyName}, sans-serif`;
-
-        notifications.sendNotification({
-          type: "success",
-          message: `Font loaded: ${font.familyName}`,
-          forConsole: font,
-          expires: true,
-        });
-      }
-
-      notifications.stopLoading(loadingFont);
-    } else {
+    if (!input) {
       notifications.sendNotification({
         type: "error",
         message: `No file selected.`,
         expires: true,
       });
+      return;
     }
+
+    const loadingFont = notifications.startLoading();
+
+    let files: File[] = [];
+    if (Array.isArray(input)) {
+      files = input;
+    } else if (input instanceof FileList) {
+      files = Array.from(input);
+    } else {
+      files = [input];
+    }
+    for (const file of files) {
+      if (
+        !file.name.match(/\.(ttf|otf|woff|woff2|ttc|dfont)$/) &&
+        !file.type.match(/^font\/\w+/)
+      ) {
+        notifications.sendNotification({
+          type: "error",
+          message: `The file you selected appears not to be a font.`,
+          forConsole: file,
+          expires: true,
+        });
+        continue;
+      }
+
+      let font: fontkit.Font;
+      const buffer = await file.arrayBuffer();
+
+      try {
+        font = fontkit.create(new Uint8Array(buffer) as Buffer);
+      } catch (error) {
+        notifications.sendNotification({
+          type: "error",
+          message: `Could not load the file. Is it a valid font ?`,
+          forConsole: [error, file],
+          expires: true,
+        });
+        continue;
+      }
+
+      fonts.currentFont.value = markRaw(font);
+
+      const fontData = new DataView(buffer);
+      const fontFace = new FontFace(font.familyName, fontData);
+      await fontFace.load();
+
+      document.fonts.add(fontFace);
+      document.body.style.fontFamily = `${font.familyName}, sans-serif`;
+
+      notifications.sendNotification({
+        type: "success",
+        message: `Font loaded: ${font.familyName}`,
+        forConsole: font,
+        expires: true,
+      });
+    }
+
+    notifications.stopLoading(loadingFont);
   }
 
   storeFontToDatabase({ id, file }: { id: string; file: File }) {
