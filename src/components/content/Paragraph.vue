@@ -132,7 +132,12 @@ const inUseFont = computed(() => {
 const char = ref("b");
 const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
 const layout = computed(() => {
-  console.log(font.value.variationAxes);
+  try {
+    console.log(font.value.namedVariations);
+  } catch (e) {
+    console.log(e);
+  }
+
   return inUseFont.value.layout(char.value, fontFeatures.value);
 });
 const glyph = computed(() => {
