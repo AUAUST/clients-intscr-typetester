@@ -1,35 +1,106 @@
-import { ref, computed, ShallowRef, shallowRef } from "vue";
+import { ref, computed, ShallowRef, shallowRef, reactive } from "vue";
 import type { Ref, ComputedRef } from "vue";
 
 import { Tab, TabType, tabs } from "./useTabs";
 
 import { createId } from "~/modules/utils";
+import type { Font } from "fontkit";
 
 const MINIMUM_WIDTH = 50;
 
 export class View {
   id: string;
-  active: boolean;
   activeTabId: ComputedRef<string | undefined>;
   activeTab: ShallowRef<Tab | undefined>;
   listedTabs: Tab[];
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
-  constructor({
-    active = false,
-    activeTabId,
-  }: {
-    active?: boolean;
+  fontSettings: {
+    font: Font;
+
+    availableFontFeatures: ComputedRef<string[]>;
+    fontFeatures: Map<string, boolean>;
+
+    isVariable: ComputedRef<boolean>;
+    axes: ComputedRef<{
+      [key: string]: {
+        name: string;
+        min: number;
+        default: number;
+        max: number;
+        value: number;
+      };
+    }>;
+  };
+
+  constructor(args: {
+    id?: string;
+    font: Font;
+    enabledFontFeatures?: string[];
+    axes?: {
+      [key: string]: {
+        value: number;
+      };
+    };
     activeTabId?: string;
-  } = {}) {
-    this.id = createId("viw");
-    this.active = active;
-    this.activeTabId = computed(() => {
-      return this.activeTab.value?.id;
-    });
-    this.activeTab = shallowRef();
-    this.listedTabs = [];
+  }) {
+    const font = args.font;
+
+    this.id = args.id ?? createId("viw");
+
+    this.fontSettings = {
+      font: font,
+
+      availableFontFeatures: computed(() => {
+        return this.fontSettings.font.availableFeatures;
+      }),
+
+      fontFeatures: reactive(
+        new Map(
+          (function () {
+            if (!args.enabledFontFeatures) {
+              return font.availableFeatures.map((feature) => [feature, false]);
+            }
+
+            font.availableFeatures.reduce((acc, feature) => {
+              acc[feature] = args.enabledFontFeatures!.includes(feature);
+              return acc;
+            }, {} as { [key: string]: boolean });
+          })()
+        )
+      ),
+
+      isVariable: computed(() => {
+        return this.fontSettings.font.variationAxes !== undefined;
+      }),
+
+      axes: computed(() => {
+        if (!this.fontSettings.isVariable.value) return {};
+
+        return Object.entries(this.fontSettings.font.variationAxes).reduce(
+          (acc, [key, value]) => {
+            acc[key] = {
+              name: value.name,
+              min: value.min,
+              default: value.default,
+              max: value.max,
+              value: args.axes?.[key]?.value ?? value.default,
+            };
+            return acc;
+          },
+          {} as {
+            [key: string]: {
+              name: string;
+              min: number;
+              default: number;
+              max: number;
+              value: number;
+            };
+          }
+        );
+      }),
+    };
   }
 
   close() {
