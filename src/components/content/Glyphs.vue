@@ -19,7 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import { fonts } from "~/composables/useFont";
+import { Tab } from "~/composables/useTabs";
+import { View } from "~/composables/useViews";
+
+const { view, tab } = defineProps<{
+  view: View;
+  tab: Tab;
+}>();
 
 // const font = fonts.currentFont.value;
 

@@ -17,7 +17,11 @@
     </nav>
     <view-overflow>
       <view-component>
-        <component v-bind:is="view.activeTab.value?.component"></component>
+        <component
+          v-bind:is="view.activeTab.value?.component"
+          :view="view"
+          :tab="view.activeTab.value"
+        ></component>
       </view-component>
     </view-overflow>
     <view-resize-container>

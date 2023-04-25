@@ -1,6 +1,6 @@
 <template>
-  <!-- <glyph-grid v-if="font && glyph"> -->
-  <!-- <svg
+  <glyph-grid v-if="font && glyph">
+    <svg
       xmlns="http://www.w3.org/2000/svg"
       :viewBox="`${fBbox.minX} ${fBbox.minY} ${fBbox.maxX} ${fBbox.maxY}`"
       style="transform: scale(1, -1)"
@@ -87,8 +87,8 @@
         </g>
         <path class="glyph" :d="glyph?.path.toSVG()" />
       </g>
-    </svg> -->
-  <!-- </glyph-grid> -->
+    </svg>
+  </glyph-grid>
   <input v-model="char" />
   <!-- <input
     type="range"
@@ -99,38 +99,42 @@
 </template>
 
 <script setup lang="ts">
+import { table } from "console";
 import { computed, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
+import { Tab } from "~/composables/useTabs";
+import { View } from "~/composables/useViews";
 
-// const font = computed(() => fonts.currentFont.value!);
-// const margin = computed(() => font.value.unitsPerEm / 10);
+const { view, tab } = defineProps<{
+  view: View;
+  tab: Tab;
+}>();
 
-// const weight = ref(font.value.variationAxes.wght.default);
+const font = computed(() => tab.font.object!);
+const margin = computed(() => font.value.unitsPerEm / 10);
+
+const weight = ref(font.value.variationAxes.wght.default);
 
 const inUseFont = computed(() => {
-  // return font.value.getVariation({
-  // wght: weight.value,
-  // });
+  return font.value.getVariation({
+    wght: weight.value,
+  });
 });
 
 const char = ref("b");
 // const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
-const layout = computed(() => {
-  try {
-    // console.log(font.value.namedVariations);
-  } catch (e) {
-    console.log(e);
-  }
+const fontFeatures = computed(() => []);
 
-  // return inUseFont.value.layout(char.value, fontFeatures.value);
+const layout = computed(() => {
+  return inUseFont.value.layout(char.value, fontFeatures.value);
 });
 const glyph = computed(() => {
-  // return layout.value.glyphs[0];
+  return layout.value.glyphs[0];
 });
-// const gBbox = computed(() => glyph.value.bbox);
-// const fBbox = computed(() => inUseFont.value.bbox);
-// const width = computed(() => layout.value.positions[0].xAdvance);
+const gBbox = computed(() => glyph.value.bbox);
+const fBbox = computed(() => inUseFont.value.bbox);
+const width = computed(() => layout.value.positions[0].xAdvance);
 </script>
 
 <style lang="scss">

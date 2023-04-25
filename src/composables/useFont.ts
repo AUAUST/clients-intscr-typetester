@@ -39,7 +39,7 @@ export class FontOverview {
   familyName: string;
   subfamilyName: string;
   isVariable: boolean;
-  font: Font;
+  object: Font;
 
   constructor(font: Font, id: string) {
     this.id = id;
@@ -51,7 +51,7 @@ export class FontOverview {
       }
       return false;
     })();
-    this.font = markRaw(font);
+    this.object = markRaw(font);
   }
 }
 
