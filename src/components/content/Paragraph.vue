@@ -94,19 +94,32 @@
 </template>
 
 <script setup lang="ts">
+declare module "fontkit" {
+  interface Font {
+    variationAxes: {
+      [key: string]: {
+        name: string;
+        min: number;
+        default: number;
+        max: number;
+      };
+    };
+  }
+}
+
 import { computed, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
 
 const font = computed(() => fonts.currentFont.value!);
-
 const margin = computed(() => font.value.unitsPerEm / 10);
 
 const char = ref("b");
 const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
-const layout = computed(() =>
-  font.value.layout(char.value, fontFeatures.value)
-);
+const layout = computed(() => {
+  console.log(font.value.variationAxes);
+  return font.value.layout(char.value, fontFeatures.value);
+});
 const glyph = computed(() => {
   return layout.value.glyphs[0];
 });
