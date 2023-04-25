@@ -175,36 +175,6 @@ class FontsData {
     });
   }
 
-  async handleFontFile(file: File) {
-    console.log("handleFontFile", file);
-    // const loadingId = notifications.startLoading();
-    // const reader = new FileReader();
-    // reader.onload = (event) => {
-    //   const fontFace = this.loadFontFace({
-    //     dataUrl: event.target?.result as string,
-    //   });
-    //   fontFace.then((result) => {
-    //     if (result.valid) {
-    //       notifications.sendNotification({
-    //         type: "success",
-    //         message: `Font loaded successfully. Starting to process it...`,
-    //         forConsole: result,
-    //       });
-    //       this.storeFontToVue({
-    //         id: result.id,
-    //         file: file,
-    //       });
-    //       this.storeFontToDatabase({
-    //         id: result.id,
-    //         file: file,
-    //       });
-    //     }
-    //     notifications.stopLoading(loadingId);
-    //   });
-    // };
-    // reader.readAsDataURL(file);
-  }
-
   async loadFontFace({
     id = createId("iff"),
     dataUrl,
