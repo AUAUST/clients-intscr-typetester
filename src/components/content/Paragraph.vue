@@ -122,17 +122,23 @@ const margin = computed(() => font.value.unitsPerEm / 10);
 
 const weight = ref(font.value.variationAxes.wght.default);
 
+const inUseFont = computed(() => {
+  return font.value.getVariation({
+    wght: weight.value,
+  });
+});
+
 const char = ref("b");
 const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
 const layout = computed(() => {
   console.log(font.value.variationAxes);
-  return font.value.layout(char.value, fontFeatures.value);
+  return inUseFont.value.layout(char.value, fontFeatures.value);
 });
 const glyph = computed(() => {
   return layout.value.glyphs[0];
 });
 const gBbox = computed(() => glyph.value.bbox);
-const fBbox = computed(() => font.value.bbox);
+const fBbox = computed(() => inUseFont.value.bbox);
 const width = computed(() => layout.value.positions[0].xAdvance);
 </script>
 
