@@ -7,6 +7,7 @@ import { Tab, TabType, tabs } from "./useTabs";
 
 import { createId } from "~/modules/utils";
 import type { Font } from "fontkit";
+import { notifications } from "./useNotifications";
 
 const MINIMUM_WIDTH = 50;
 
@@ -26,9 +27,22 @@ export class View {
         };
       };
     };
+    tab: {
+      id?: string;
+      type: TabType;
+    };
     activeTabId?: string;
   }) {
     const font = fonts.getFont(args.font.id);
+
+    if (!font) {
+      notifications.sendNotification({
+        type: "error",
+        message:
+          "There was an error while applying the font to a new view.\nThis is most likely a bug. Please report it.",
+        forConsole: [font, args.font.id, args],
+      });
+    }
 
     this.id = args.id ?? createId("viw");
   }
@@ -80,6 +94,9 @@ class Views {
   initFirstView(fontId: string) {
     const view = new View({
       font: { id: fontId, enabledFontFeatures: [], axes: {} },
+      tab: {
+        type: tabs.defaultType,
+      },
     });
     this.listed.push(view);
   }
