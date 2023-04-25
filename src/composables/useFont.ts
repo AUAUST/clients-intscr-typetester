@@ -50,22 +50,18 @@ class FontOverview {
       }
       return false;
     })();
-    this.font = font;
+    this.font = markRaw(font);
   }
 }
 
 class FontsData {
   fontInput: HTMLInputElement | undefined = undefined;
-  currentFont: Ref<Font | undefined>;
 
   storage: {
     [key: string]: FontOverview;
-  } = {};
+  } = reactive({});
 
-  constructor() {
-    this.list = reactive([]);
-    this.currentFont = ref(undefined);
-  }
+  constructor() {}
 
   getFont(id: string): FontOverview | undefined {
     return this.storage[id];
@@ -74,7 +70,18 @@ class FontsData {
   setFont(font: Font) {
     const id = createId("fnt");
     this.storage[id] = new FontOverview(font, id);
+
     return id;
+  }
+
+  async fontToDOM(buffer: ArrayBuffer, id: string) {
+    const fontData = new DataView(buffer);
+    const fontFace = new FontFace(id, fontData);
+
+    await fontFace.load();
+
+    document.fonts.add(fontFace);
+    document.body.style.fontFamily = `${id}, system-ui`;
   }
 
   openFileDialog() {
@@ -143,14 +150,8 @@ class FontsData {
         continue;
       }
 
-      fonts.currentFont.value = markRaw(font);
-
-      const fontData = new DataView(buffer);
-      const fontFace = new FontFace(font.familyName, fontData);
-      await fontFace.load();
-
-      document.fonts.add(fontFace);
-      document.body.style.fontFamily = `${font.familyName}, sans-serif`;
+      const id = this.setFont(font);
+      await this.fontToDOM(buffer, id);
 
       notifications.sendNotification({
         type: "success",
