@@ -16,7 +16,7 @@ export class View {
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
   tabs: Tab[] = reactive([]);
-  activeTab: Ref<Tab | undefined> = ref(undefined);
+  activeTab: Tab;
 
   constructor(args: {
     id?: string;
@@ -37,7 +37,6 @@ export class View {
           "There was an error while applying the font to a new view.\nThis is most likely a bug. Please report it.",
         forConsole: [font, args.font.id, args],
       });
-      return;
     }
 
     const tab = tabs.createDefaultTab({
@@ -45,7 +44,7 @@ export class View {
       title: font.familyName,
     });
     this.tabs.push(tab);
-    this.activeTab.value = tab;
+    this.activeTab = reactive(tab);
   }
 
   close() {
@@ -69,7 +68,6 @@ export class View {
 class Views {
   listed: View[] = [];
   activeView: Ref<View | undefined>;
-  activeTab: ComputedRef<Tab | undefined>;
   fullWidth: Ref<number | undefined> = ref(undefined);
 
   get canCreate() {
@@ -86,9 +84,6 @@ class Views {
 
   constructor() {
     this.activeView = ref(undefined);
-    this.activeTab = computed(() => {
-      return this.activeView.value?.activeTab.value;
-    });
   }
 
   initFirstView(fontId: string) {

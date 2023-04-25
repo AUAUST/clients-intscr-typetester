@@ -10,7 +10,7 @@
         v-for="tab in view.tabs"
         :key="tab.id"
         size="fit-width"
-        @click="props.view.activeTab.value = tab"
+        @click="props.view.activeTab = tab"
       >
         {{ tab.id }}
       </Button>
@@ -18,9 +18,9 @@
     <view-overflow>
       <view-component>
         <component
-          v-bind:is="view.activeTab.value?.component"
+          v-bind:is="view.activeTab.component"
           :view="view"
-          :tab="view.activeTab.value"
+          :tab="view.activeTab"
         ></component>
       </view-component>
     </view-overflow>

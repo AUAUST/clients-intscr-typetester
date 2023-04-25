@@ -1,5 +1,5 @@
 <template>
-  <Button
+  <!-- <Button
     v-for="feature in font?.availableFeatures"
     @click="
       if (views.activeTab.value?.state.enabledFeatures.has(feature)) {
@@ -13,17 +13,28 @@
     :active="views.activeTab.value?.state.enabledFeatures.has(feature)"
   >
     {{ feature }}
-  </Button>
+  </Button> -->
+  <!-- tab:<br />
+  {{ tab }}
+  views.activeView.value?.activeTab.value:<br />
+  {{ views.activeView.value?.activeTab.value }}
+  views.activeView.value?.activeTab:<br />
+  {{ views.activeView.value?.activeTab }} -->
+
+  {{ font ? font : "no font" }}
 </template>
 
 <script setup lang="ts">
 import Button from "@/components/ui/Button.vue";
 
 import { views } from "~/composables/useViews";
-import { computed } from "vue";
 
-const font = computed(() => views.activeTab.value?.font.object);
-console.log("font", font);
-console.log("tab", views.activeTab.value);
-console.log("views", views);
+import { computed } from "vue";
+import { fonts } from "~/composables/useFont";
+const font = computed(() => {
+  if (!fonts.hasAnyFont.value) {
+    return undefined;
+  }
+  return views.activeView.value?.activeTab.font.familyName;
+});
 </script>
