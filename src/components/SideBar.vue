@@ -49,13 +49,32 @@
 <script setup lang="ts">
 import { viewport } from "~/composables/useViewport";
 
-import { fonts } from "~/composables/useFont";
+import { FontOverview, fonts } from "~/composables/useFont";
 
 import Button from "@/components/ui/Button.vue";
 import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import UiSettings from "@/components/sidebar/UiSettings.vue";
 import FontSettings from "@/components/sidebar/FontSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
+import { ComputedRef, computed } from "vue";
+import { View, views } from "~/composables/useViews";
+import { Tab } from "~/composables/useTabs";
+
+const target: {
+  view: ComputedRef<View | undefined>;
+  tab: ComputedRef<Tab | undefined>;
+  font: ComputedRef<FontOverview | undefined>;
+} = {
+  view: computed(() => {
+    return views.activeView.value;
+  }),
+  tab: computed(() => {
+    return target.view.value?.activeTab.value;
+  }),
+  font: computed(() => {
+    return target.tab.value?.font;
+  }),
+};
 </script>
 
 <style lang="scss">
