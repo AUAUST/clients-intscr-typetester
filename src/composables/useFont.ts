@@ -157,16 +157,6 @@ class FontsData {
     }
   }
 
-  storeFontToVue({ id, file }: { id: string; file: File }) {
-    this.list.push({
-      name: file.name,
-      fileName: file.name,
-      type: file.type,
-      lastModified: file.lastModified,
-      id: id,
-    });
-  }
-
   storeFontToDatabase({ id, file }: { id: string; file: File }) {
     notifications.sendNotification({
       type: "warning",
@@ -175,50 +165,6 @@ class FontsData {
     });
   }
 
-  async loadFontFace({
-    id = createId("iff"),
-    dataUrl,
-  }: {
-    id?: string;
-    dataUrl: string;
-  }) {
-    let isValid = false;
-
-    type FontUploadSuccess = {
-      valid: true;
-      id: string;
-      dataUrl: string;
-    };
-    type FontUploadFailure = {
-      valid: false;
-    };
-
-    const fontFace = new FontFace(id, `url(${dataUrl})`);
-
-    await fontFace
-      .load()
-      .then((loadedFont) => {
-        (document as any).fonts.add(loadedFont);
-        isValid = true;
-      })
-      .catch((error) => {
-        notifications.sendNotification({
-          type: "error",
-          message: `Could not load the file. Is it a valid font ?`,
-          forConsole: [error, dataUrl],
-        });
-      });
-    if (isValid) {
-      return {
-        valid: true,
-        id,
-        dataUrl,
-      } as FontUploadSuccess;
-    }
-    return {
-      valid: false,
-    } as FontUploadFailure;
-  }
   characterData(id: string | number) {
     function getStringChar(char: string) {
       const id = char.charCodeAt(0);
@@ -271,6 +217,7 @@ class FontsData {
     })();
     return `U+${unicode.toString(16).padStart(4, "0").toUpperCase()}`;
   }
+
   static characterSets: {
     [key: string]: {
       title: string;
@@ -351,6 +298,7 @@ class FontsData {
         .sort(),
     },
   };
+
   getCharSet(id: keyof typeof FontsData.characterSets): number[] {
     const data = FontsData.characterSets[id];
     if (data.extends) {
