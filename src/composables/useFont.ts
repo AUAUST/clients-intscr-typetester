@@ -102,6 +102,7 @@ class FontsData {
     const loadingFont = notifications.startLoading();
 
     let files: File[] = [];
+
     if (Array.isArray(input)) {
       files = input;
     } else if (input instanceof FileList) {
@@ -109,7 +110,9 @@ class FontsData {
     } else {
       files = [input];
     }
+
     for (const file of files) {
+      // Eliminate files with wrong extensions and MIME types
       if (
         !file.name.match(/\.(ttf|otf|woff|woff2|ttc|dfont)$/) &&
         !file.type.match(/^font\/\w+/)
@@ -123,9 +126,11 @@ class FontsData {
         continue;
       }
 
-      let font: fontkit.Font;
+      let font: Font;
+
       const buffer = await file.arrayBuffer();
 
+      // Parse the font file
       try {
         font = fontkit.create(new Uint8Array(buffer) as Buffer);
       } catch (error) {
