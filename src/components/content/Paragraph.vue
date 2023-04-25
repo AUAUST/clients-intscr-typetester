@@ -110,6 +110,11 @@ declare module "fontkit" {
         max: number;
       };
     };
+    namedVariations: {
+      [key: string]: {
+        [key: string]: number;
+      };
+    };
     getVariation(variations: { [key: string]: number }): Font;
   }
 }
