@@ -100,25 +100,6 @@
 </template>
 
 <script setup lang="ts">
-declare module "fontkit" {
-  interface Font {
-    variationAxes: {
-      [key: string]: {
-        name: string;
-        min: number;
-        default: number;
-        max: number;
-      };
-    };
-    namedVariations: {
-      [key: string]: {
-        [key: string]: number;
-      };
-    };
-    getVariation(variations: { [key: string]: number }): Font;
-  }
-}
-
 import { computed, ref } from "vue";
 
 import { fonts } from "~/composables/useFont";
