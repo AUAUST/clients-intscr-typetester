@@ -1,15 +1,13 @@
 <template>
-  <main
-    id="content-container"
-    :style="{
+  <main id="content-container">
+    <!-- :style="{
       fontFeatureSettings: [...fonts.ui.enabledFontFeatures]
         .map((feature) => `'${feature}' 1`)
         .join(', '),
-    }"
-  >
+    }" -->
     <view-container ref="viewContainerRef">
       <ViewComponent
-        v-if="fonts.currentFont.value"
+        v-if="fonts.hasAnyFont"
         v-for="view in views.listed"
         :key="view.id"
         :view="view"

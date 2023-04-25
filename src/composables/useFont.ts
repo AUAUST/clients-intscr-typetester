@@ -63,6 +63,10 @@ class FontsData {
 
   constructor() {}
 
+  hasAnyFont = computed(() => {
+    return Object.keys(this.storage).length > 0;
+  });
+
   getFont(id: string): FontOverview | undefined {
     return this.storage[id];
   }
