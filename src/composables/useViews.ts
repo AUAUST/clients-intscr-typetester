@@ -41,12 +41,12 @@ export class View {
       return;
     }
 
-    this.tabs.push(
-      tabs.createDefaultTab({
-        font: args.font,
-        title: font.familyName,
-      })
-    );
+    const tab = tabs.createDefaultTab({
+      font: args.font,
+      title: font.familyName,
+    });
+    this.tabs.push(tab);
+    this.activeTab.value = tab;
 
     console.log(this.tabs);
     console.log(this);
