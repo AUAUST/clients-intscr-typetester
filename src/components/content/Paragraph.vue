@@ -2,7 +2,7 @@
   <glyph-grid v-if="font && glyph">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      :viewBox="viewBox"
+      :viewBox="`${fBbox.minX} ${fBbox.minY} ${fBbox.maxX} ${fBbox.maxY}`"
       style="transform: scale(1, -1)"
     >
       <g class="rules bbox">
@@ -86,6 +86,7 @@
           />
         </g>
         <path class="glyph" :d="glyph?.path.toSVG()" />
+        <!-- :d="font.getGlyph(font.layout(char).glyphs[0].id).path.toSVG()" -->
       </g>
     </svg>
   </glyph-grid>
@@ -102,16 +103,16 @@ const font = computed(() => fonts.currentFont.value!);
 const margin = computed(() => font.value.unitsPerEm / 10);
 
 const char = ref("b");
-const glyph = computed(() => font.value.layout(char.value).glyphs[0]);
+const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
+const layout = computed(() =>
+  font.value.layout(char.value, fontFeatures.value)
+);
+const glyph = computed(() => {
+  return layout.value.glyphs[0];
+});
 const gBbox = computed(() => glyph.value.bbox);
 const fBbox = computed(() => font.value.bbox);
-const viewBox = computed(
-  () =>
-    `${fBbox.value.minX} ${fBbox.value.minY} ${fBbox.value.maxX} ${fBbox.value.maxY}`
-);
-const width = computed(
-  () => font.value.layout(char.value).positions[0].xAdvance
-);
+const width = computed(() => layout.value.positions[0].xAdvance);
 </script>
 
 <style lang="scss">
