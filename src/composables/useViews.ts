@@ -1,9 +1,9 @@
 import { ref, computed, ShallowRef, shallowRef, reactive } from "vue";
 import type { Ref, ComputedRef } from "vue";
 
-import { fonts } from "./useFont";
+import { FontOverview, fonts } from "./useFont";
 
-import { Tab, TabType, tabs } from "./useTabs";
+import { Tab, TabType } from "./useTabs";
 
 import { createId } from "~/modules/utils";
 import type { Font } from "fontkit";
@@ -16,23 +16,20 @@ export class View {
   width: Ref<number | undefined> = ref(undefined);
   DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
 
+  tabs: Tab[] = reactive([]);
+  activeTab: Ref<Tab | undefined> = ref(undefined);
+
   constructor(args: {
     id?: string;
-    font: {
-      id: string;
-      enabledFontFeatures?: string[];
-      axes?: {
-        [key: string]: {
-          value: number;
-        };
-      };
-    };
-    tab: {
+    font: FontOverview;
+    tab?: {
       id?: string;
       type: TabType;
     };
     activeTabId?: string;
   }) {
+    this.id = args.id ?? createId("viw");
+
     const font = fonts.getFont(args.font.id);
 
     if (!font) {
@@ -42,9 +39,15 @@ export class View {
           "There was an error while applying the font to a new view.\nThis is most likely a bug. Please report it.",
         forConsole: [font, args.font.id, args],
       });
+      return;
     }
 
-    this.id = args.id ?? createId("viw");
+    const tab = new Tab({
+      id: args.tab?.id,
+      title: font.familyName,
+      type: args.tab?.type ?? "text",
+      font: font,
+    });
   }
 
   close() {
@@ -93,10 +96,7 @@ class Views {
 
   initFirstView(fontId: string) {
     const view = new View({
-      font: { id: fontId, enabledFontFeatures: [], axes: {} },
-      tab: {
-        type: tabs.defaultType,
-      },
+      font: fonts.getFont(fontId, true),
     });
     this.listed.push(view);
   }

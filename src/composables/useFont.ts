@@ -34,7 +34,7 @@ declare module "fontkit" {
   }
 }
 
-class FontOverview {
+export class FontOverview {
   id: string;
   familyName: string;
   subfamilyName: string;
@@ -66,7 +66,11 @@ class FontsData {
 
   hasAnyFont = ref(false);
 
-  getFont(id: string): FontOverview | undefined {
+  getFont(id: string, fallbackToDefault?: boolean) {
+    // q: how to tell TS that the function can't return undefined when fallbackToDefault is true?
+    if (fallbackToDefault) {
+      return this.storage[id] ?? this.storage[0];
+    }
     return this.storage[id];
   }
 

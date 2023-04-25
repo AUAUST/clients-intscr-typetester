@@ -6,10 +6,14 @@
     ref="viewElement"
   >
     <nav>
-      <Button v-for="tab in tabs.listed" :key="tab.id" size="fit-width">
-        <!-- @click="props.view.activeTab.value = tab" -->
+      <!-- <Button
+        v-for="tab in tabs.listed"
+        :key="tab.id"
+        size="fit-width"
+        @click="props.view.activeTab.value = tab"
+      >
         {{ tab.id }}
-      </Button>
+      </Button> -->
     </nav>
     <view-overflow>
       <view-component>
@@ -30,7 +34,6 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 import Button from "@/components/ui/Button.vue";
 
-import { tabs } from "~/composables/useTabs";
 import { View, views } from "~/composables/useViews";
 
 const props = defineProps<{

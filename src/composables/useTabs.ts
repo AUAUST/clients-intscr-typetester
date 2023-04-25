@@ -8,59 +8,36 @@ import { createId } from "~/modules/utils";
 import TabComponentParagraph from "@/components/content/Paragraph.vue";
 import TabComponentGlyphs from "@/components/content/Glyphs.vue";
 import TabComponentDebug from "@/components/content/Debug.vue";
+import { FontOverview } from "./useFont";
 
 export class Tab {
   id: string;
   title: string;
-  typeId: string;
   type: TabType;
+  font: FontOverview;
 
-  constructor({
-    id = createId("tab"),
-    title,
-    typeId,
-    type,
-  }: {
+  constructor(args: {
     id?: string;
     title: string;
-    typeId?: string;
-    type?: TabType;
+    type?: TabType | string;
+    font: FontOverview;
   }) {
-    this.id = id;
-    if (type) {
-      this.type = type;
-      this, (this.typeId = type.id);
-    } else if (typeId) {
-      const typeFromId = tabTypes.getTypeById(typeId);
-      if (typeFromId) {
-        this.type = typeFromId;
-        this.typeId = typeId;
-      } else {
-        const defaultType = tabs.defaultType;
-        this.type = defaultType;
-        this.typeId = defaultType.id;
-        console.warn(
-          `Tab type with id "${typeId}" not found. Using default type "${defaultType.id}".`,
-          this,
-          defaultType
-        );
-      }
-    } else {
-      const defaultType = tabs.defaultType;
-      this.type = defaultType;
-      this.typeId = defaultType.id;
-      console.warn(
-        `No type or typeId provided. Using default type "${defaultType.id}".`,
-        this,
-        defaultType
-      );
-    }
+    this.id = args.id ?? createId("tab");
+    this.title = args.title;
 
-    this.title = title;
+    this.type =
+      (typeof args.type === "string"
+        ? tabTypes.getTypeById(args.type)
+        : args.type) ?? tabTypes.getDefaultType();
+
+    this.font = args.font;
   }
 
   get component() {
     return this.type.component;
+  }
+  get typeId() {
+    return this.type.id;
   }
 }
 
@@ -90,7 +67,7 @@ export class TabType {
 
 export const tabTypes = {
   getTypeById: function (id: string) {
-    return this.listed.find((type) => type.id === id) ?? this.getDefaultType();
+    return this.listed.find((type) => type.id === id);
   },
   getDefaultType: function () {
     return this.listed[0];
@@ -114,50 +91,3 @@ export const tabTypes = {
     }),
   ],
 };
-
-class TabsData {
-  listed: Tab[];
-  activeTabId: Ref<string>;
-  tabTypes = tabTypes.listed;
-  getTypeById = tabTypes.getTypeById;
-  defaultType = tabTypes.getDefaultType();
-
-  constructor() {
-    const cachedTabs = storage.get("previouslyOpenedTabs");
-    if (cachedTabs.exists) {
-      this.listed = reactive(cachedTabs.value as Tab[]);
-    } else {
-      this.listed = reactive(this.getDefaultTabs());
-    }
-    this.activeTabId = ref("");
-  }
-
-  getDefaultTabs() {
-    const defaultTabs: Tab[] = [];
-    this.tabTypes.forEach((tabType) => {
-      if (!tabType.hidden) {
-        defaultTabs.push(new Tab({ title: tabType.title, typeId: tabType.id }));
-      }
-    });
-    return defaultTabs;
-  }
-
-  createTab(tabType: TabType) {
-    const tab = new Tab({
-      title: tabType.title,
-      typeId: tabType.id,
-    });
-
-    this.listed.push(tab);
-  }
-
-  activeTab = computed(() =>
-    this.listed.find((tab) => tab.id === this.activeTabId.value)
-  );
-
-  get canOpenMore() {
-    return this.listed.length < 3;
-  }
-}
-
-export const tabs = new TabsData();
