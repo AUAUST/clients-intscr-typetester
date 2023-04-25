@@ -52,7 +52,7 @@ export class View {
 class Views {
   listed: View[] = [];
   activeViewId: Ref<string>;
-  activeView: ComputedRef<View | undefined>;
+  activeView: ComputedRef<View | undefined> = computed(() => undefined);
   // this value is set by the Content.vue component automatically on mount
   fullWidth: Ref<number | undefined> = ref(undefined);
 
@@ -70,9 +70,18 @@ class Views {
 
   constructor() {
     this.activeViewId = ref("");
-    this.activeView = computed(() => {
-      return this.listed.find((view) => view.id === this.activeViewId.value);
+    // this.activeView = computed(() => {
+    //   this.activeViewId.value;
+    // });
+  }
+
+  initFirstView(fontId: string) {
+    const view = new View({
+      fontId,
+      enabledFontFeatures: [],
+      axes: {},
     });
+    this.listed.push(view);
   }
 
   viewById(id: string) {
@@ -91,7 +100,7 @@ class Views {
       const defaultWidth = fullWidth / this.listed.length;
       const previousFullWidth = this.listed
         .map((view) => view.width.value)
-        .reduce((a, b) => (a ?? defaultWidth) + (b ?? defaultWidth));
+        .reduce((a, b) => (a ?? defaultWidth) + (b ?? defaultWidth), 0);
       this.listed.forEach((view) => {
         let newViewWidth: number | undefined;
         let currentViewWidth = view.width.value;

@@ -7,6 +7,7 @@ import { notifications } from "./useNotifications";
 
 import * as fontkit from "fontkit";
 import type { Font } from "fontkit";
+import { views } from "./useViews";
 
 declare global {
   interface FontFaceSet {
@@ -63,9 +64,7 @@ class FontsData {
 
   constructor() {}
 
-  hasAnyFont = computed(() => {
-    return Object.keys(this.storage).length > 0;
-  });
+  hasAnyFont = ref(false);
 
   getFont(id: string): FontOverview | undefined {
     return this.storage[id];
@@ -74,6 +73,11 @@ class FontsData {
   setFont(font: Font) {
     const id = createId("fnt");
     this.storage[id] = new FontOverview(font, id);
+
+    if (!this.hasAnyFont.value) {
+      views.initFirstView(id);
+      this.hasAnyFont.value = true;
+    }
 
     return id;
   }

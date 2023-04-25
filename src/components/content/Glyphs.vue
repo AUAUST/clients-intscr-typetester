@@ -1,6 +1,6 @@
 <template>
-  <div v-if="font">
-    <!-- unitsPerEm, ascent, descent, lineGap, underlinePosition, underlineThickness, italicAngle, capHeight, xHeight, bbox -->
+  <!-- <div v-if="font">
+    unitsPerEm, ascent, descent, lineGap, underlinePosition, underlineThickness, italicAngle, capHeight, xHeight, bbox
     unitsPerEm: {{ font.unitsPerEm }}<br />
     ascent: {{ font.ascent }}<br />
     descent: {{ font.descent }}<br />
@@ -15,13 +15,13 @@
     numGlyphs: {{ font.numGlyphs }}<br />
     availableFeatures: {{ font.availableFeatures }}<br />
     characterSet: {{ font.characterSet }}<br />
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
 import { fonts } from "~/composables/useFont";
 
-const font = fonts.currentFont.value;
+// const font = fonts.currentFont.value;
 
 // const numGlyphs = (function () {
 //   return markRaw(font?.numGlyphs);

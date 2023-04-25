@@ -6,13 +6,13 @@
         .join(', '),
     }" -->
     <view-container ref="viewContainerRef">
+      <ChooseComponent v-if="!fonts.hasAnyFont.value" />
       <ViewComponent
-        v-if="fonts.hasAnyFont"
+        v-else
         v-for="view in views.listed"
         :key="view.id"
         :view="view"
       />
-      <ChooseComponent v-else />
     </view-container>
   </main>
 </template>
@@ -25,6 +25,8 @@ import ChooseComponent from "~/components/Choose.vue";
 import { fonts } from "~/composables/useFont";
 
 import { views } from "~/composables/useViews";
+
+console.log(fonts.hasAnyFont.value);
 
 const viewContainerRef = ref<HTMLElement | null>(null);
 
