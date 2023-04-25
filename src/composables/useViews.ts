@@ -17,16 +17,18 @@ export class View {
 
   constructor(args: {
     id?: string;
-    fontId: string;
-    enabledFontFeatures?: string[];
-    axes?: {
-      [key: string]: {
-        value: number;
+    font: {
+      id: string;
+      enabledFontFeatures?: string[];
+      axes?: {
+        [key: string]: {
+          value: number;
+        };
       };
     };
     activeTabId?: string;
   }) {
-    const font = fonts.getFont(args.fontId);
+    const font = fonts.getFont(args.font.id);
 
     this.id = args.id ?? createId("viw");
   }
@@ -77,9 +79,7 @@ class Views {
 
   initFirstView(fontId: string) {
     const view = new View({
-      fontId,
-      enabledFontFeatures: [],
-      axes: {},
+      font: { id: fontId, enabledFontFeatures: [], axes: {} },
     });
     this.listed.push(view);
   }
