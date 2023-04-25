@@ -91,6 +91,12 @@
     </svg>
   </glyph-grid>
   <input v-model="char" />
+  <input
+    type="range"
+    v-model="weight"
+    :min="font.variationAxes.wght.min"
+    :max="font.variationAxes.wght.max"
+  />
 </template>
 
 <script setup lang="ts">
@@ -113,6 +119,8 @@ import { fonts } from "~/composables/useFont";
 
 const font = computed(() => fonts.currentFont.value!);
 const margin = computed(() => font.value.unitsPerEm / 10);
+
+const weight = ref(font.value.variationAxes.wght.default);
 
 const char = ref("b");
 const fontFeatures = computed(() => Array.from(fonts.ui.enabledFontFeatures));
