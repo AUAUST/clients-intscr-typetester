@@ -238,20 +238,6 @@ class FontsData {
       value: number[];
     };
   } = {
-    get currentFont() {
-      if (fonts.currentFont.value) {
-        return {
-          title: fonts.currentFont.value.familyName,
-          description: `The current font.`,
-          value: fonts.currentFont.value.characterSet,
-        };
-      }
-      return {
-        title: "No font",
-        description: "No font selected.",
-        value: [],
-      };
-    },
     alphanum: {
       title: "Alphanumeric",
       description:

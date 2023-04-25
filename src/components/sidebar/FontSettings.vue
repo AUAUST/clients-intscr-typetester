@@ -1,5 +1,5 @@
 <template>
-  <Button
+  <!-- <Button
     v-for="feature in fontFeatures"
     @click="
       if (fonts.ui.enabledFontFeatures.has(feature)) {
@@ -13,7 +13,7 @@
     :active="fonts.ui.enabledFontFeatures.has(feature)"
   >
     {{ feature }}
-  </Button>
+  </Button> -->
   <div>{{}}</div>
 </template>
 
@@ -23,8 +23,8 @@ import { computed, reactive } from "vue";
 
 import { fonts } from "~/composables/useFont";
 
-const font = computed(() => fonts.currentFont.value);
-const fontFeatures = computed(() =>
-  font.value ? font.value.availableFeatures : []
-);
+// const font = computed(() => fonts.currentFont.value);
+// const fontFeatures = computed(() =>
+//   font.value ? font.value.availableFeatures : []
+// );
 </script>
