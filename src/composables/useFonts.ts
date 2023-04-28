@@ -14,8 +14,11 @@ export const useFonts = defineStore("fonts", () => {
 
   // ================================================
   // Getters
+  const _listedIds = computed(() => {
+    return Object.keys(_storage);
+  });
   const length = computed(() => {
-    return Object.keys(_storage).length;
+    return _listedIds.value.length;
   });
 
   // ================================================
@@ -26,10 +29,16 @@ export const useFonts = defineStore("fonts", () => {
 
   // ================================================
   return {
-    length,
+    // Getters
     get listed() {
       return readonly(_storage);
     },
+    get listedIds() {
+      return readonly(_listedIds);
+    },
+    length,
+
+    // Actions
     add,
   };
 });
