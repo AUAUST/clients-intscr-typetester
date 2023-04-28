@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 
+// ref()s become state properties
+// computed()s become getters
+// function()s become actions
+
 export const useFonts = defineStore("fonts", () => {
   const fonts = {};
   const count = ref(0);
