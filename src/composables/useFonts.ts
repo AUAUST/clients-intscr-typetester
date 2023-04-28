@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 
 // ref()s become state properties
 // computed()s become getters
@@ -8,28 +8,25 @@ import { computed, ref } from "vue";
 export const useFonts = defineStore("fonts", () => {
   // ================================================
   // States
-  const fonts = {};
-  const count = ref(0);
+  const _storage = reactive<{
+    [key: string]: number;
+  }>({});
 
   // ================================================
   // Getters
-  const fontsCount = computed(() => {
-    return Object.keys(fonts).length;
+  const length = computed(() => {
+    return Object.keys(_storage).length;
   });
 
   // ================================================
   // Actions
-  function increment() {
-    console.log("increment");
-    console.log(count.value);
-    count.value++;
+  function add() {
+    _storage[`${Math.random()}`] = Math.random();
   }
 
   // ================================================
   return {
-    fonts,
-    count,
-    increment,
-    fontsCount,
+    length,
+    add,
   };
 });

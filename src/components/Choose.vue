@@ -8,9 +8,9 @@
       </div>
       <div>You may also try an Interscript font</div>
       <div>
-        <Button @click="increment()">Increment</Button>
+        <Button @click="fonts.add()">Increment</Button>
       </div>
-      <div>Fonts count: {{ count }}</div>
+      <div>Fonts count: {{ fonts.length }}</div>
     </no-font-container>
   </view-item>
 </template>
@@ -22,10 +22,9 @@ import Button from "@/components/ui/Button.vue";
 import { storeToRefs } from "pinia";
 import { useFonts } from "~/composables/useFonts";
 
-const fontsStore = useFonts();
+const fonts = useFonts();
 
-const { fonts, fontsCount, count } = storeToRefs(fontsStore);
-const { increment } = fontsStore;
+// const { fonts, fontsCount, count } = storeToRefs(fontsStore);
 </script>
 
 <style lang="scss">
