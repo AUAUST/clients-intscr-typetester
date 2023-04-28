@@ -94,6 +94,23 @@ class Views {
     this.listed.push(view);
   }
 
+  createView(fontId: string) {
+    if (!this.canCreate) return;
+
+    if (!fontId) {
+      // TODO: get fonts.currentFont(), which implies creating said method
+      // Then, make fontId optional
+    }
+    console.log(fonts.getFont(fontId, true));
+
+    const view = new View({
+      font: fonts.getFont(fontId, true),
+    });
+
+    this.listed.push(view);
+    this.activeView.value = view;
+  }
+
   viewById(id: string) {
     return this.listed.find((view) => view.id === id);
   }
@@ -104,6 +121,7 @@ class Views {
       view.width.value = realWidth >= MINIMUM_WIDTH ? realWidth : MINIMUM_WIDTH;
     });
   }
+
   calculateWidths() {
     const fullWidth = this.fullWidth.value;
     if (fullWidth) {

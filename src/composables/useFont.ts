@@ -69,6 +69,7 @@ class FontsData {
   getFont(id: string, fallbackToDefault?: boolean) {
     // q: how to tell TS that the function can't return undefined when fallbackToDefault is true?
     if (fallbackToDefault) {
+      console.log("fallbackToDefault is true", this.storage[id], this.storage);
       return this.storage[id] ?? this.storage[0];
     }
     return this.storage[id];

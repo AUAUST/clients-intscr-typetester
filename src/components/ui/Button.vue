@@ -1,7 +1,7 @@
 <template>
   <button
     class="button"
-    :class="[size, active ? 'active' : '']"
+    :class="[size, active ? 'active' : '', deactivated ? 'deactivated' : '']"
     :title="title ?? 'A clickable button.'"
   >
     <span class="text-small">
@@ -11,7 +11,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps(["size", "title", "active"]);
+defineProps({
+  size: String,
+  title: String,
+  active: Boolean,
+  deactivated: Boolean,
+});
 </script>
 
 <style lang="scss">

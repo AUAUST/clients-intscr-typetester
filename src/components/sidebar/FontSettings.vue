@@ -22,6 +22,15 @@
   {{ views.activeView.value?.activeTab }} -->
 
   {{ font ? font : "no font" }}
+  <Button
+    v-if="font"
+    @click="() => views.createView('')"
+    title="Create new tab"
+    :deactivated="!views.canCreate"
+    size="fit-width"
+  >
+    Create new tab
+  </Button>
 </template>
 
 <script setup lang="ts">
