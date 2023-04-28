@@ -10,7 +10,7 @@
       <div>
         <Button @click="fonts.add()">Increment</Button>
       </div>
-      <div>Fonts count: {{ fonts.length }}</div>
+      <div>Fonts count: {{ Object.keys(fonts.storage).length }}</div>
     </no-font-container>
   </view-item>
 </template>

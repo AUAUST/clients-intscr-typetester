@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, readonly, ref } from "vue";
 
 // ref()s become state properties
 // computed()s become getters
@@ -27,6 +27,9 @@ export const useFonts = defineStore("fonts", () => {
   // ================================================
   return {
     length,
+    get listed() {
+      return readonly(_storage);
+    },
     add,
   };
 });
