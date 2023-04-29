@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, Font, useFonts } from "./useFonts";
-import { computed, reactive, readonly } from "vue";
+import { Ref, computed, reactive, readonly, ref } from "vue";
 import { createId } from "~/modules/utils";
 
 export const useViews = defineStore("views", () => {
@@ -27,11 +27,11 @@ export const useViews = defineStore("views", () => {
   // ================================================
   // Actions
   function addView(fontId: string) {
-    const font = fonts.getById(fontId);
+    if (!fonts.getById(fontId)) return;
 
-    if (!font) return false;
-
-    const view = new View();
+    const view = new View({
+      fontId,
+    });
 
     _storage[view.id] = view;
   }
@@ -90,16 +90,16 @@ class View {
     [key: string]: Tab;
   };
 
-  constructor(args?: {
-    font: Font;
+  constructor(args: {
     id?: string;
+    fontId: string;
     tabType?: keyof typeof TabTypes;
   }) {
     this.id = args?.id ?? createId("viw");
     this.#activeTabId = undefined;
 
     const initialTab = new TabTypes[args?.tabType ?? "sandbox"].class({
-      font,
+      fontId: args.fontId,
     });
 
     this.#tabs = reactive({
@@ -108,21 +108,26 @@ class View {
   }
 }
 
+type TabArgs = {
+  id?: string;
+  name?: string;
+  fontId: string;
+};
 class Tab {
   #name: string | undefined;
 
   id: string;
   font: {
-    id: string;
+    id: Ref<string>;
     activeFeatures: string[];
   };
 
-  constructor(args?: { id?: string; name?: string }) {
+  constructor(args: TabArgs) {
     this.id = args?.id ?? createId("tab");
     this.#name = args?.name;
     this.font = {
-      id: "",
-      activeFeatures: [],
+      id: ref(args.fontId),
+      activeFeatures: reactive([]),
     };
   }
 
@@ -134,7 +139,7 @@ class Tab {
 class SandboxTab extends Tab {
   #type = TabTypes.sandbox;
 
-  constructor(args?: { id?: string; name?: string }) {
+  constructor(args: TabArgs) {
     super(args);
   }
 
