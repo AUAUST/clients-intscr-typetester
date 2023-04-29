@@ -11,6 +11,11 @@
         <Button @click="fonts.add()">Increment</Button>
       </div>
       <div>Fonts count: {{ Object.keys(fonts.listed).length }}</div>
+      <ul>
+        <li v-for="fontId in fonts.listedIds" :key="fontId">
+          {{ fontId }}
+        </li>
+      </ul>
     </no-font-container>
   </view-item>
 </template>
