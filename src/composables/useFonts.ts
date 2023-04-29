@@ -87,7 +87,7 @@ export const useFonts = defineStore("fonts", () => {
 
   // ================================================
   // Actions
-  async function add(input?: File | File[] | FileList) {
+  async function add(input?: File | File[] | FileList | null) {
     if (!input) {
       notifications.sendNotification({
         type: "error",
