@@ -9,31 +9,6 @@ import * as fontkit from "fontkit";
 import type { Font } from "fontkit";
 import { views } from "./useViews";
 
-declare global {
-  interface FontFaceSet {
-    add(font: FontFace): void;
-  }
-}
-
-declare module "fontkit" {
-  interface Font {
-    variationAxes: {
-      [key: string]: {
-        name: string;
-        min: number;
-        default: number;
-        max: number;
-      };
-    };
-    namedVariations: {
-      [key: string]: {
-        [key: string]: number;
-      };
-    };
-    getVariation(variations: { [key: string]: number }): Font;
-  }
-}
-
 export class FontOverview {
   id: string;
   familyName: string;
