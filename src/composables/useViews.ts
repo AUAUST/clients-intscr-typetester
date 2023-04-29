@@ -36,12 +36,12 @@ export const useViews = defineStore("views", () => {
     _storage[view.id] = view;
   }
 
-  function getByIndex(index: number): Font | undefined;
-  function getByIndex(index: number, fallback: FallbackPosition): Font;
-  function getByIndex(index: number, fallback?: undefined): Font | undefined;
+  function getByIndex(index: number): View | undefined;
+  function getByIndex(index: number, fallback: FallbackPosition): View;
+  function getByIndex(index: number, fallback?: undefined): View | undefined;
   function getByIndex(index: number, fallback?: FallbackPosition) {
-    const font = _storage[_listedIds.value[index]];
-    if (font) return font;
+    const view = _storage[_listedIds.value[index]];
+    if (view) return view;
     else if (fallback) return _getFallback(fallback);
     return undefined;
   }
@@ -54,13 +54,19 @@ export const useViews = defineStore("views", () => {
     return getByIndex(length.value - 1)!;
   }
 
-  function getComputedLast() {
-    return computed(() => getByIndex(length.value - 1)!);
+  function getById(id: string): View | undefined;
+  function getById(id: string, fallback: FallbackPosition): View;
+  function getById(id: string, fallback?: undefined): View | undefined;
+  function getById(id: string, fallback?: FallbackPosition) {
+    const view = _storage[id];
+    if (view) return view;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
   }
 
-  function _getFallback(fallback: FallbackPosition): Font;
+  function _getFallback(fallback: FallbackPosition): View;
   function _getFallback(fallback?: undefined): undefined;
-  function _getFallback(fallback?: FallbackPosition): Font | undefined {
+  function _getFallback(fallback?: FallbackPosition): View | undefined {
     if (fallback === "last") return getLast();
     else if (fallback === "first") return getFirst();
     return undefined;
@@ -79,6 +85,8 @@ export const useViews = defineStore("views", () => {
 
     // Actions
     addView,
+    getByIndex,
+    getById,
   };
 });
 
