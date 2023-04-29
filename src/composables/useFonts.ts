@@ -170,7 +170,7 @@ export const useFonts = defineStore("fonts", () => {
   function getByIndex(index: number, fallback?: FallbackPosition) {
     const font = _storage[_listedIds.value[index]];
     if (font) return font;
-    else if (fallback) return getFallback(fallback);
+    else if (fallback) return _getFallback(fallback);
     return undefined;
   }
 
@@ -186,9 +186,9 @@ export const useFonts = defineStore("fonts", () => {
     return computed(() => getByIndex(length.value - 1)!);
   }
 
-  function getFallback(fallback: FallbackPosition): Font;
-  function getFallback(fallback?: undefined): undefined;
-  function getFallback(fallback?: FallbackPosition): Font | undefined {
+  function _getFallback(fallback: FallbackPosition): Font;
+  function _getFallback(fallback?: undefined): undefined;
+  function _getFallback(fallback?: FallbackPosition): Font | undefined {
     if (fallback === "last") return getLast();
     else if (fallback === "first") return getFirst();
     return undefined;
