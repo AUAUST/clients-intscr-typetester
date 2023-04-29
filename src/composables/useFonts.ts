@@ -118,6 +118,8 @@ export const useFonts = defineStore("fonts", () => {
     })();
 
     for (const type of Object.keys(triage) as (keyof typeof triage)[]) {
+      if (triage[type].length === 0) continue;
+
       notifications.sendNotification({
         type: type,
         message: parsingResultMessage(type, triage[type]),
