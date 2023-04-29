@@ -87,6 +87,7 @@ export const useFonts = defineStore("fonts", () => {
         message: `No font file selected.`,
         expires: true,
       });
+      return;
     }
 
     const loadingKey = notifications.startLoading();
@@ -101,9 +102,9 @@ export const useFonts = defineStore("fonts", () => {
     id = id ?? createId("fnt");
 
     const promises = fontFiles.map(async (entry) => {
-      const result = await parseFont(entry);
-      return result;
+      return await parseFont(entry);
     });
+
     // Wait for all promises to resolve
     const results = await Promise.all(promises);
 
