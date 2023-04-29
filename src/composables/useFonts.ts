@@ -375,33 +375,36 @@ function parsingResultMessage(
       baseMessage +
       (success
         ? (results[0] as PositiveFontParsingResult).familyName
-        : `"${(results[0] as NegativeFontParsingResult).file?.name}"`)
+        : `"${(results[0] as NegativeFontParsingResult).file?.name}"`) +
+      "."
     );
   }
-  if (results.length < 4) {
+  if (results.length < 5) {
+    const items = results.map((result) =>
+      success
+        ? (result as PositiveFontParsingResult).familyName
+        : `"${(result as NegativeFontParsingResult).file?.name}"`
+    );
+    return (
+      baseMessage +
+      items.slice(0, -1).join(", ") +
+      " and " +
+      items.slice(-1) +
+      "."
+    );
+  }
+  if (results.length >= 5) {
     return (
       baseMessage +
       results
-        .map((result) =>
-          success
-            ? (result as PositiveFontParsingResult).familyName
-            : `"${(result as NegativeFontParsingResult).file?.name}"`
-        )
-        .join(", ")
-    );
-  }
-  if (results.length >= 4) {
-    return (
-      baseMessage +
-      results
-        .slice(0, 3)
+        .slice(0, 4)
         .map((result) =>
           success
             ? (result as PositiveFontParsingResult).familyName
             : `"${(result as NegativeFontParsingResult).file?.name}"`
         )
         .join(", ") +
-      ` and ${results.length - 3} more.`
+      ` and ${results.length - 4} more.`
     );
   }
 }
