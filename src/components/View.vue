@@ -38,20 +38,16 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 import Button from "@/components/ui/Button.vue";
 
-import { View, views } from "~/composables/useViews";
+// import { View, views } from "~/composables/useViews";
 
-const props = defineProps<{
-  view: View;
-}>();
+// const viewElement = ref();
 
-const viewElement = ref();
-
-onMounted(() => {
-  props.view.DOMElement.value = viewElement.value;
-});
-onUnmounted(() => {
-  props.view.DOMElement.value = undefined;
-});
+// onMounted(() => {
+//   props.view.DOMElement.value = viewElement.value;
+// });
+// onUnmounted(() => {
+//   props.view.DOMElement.value = undefined;
+// });
 
 const resizer: {
   lastX: number;

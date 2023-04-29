@@ -7,8 +7,20 @@
     }" -->
     <view-container ref="viewContainerRef">
       <ChooseComponent v-if="fonts.length < 1" />
+
       <div
-        v-else
+        v-for="view in views.listed"
+        :key="view.id"
+        :style="{
+          fontFamily: view.activeTab.font.id,
+        }"
+      >
+        {{ view.id }}
+        {{ view.activeTab.font.id }}
+      </div>
+
+      <!-- <ViewComponent
+        v-for="view in views.listed"
         @click="
           () => {
             console.log(fonts.getLast().id);
@@ -16,8 +28,7 @@
           }
         "
       >
-        {{ views.listed }}
-      </div>
+      </ViewComponent> -->
     </view-container>
   </main>
 </template>

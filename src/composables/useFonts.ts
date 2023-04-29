@@ -5,6 +5,7 @@ import { notifications } from "./useNotifications";
 
 import * as FontKit from "fontkit";
 import { createId } from "~/modules/utils";
+import { useViews } from "./useViews";
 
 // ref()s become state properties
 // computed()s become getters
@@ -67,6 +68,8 @@ type FontParsingResult = PositiveFontParsingResult | NegativeFontParsingResult;
 export type FallbackPosition = "first" | "last";
 
 export const useFonts = defineStore("fonts", () => {
+  const views = useViews();
+
   // ================================================
   // States
   const _storage = reactive<{
@@ -154,6 +157,8 @@ export const useFonts = defineStore("fonts", () => {
       _storage[id] = font;
 
       fontToDOM(result.buffer, id);
+
+      views.addView(id);
 
       ids.push(id);
     }

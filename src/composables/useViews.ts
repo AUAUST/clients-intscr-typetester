@@ -85,7 +85,12 @@ export const useViews = defineStore("views", () => {
 class View {
   id: string;
 
-  #activeTabId: string | undefined;
+  #activeTabId: Ref<string>;
+
+  _activeTab = computed(() => {
+    return this.#tabs[this.#activeTabId.value];
+  });
+
   #tabs: {
     [key: string]: Tab;
   };
@@ -96,15 +101,25 @@ class View {
     tabType?: keyof typeof TabTypes;
   }) {
     this.id = args?.id ?? createId("viw");
-    this.#activeTabId = undefined;
 
     const initialTab = new TabTypes[args?.tabType ?? "sandbox"].class({
       fontId: args.fontId,
     });
-
     this.#tabs = reactive({
       [initialTab.id]: initialTab,
     });
+    this.#activeTabId = ref(initialTab.id);
+  }
+  getTabById(id: string) {
+    return this.#tabs[id];
+  }
+  setActiveTab(id: string) {
+    if (!this.getTabById(id)) return;
+    this.#activeTabId.value = id;
+  }
+
+  get activeTab() {
+    return this._activeTab;
   }
 }
 
