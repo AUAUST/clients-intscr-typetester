@@ -11,8 +11,8 @@
         v-else
         @click="
           () => {
-            console.log(fonts.getFirst().id);
-            views.addView(fonts.getFirst().id);
+            console.log(fonts.getLast().id);
+            views.addView(fonts.getLast().id);
           }
         "
       >
