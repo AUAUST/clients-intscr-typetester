@@ -94,7 +94,7 @@ export const useFonts = defineStore("fonts", () => {
         message: `No font file selected.`,
         expires: true,
       });
-      return;
+      return false;
     }
 
     const loadingKey = notifications.startLoading();
