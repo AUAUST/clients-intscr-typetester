@@ -121,13 +121,12 @@ class View {
   getTabById(id: string) {
     return this.#tabs[id];
   }
+  getActiveTab() {
+    return this._activeTab;
+  }
   setActiveTab(id: string) {
     if (!this.getTabById(id)) return;
     this.#activeTabId.value = id;
-  }
-
-  get activeTab() {
-    return this._activeTab;
   }
 }
 
@@ -136,7 +135,7 @@ type TabArgs = {
   name?: string;
   fontId: string;
 };
-class Tab {
+export class Tab {
   #name: string | undefined;
 
   id: string;
@@ -157,6 +156,10 @@ class Tab {
   name = computed(() => {
     return this.#name ?? this.id;
   });
+
+  getFont() {
+    return useFonts().getById(this.font.id.value);
+  }
 }
 
 class SandboxTab extends Tab {
