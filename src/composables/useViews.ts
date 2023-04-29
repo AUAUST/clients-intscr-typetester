@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, Font, useFonts } from "./useFonts";
 import { computed, reactive } from "vue";
+import { createId } from "~/modules/utils";
 
 type View = {
   id: string;
-  _activeTabId: string;
+  _activeTabId: string | undefined;
   _tabs: {
     [key: string]: Tab;
   };
@@ -28,6 +29,8 @@ export const useViews = defineStore("views", () => {
     [key: string]: View;
   }>({});
 
+  const _genericTab = {};
+
   // ================================================
   // Getters
   const _listedIds = computed(() => {
@@ -40,6 +43,19 @@ export const useViews = defineStore("views", () => {
 
   // ================================================
   // Actions
+  function addView(fontId: string) {
+    const font = fonts.getById(fontId);
+
+    if (!font) return false;
+
+    const id = createId("viw");
+    const view: View = {
+      id,
+      _activeTabId: undefined,
+      _tabs: {},
+    };
+  }
+
   function getByIndex(index: number): Font | undefined;
   function getByIndex(index: number, fallback: FallbackPosition): Font;
   function getByIndex(index: number, fallback?: undefined): Font | undefined;

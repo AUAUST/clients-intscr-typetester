@@ -163,6 +163,10 @@ export const useFonts = defineStore("fonts", () => {
     return ids;
   }
 
+  function getById(id: string): Font | undefined {
+    return _storage[id];
+  }
+
   function getByIndex(index: number): Font | undefined;
   function getByIndex(index: number, fallback: FallbackPosition): Font;
   function getByIndex(index: number, fallback?: undefined): Font | undefined;
@@ -220,6 +224,7 @@ export const useFonts = defineStore("fonts", () => {
 
     // Actions
     add,
+    getById,
     getByIndex,
     getFirst,
     getLast,
