@@ -156,7 +156,7 @@ export class Tab {
   });
 
   getFont() {
-    return useFonts().getById(this.font.id.value);
+    return useFonts().getById(this.font.id.value)!;
   }
 }
 

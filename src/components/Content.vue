@@ -13,7 +13,7 @@
         :key="view.id"
         :style="{
           // as unknown as Tab is required because Vue unwraps the ref, but TS doesn't know that
-          fontFamily: (view.getActiveTab() as unknown as Tab).getFont()?.id,
+          fontFamily: (view.getActiveTab() as unknown as Tab).getFont().id,
         }"
       >
         {{ JSON.stringify(view, undefined, 4) }}
