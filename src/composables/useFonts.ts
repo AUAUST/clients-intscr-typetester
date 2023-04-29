@@ -1,7 +1,10 @@
 import { defineStore } from "pinia";
 import { computed, reactive, readonly, ref } from "vue";
 
+import { notifications } from "./useNotifications";
+
 import * as FontKit from "fontkit";
+import { createId } from "~/modules/utils";
 
 // ref()s become state properties
 // computed()s become getters
@@ -39,20 +42,22 @@ type Font = {
 
 type FontType = "TTF" | "OTF" | "WOFF" | "WOFF2" | "TTC" | "DFONT";
 
-type FontParsingResult =
-  | {
-      success: true;
-      raw: FontKit.Font;
-      buffer: ArrayBuffer;
-      familyName: string;
-      isVariable: boolean;
-      fontType: FontType;
-    }
-  | {
-      success: false;
-      message: string;
-      additionalInfo?: any;
-    };
+type PositiveFontParsingResult = {
+  success: true;
+  raw: FontKit.Font;
+  buffer: ArrayBuffer;
+  familyName: string;
+  isVariable: boolean;
+  fontType: FontType;
+};
+type NegativeFontParsingResult = {
+  success: false;
+  message: string;
+  file?: File;
+  additionalInfo?: any;
+};
+
+type FontParsingResult = PositiveFontParsingResult | NegativeFontParsingResult;
 
 type FallbackPosition = "first" | "last";
 
@@ -75,8 +80,53 @@ export const useFonts = defineStore("fonts", () => {
 
   // ================================================
   // Actions
-  function add() {
-    _storage[`${Math.random()}`] = Math.random() as any;
+  async function add(input?: File | File[] | FileList, id?: string) {
+    if (!input) {
+      notifications.sendNotification({
+        type: "error",
+        message: `No font file selected.`,
+        expires: true,
+      });
+    }
+
+    const fontFiles = (function () {
+      if (input instanceof File) return [input];
+      else if (input instanceof FileList) return Array.from(input);
+      else if (Array.isArray(input)) return input;
+      else return [];
+    })();
+
+    id = id ?? createId("fnt");
+
+    const promises = fontFiles.map(async (entry) => {
+      const result = await parseFont(entry);
+      return result;
+    });
+    // Wait for all promises to resolve
+    const results = await Promise.all(promises);
+
+    const triage = (function () {
+      const success: PositiveFontParsingResult[] = [];
+      const error: NegativeFontParsingResult[] = [];
+
+      for (const result of results) {
+        if (result.success) success.push(result);
+        else error.push(result);
+      }
+
+      return { success, error };
+    })();
+
+    for (const type of Object.keys(triage) as (keyof typeof triage)[]) {
+      notifications.sendNotification({
+        type: type,
+        message: parsingResultMessage(type, triage[type]),
+        forConsole: triage[type],
+        expires: true,
+      });
+    }
+
+    // _storage[`${Math.random()}`] = Math.random() as any;
   }
 
   function getByIndex(index: number): Font | undefined;
@@ -203,6 +253,7 @@ async function parseFont(file?: File): Promise<FontParsingResult> {
     return {
       success: false,
       message: `No file selected.`,
+      file: undefined,
       additionalInfo: file,
     };
   }
@@ -215,6 +266,7 @@ async function parseFont(file?: File): Promise<FontParsingResult> {
     return {
       success: false,
       message: `The file you selected appears not to be a font.`,
+      file: file,
       additionalInfo: file,
     };
   }
@@ -229,6 +281,7 @@ async function parseFont(file?: File): Promise<FontParsingResult> {
     return {
       success: false,
       message: `Could not load the file. Is it a valid font ?`,
+      file: file,
       additionalInfo: [error, file],
     };
   }
@@ -257,4 +310,47 @@ async function fontToDOM(buffer: ArrayBuffer, id: string) {
     return false;
   }
   // document.body.style.fontFamily = `${id}, system-ui`;
+}
+
+function parsingResultMessage(
+  type: "success" | "error",
+  results: FontParsingResult[]
+) {
+  const success = type === "success";
+  const baseMessage = success ? "Successfully loaded " : "Could not load ";
+
+  if (results.length === 1) {
+    return (
+      baseMessage +
+      (success
+        ? (results[0] as PositiveFontParsingResult).familyName
+        : `"${(results[0] as NegativeFontParsingResult).file?.name}"`)
+    );
+  }
+  if (results.length < 4) {
+    return (
+      baseMessage +
+      results
+        .map((result) =>
+          success
+            ? (result as PositiveFontParsingResult).familyName
+            : `"${(result as NegativeFontParsingResult).file?.name}"`
+        )
+        .join(", ")
+    );
+  }
+  if (results.length >= 4) {
+    return (
+      baseMessage +
+      results
+        .slice(0, 3)
+        .map((result) =>
+          success
+            ? (result as PositiveFontParsingResult).familyName
+            : `"${(result as NegativeFontParsingResult).file?.name}"`
+        )
+        .join(", ") +
+      ` and ${results.length - 3} more.`
+    );
+  }
 }
