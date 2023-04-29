@@ -89,6 +89,8 @@ export const useFonts = defineStore("fonts", () => {
       });
     }
 
+    const loadingKey = notifications.startLoading();
+
     const fontFiles = (function () {
       if (input instanceof File) return [input];
       else if (input instanceof FileList) return Array.from(input);
@@ -117,6 +119,7 @@ export const useFonts = defineStore("fonts", () => {
       return { success, error };
     })();
 
+    // Display results notifications to user
     for (const type of Object.keys(triage) as (keyof typeof triage)[]) {
       if (triage[type].length === 0) continue;
 
@@ -127,6 +130,8 @@ export const useFonts = defineStore("fonts", () => {
         expires: true,
       });
     }
+
+    notifications.stopLoading(loadingKey);
 
     // _storage[`${Math.random()}`] = Math.random() as any;
   }
