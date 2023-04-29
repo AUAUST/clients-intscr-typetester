@@ -374,6 +374,7 @@ function parsingResultMessage(
     let name = success
       ? (result as PositiveFontParsingResult).familyName
       : `"${(result as NegativeFontParsingResult).file?.name}"`;
+    // Replace spaces by non-breaking spaces and hyphens by non-breaking hyphens
     return name.replace(/ /g, "\u00a0").replace(/-/g, "\u2011");
   });
 
