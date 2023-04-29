@@ -242,3 +242,19 @@ async function parseFont(file?: File): Promise<FontParsingResult> {
     fontType: font.type,
   };
 }
+
+async function fontToDOM(buffer: ArrayBuffer, id: string) {
+  try {
+    const fontData = new DataView(buffer);
+    const fontFace = new FontFace(id, fontData);
+
+    await fontFace.load();
+
+    document.fonts.add(fontFace);
+
+    return true;
+  } catch (e) {
+    return false;
+  }
+  // document.body.style.fontFamily = `${id}, system-ui`;
+}
