@@ -230,74 +230,6 @@ export const useFonts = defineStore("fonts", () => {
   };
 });
 
-// async handleNewFontFile(input: File | File[] | FileList | null) {
-//     if (!input) {
-//       notifications.sendNotification({
-//         type: "error",
-//         message: `No file selected.`,
-//         expires: true,
-//       });
-//       return;
-//     }
-
-//     const loadingFont = notifications.startLoading();
-
-//     let files: File[] = [];
-
-//     if (Array.isArray(input)) {
-//       files = input;
-//     } else if (input instanceof FileList) {
-//       files = Array.from(input);
-//     } else {
-//       files = [input];
-//     }
-
-//     for (const file of files) {
-//       // Eliminate files with wrong extensions and MIME types
-//       if (
-//         !file.name.match(/\.(ttf|otf|woff|woff2|ttc|dfont)$/) &&
-//         !file.type.match(/^font\/\w+/)
-//       ) {
-//         notifications.sendNotification({
-//           type: "error",
-//           message: `The file you selected appears not to be a font.`,
-//           forConsole: file,
-//           expires: true,
-//         });
-//         continue;
-//       }
-
-//       let font: Font;
-
-//       const buffer = await file.arrayBuffer();
-
-//       // Parse the font file
-//       try {
-//         font = fontkit.create(new Uint8Array(buffer) as Buffer);
-//       } catch (error) {
-//         notifications.sendNotification({
-//           type: "error",
-//           message: `Could not load the file. Is it a valid font ?`,
-//           forConsole: [error, file],
-//           expires: true,
-//         });
-//         continue;
-//       }
-
-//       const id = this.setFont(font);
-//       await this.fontToDOM(buffer, id);
-
-//       notifications.sendNotification({
-//         type: "success",
-//         message: `Font loaded: ${font.familyName}`,
-//         forConsole: font,
-//         expires: true,
-//       });
-//     }
-
-//     notifications.stopLoading(loadingFont);
-//   }
-
 async function parseFont(file?: File): Promise<FontParsingResult> {
   // Check if a file was passed
   if (!file) {
@@ -358,6 +290,7 @@ async function fontToDOM(buffer: ArrayBuffer, id: string) {
 
     return true;
   } catch (e) {
+    console.error(e);
     return false;
   }
   // document.body.style.fontFamily = `${id}, system-ui`;
@@ -382,6 +315,7 @@ function parsingResultMessage(
   if (results.length === 1) {
     return baseMessage + resultsNames[0] + ".";
   }
+
   // Helvetica and Arial
   if (results.length < 5) {
     return (
@@ -392,6 +326,7 @@ function parsingResultMessage(
       "."
     );
   }
+
   // Helvetica, Arial, Times New Roman, Comic Sans and 1 more.
   if (results.length >= 5) {
     return (
