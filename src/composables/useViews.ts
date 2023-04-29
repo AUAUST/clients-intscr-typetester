@@ -12,8 +12,6 @@ export const useViews = defineStore("views", () => {
     [key: string]: View;
   }>({});
 
-  const _genericTab = {};
-
   // ================================================
   // Getters
   const _listedIds = computed(() => {
