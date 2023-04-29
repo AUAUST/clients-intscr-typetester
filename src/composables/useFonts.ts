@@ -49,6 +49,9 @@ export const useFonts = defineStore("fonts", () => {
   function getLast() {
     return getByIndex(length.value - 1)!;
   }
+  function getComputedLast() {
+    return computed(() => getByIndex(length.value - 1)!);
+  }
 
   function getFallback(fallback: FallbackPosition): Font;
   function getFallback(fallback?: undefined): undefined;
@@ -76,5 +79,6 @@ export const useFonts = defineStore("fonts", () => {
     getByIndex,
     getFirst,
     getLast,
+    getComputedLast,
   };
 });
