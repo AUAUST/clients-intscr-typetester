@@ -33,6 +33,7 @@ const fonts = useFonts();
 const fontInput = ref<HTMLInputElement>();
 
 onMounted(() => {
+  console.log(fontInput.value);
   fonts.setFontInput(fontInput.value);
 });
 onUnmounted(() => {
