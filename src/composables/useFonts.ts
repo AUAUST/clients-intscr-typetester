@@ -160,7 +160,6 @@ export const useFonts = defineStore("fonts", () => {
 
     notifications.stopLoading(loadingKey);
 
-    console.log(ids);
     return ids;
   }
 
@@ -195,9 +194,7 @@ export const useFonts = defineStore("fonts", () => {
   }
 
   function setFontInput(input: HTMLInputElement | undefined) {
-    console.log("Setting font input");
     _fontInput = input;
-    console.log(_fontInput, "fooo");
   }
 
   function openFontInput() {
@@ -227,6 +224,7 @@ export const useFonts = defineStore("fonts", () => {
     getFirst,
     getLast,
     getComputedLast,
+
     setFontInput,
     openFontInput,
   };
