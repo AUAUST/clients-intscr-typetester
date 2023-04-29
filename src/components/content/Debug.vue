@@ -1,8 +1,8 @@
 <template>
   <!-- fonts: {{ fonts }}<br /> -->
-  current:<br />
+  <!-- current:<br />
   ascender: {{ fonts.currentFont.value?.ascender }} <br />
-  <!-- charToGlyph a: {{ fonts.currentFont.value?.charToGlyph("a") }} <br /> -->
+  charToGlyph a: {{ fonts.currentFont.value?.charToGlyph("a") }} <br />
   descender: {{ fonts.currentFont.value?.descender }} <br />
   encoding: {{ fonts.currentFont.value?.encoding }} <br />
   glyph 1: {{ fonts.currentFont.value?.glyphs.get(1) }} <br />
@@ -15,11 +15,11 @@
   has char 2: {{ fonts.currentFont.value?.hasChar("2") }} <br />
   has char ¶: {{ fonts.currentFont.value?.hasChar("¶") }} <br />
   has char ½: {{ fonts.currentFont.value?.hasChar("½") }} <br />
-  names: {{ fonts.currentFont.value?.names }} <br />
+  names: {{ fonts.currentFont.value?.names }} <br /> -->
   <br />
   height: {{ viewport.size.height }}<br />
   width: {{ viewport.size.width }}<br />
-  content width: {{ views.fullWidth }}<br />
+
   clicking: {{ viewport.clicking }}<br />
 
   sidebar hideable: {{ viewport.size.sideBarHideable }}<br />
@@ -40,9 +40,6 @@
   tabs:
   {{ tabs }}<br />
   <br />
-  max views: {{ views.maxViews }}<br />
-  views:
-  {{ views }}<br />
 </template>
 
 <script setup lang="ts">
@@ -50,6 +47,8 @@ import { viewport } from "~/composables/useViewport";
 import { storage } from "~/composables/useStorage";
 import { notifications } from "~/composables/useNotifications";
 import { tabs } from "~/composables/useTabs";
-import { views } from "~/composables/useViews";
-import { fonts } from "~/composables/useFont";
+
+import { useFonts } from "~/composables/useFonts";
+
+const fonts = useFonts();
 </script>
