@@ -8,6 +8,7 @@ import { computed, reactive, readonly, ref } from "vue";
 type Font = {
   id: string;
 };
+
 type FallbackPosition = "first" | "last";
 
 export const useFonts = defineStore("fonts", () => {
@@ -22,6 +23,7 @@ export const useFonts = defineStore("fonts", () => {
   const _listedIds = computed(() => {
     return Object.keys(_storage);
   });
+
   const length = computed(() => {
     return _listedIds.value.length;
   });
@@ -49,6 +51,7 @@ export const useFonts = defineStore("fonts", () => {
   function getLast() {
     return getByIndex(length.value - 1)!;
   }
+
   function getComputedLast() {
     return computed(() => getByIndex(length.value - 1)!);
   }
@@ -60,8 +63,6 @@ export const useFonts = defineStore("fonts", () => {
     else if (fallback === "first") return getFirst();
     return undefined;
   }
-
-  const font = getByIndex(-1);
 
   // ================================================
   return {
