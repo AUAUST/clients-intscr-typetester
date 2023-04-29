@@ -4,6 +4,14 @@ import { computed, reactive } from "vue";
 
 type View = {
   id: string;
+  _activeTabId: string;
+  _tabs: {
+    [key: string]: Tab;
+  };
+};
+
+type Tab = {
+  id: string;
   name: string;
   font: {
     id: string;
@@ -20,6 +28,8 @@ export const useViews = defineStore("views", () => {
     [key: string]: View;
   }>({});
 
+  // ================================================
+  // Getters
   const _listedIds = computed(() => {
     return Object.keys(_storage);
   });
@@ -29,7 +39,7 @@ export const useViews = defineStore("views", () => {
   });
 
   // ================================================
-  // Getters
+  // Actions
   function getByIndex(index: number): Font | undefined;
   function getByIndex(index: number, fallback: FallbackPosition): Font;
   function getByIndex(index: number, fallback?: undefined): Font | undefined;
@@ -59,9 +69,6 @@ export const useViews = defineStore("views", () => {
     else if (fallback === "first") return getFirst();
     return undefined;
   }
-
-  // ================================================
-  // Actions
 
   // ================================================
   return {};
