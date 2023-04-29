@@ -3,23 +3,6 @@ import { FallbackPosition, Font, useFonts } from "./useFonts";
 import { computed, reactive } from "vue";
 import { createId } from "~/modules/utils";
 
-type View = {
-  id: string;
-  _activeTabId: string | undefined;
-  _tabs: {
-    [key: string]: Tab;
-  };
-};
-
-type Tab = {
-  id: string;
-  name: string;
-  font: {
-    id: string;
-    activeFeatures: string[];
-  };
-};
-
 export const useViews = defineStore("views", () => {
   const fonts = useFonts();
 
@@ -49,11 +32,6 @@ export const useViews = defineStore("views", () => {
     if (!font) return false;
 
     const id = createId("viw");
-    const view: View = {
-      id,
-      _activeTabId: undefined,
-      _tabs: {},
-    };
   }
 
   function getByIndex(index: number): Font | undefined;
@@ -89,3 +67,37 @@ export const useViews = defineStore("views", () => {
   // ================================================
   return {};
 });
+
+class View {
+  id: string;
+
+  #activeTabId: string | undefined;
+  #tabs: {
+    [key: string]: Tab;
+  };
+
+  constructor(args: { id?: string }) {
+    this.id = args.id ?? createId("viw");
+    this.#activeTabId = undefined;
+    this.#tabs = {};
+  }
+}
+
+class Tab {
+  #name: string | undefined;
+
+  id: string;
+  font: {
+    id: string;
+    activeFeatures: string[];
+  };
+
+  constructor(args: { id?: string; name?: string }) {
+    this.id = args.id ?? createId("tab");
+    this.#name = args.name;
+    this.font = {
+      id: "",
+      activeFeatures: [],
+    };
+  }
+}
