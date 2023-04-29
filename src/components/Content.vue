@@ -6,7 +6,7 @@
         .join(', '),
     }" -->
     <view-container ref="viewContainerRef">
-      <ChooseComponent v-if="fonts.length < 1" />
+      <ChooseComponent v-if="fonts.length < 1 || fonts.length >= 1" />
       <!-- <ViewComponent
         v-else
         v-for="view in views.listed"
