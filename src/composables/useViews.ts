@@ -31,7 +31,9 @@ export const useViews = defineStore("views", () => {
 
     if (!font) return false;
 
-    const id = createId("viw");
+    const view = new View();
+
+    _storage[view.id] = view;
   }
 
   function getByIndex(index: number): Font | undefined;
@@ -76,8 +78,8 @@ class View {
     [key: string]: Tab;
   };
 
-  constructor(args: { id?: string }) {
-    this.id = args.id ?? createId("viw");
+  constructor(args?: { id?: string }) {
+    this.id = args?.id ?? createId("viw");
     this.#activeTabId = undefined;
     this.#tabs = {};
   }
@@ -92,12 +94,35 @@ class Tab {
     activeFeatures: string[];
   };
 
-  constructor(args: { id?: string; name?: string }) {
-    this.id = args.id ?? createId("tab");
-    this.#name = args.name;
+  constructor(args?: { id?: string; name?: string }) {
+    this.id = args?.id ?? createId("tab");
+    this.#name = args?.name;
     this.font = {
       id: "",
       activeFeatures: [],
     };
   }
+
+  name = computed(() => {
+    return this.#name ?? this.id;
+  });
 }
+
+class SandboxTab extends Tab {
+  #type = TabTypes.sandbox;
+
+  constructor(args?: { id?: string; name?: string }) {
+    super(args);
+  }
+
+  name = computed(() => {
+    return this.#type.displayName;
+  });
+}
+
+const TabTypes = {
+  sandbox: {
+    displayName: "Sandbox",
+    class: SandboxTab,
+  },
+};
