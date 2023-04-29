@@ -36,7 +36,7 @@ declare module "fontkit" {
   }
 }
 
-type Font = {
+export type Font = {
   id: string;
   familyName: string;
   subfamilyName: string;
@@ -45,7 +45,7 @@ type Font = {
   raw: FontKit.Font;
 };
 
-type FontType = "TTF" | "OTF" | "WOFF" | "WOFF2" | "TTC" | "DFONT";
+export type FontType = "TTF" | "OTF" | "WOFF" | "WOFF2" | "TTC" | "DFONT";
 
 type PositiveFontParsingResult = {
   success: true;
@@ -64,7 +64,7 @@ type NegativeFontParsingResult = {
 
 type FontParsingResult = PositiveFontParsingResult | NegativeFontParsingResult;
 
-type FallbackPosition = "first" | "last";
+export type FallbackPosition = "first" | "last";
 
 export const useFonts = defineStore("fonts", () => {
   // ================================================
