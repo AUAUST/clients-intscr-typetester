@@ -101,8 +101,8 @@ export const useFonts = defineStore("fonts", () => {
 
     id = id ?? createId("fnt");
 
-    const promises = fontFiles.map(async (entry) => {
-      return await parseFont(entry);
+    const promises = fontFiles.map(async (file) => {
+      return await parseFont(file);
     });
 
     // Wait for all promises to resolve
