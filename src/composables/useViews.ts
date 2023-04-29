@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, Font, useFonts } from "./useFonts";
-import { computed, reactive } from "vue";
+import { computed, reactive, readonly } from "vue";
 import { createId } from "~/modules/utils";
 
 export const useViews = defineStore("views", () => {
@@ -67,7 +67,19 @@ export const useViews = defineStore("views", () => {
   }
 
   // ================================================
-  return {};
+  return {
+    // Getters
+    get listed() {
+      return readonly(_storage);
+    },
+    get listedIds() {
+      return readonly(_listedIds);
+    },
+    length,
+
+    // Actions
+    addView,
+  };
 });
 
 class View {
@@ -78,10 +90,21 @@ class View {
     [key: string]: Tab;
   };
 
-  constructor(args?: { id?: string }) {
+  constructor(args?: {
+    font: Font;
+    id?: string;
+    tabType?: keyof typeof TabTypes;
+  }) {
     this.id = args?.id ?? createId("viw");
     this.#activeTabId = undefined;
-    this.#tabs = {};
+
+    const initialTab = new TabTypes[args?.tabType ?? "sandbox"].class({
+      font,
+    });
+
+    this.#tabs = reactive({
+      [initialTab.id]: initialTab,
+    });
   }
 }
 

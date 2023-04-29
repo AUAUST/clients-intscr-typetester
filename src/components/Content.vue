@@ -6,13 +6,18 @@
         .join(', '),
     }" -->
     <view-container ref="viewContainerRef">
-      <ChooseComponent v-if="fonts.length < 1 || fonts.length >= 1" />
-      <!-- <ViewComponent
+      <ChooseComponent v-if="fonts.length < 1" />
+      <div
         v-else
-        v-for="view in views.listed"
-        :key="view.id"
-        :view="view"
-      /> -->
+        @click="
+          () => {
+            console.log(fonts.getFirst().id);
+            views.addView(fonts.getFirst().id);
+          }
+        "
+      >
+        {{ views.listed }}
+      </div>
     </view-container>
   </main>
 </template>
@@ -22,12 +27,15 @@ import { ref, onMounted, onUnmounted } from "vue";
 import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
 
-// import { views } from "~/composables/useViews";
 import { useFonts } from "~/composables/useFonts";
+import { useViews } from "~/composables/useViews";
 
 const fonts = useFonts();
+const views = useViews();
 
 const viewContainerRef = ref<HTMLElement | null>(null);
+
+const console = window.console;
 
 const updateViewContainerWidth = () => {
   if (viewContainerRef.value) {
