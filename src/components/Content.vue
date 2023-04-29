@@ -12,11 +12,12 @@
         v-for="view in views.listed"
         :key="view.id"
         :style="{
-          fontFamily: view.activeTab.font.id,
+          // as unknown as Tab is required because Vue unwraps the ref, but TS doesn't know that
+          fontFamily: (view.getActiveTab() as unknown as Tab).getFont()?.id,
         }"
       >
-        {{ view.id }}
-        {{ view.activeTab.font.id }}
+        {{ JSON.stringify(view, undefined, 4) }}
+        <!-- {{ view.activeTab.font.id }} -->
       </div>
 
       <!-- <ViewComponent
@@ -39,7 +40,7 @@ import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
 
 import { useFonts } from "~/composables/useFonts";
-import { useViews } from "~/composables/useViews";
+import { useViews, Tab } from "~/composables/useViews";
 
 const fonts = useFonts();
 const views = useViews();
