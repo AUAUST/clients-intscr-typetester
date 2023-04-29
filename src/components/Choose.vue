@@ -13,7 +13,7 @@
       <div>Fonts count: {{ Object.keys(fonts.listed).length }}</div>
       <ul>
         <li v-for="fontId in fonts.listedIds" :key="fontId">
-          <Test>{{ fontId }}</Test>
+          {{ fonts.listed[fontId].familyName }}
         </li>
       </ul>
     </no-font-container>
@@ -26,7 +26,6 @@ import Button from "@/components/ui/Button.vue";
 
 import { storeToRefs } from "pinia";
 import { useFonts } from "~/composables/useFonts";
-import Test from "./Test.vue";
 
 const fonts = useFonts();
 
