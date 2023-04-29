@@ -73,6 +73,8 @@ export const useFonts = defineStore("fonts", () => {
     [key: string]: Font;
   }>({});
 
+  let _fontInput: HTMLInputElement | undefined = undefined;
+
   // ================================================
   // Getters
   const _listedIds = computed(() => {
@@ -192,6 +194,20 @@ export const useFonts = defineStore("fonts", () => {
     return undefined;
   }
 
+  function setFontInput(input: HTMLInputElement | undefined) {
+    _fontInput = input;
+  }
+
+  function openFontInput() {
+    if (_fontInput) _fontInput.click();
+    else
+      notifications.sendNotification({
+        type: "error",
+        message:
+          "There's an issue with the font input element. Try reloading the page.",
+      });
+  }
+
   // ================================================
   return {
     // Getters
@@ -209,6 +225,8 @@ export const useFonts = defineStore("fonts", () => {
     getFirst,
     getLast,
     getComputedLast,
+    setFontInput,
+    openFontInput,
   };
 });
 
