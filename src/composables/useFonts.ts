@@ -370,40 +370,31 @@ function parsingResultMessage(
   const success = type === "success";
   const baseMessage = success ? "Successfully loaded " : "Could not load ";
 
+  const resultsNames = results.map((result) =>
+    success
+      ? (result as PositiveFontParsingResult).familyName
+      : `"${(result as NegativeFontParsingResult).file?.name}"`
+  );
+
+  // Helvetica
   if (results.length === 1) {
-    return (
-      baseMessage +
-      (success
-        ? (results[0] as PositiveFontParsingResult).familyName
-        : `"${(results[0] as NegativeFontParsingResult).file?.name}"`) +
-      "."
-    );
+    return baseMessage + resultsNames[0] + ".";
   }
+  // Helvetica and Arial
   if (results.length < 5) {
-    const items = results.map((result) =>
-      success
-        ? (result as PositiveFontParsingResult).familyName
-        : `"${(result as NegativeFontParsingResult).file?.name}"`
-    );
     return (
       baseMessage +
-      items.slice(0, -1).join(", ") +
+      resultsNames.slice(0, -1).join(", ") +
       " and " +
-      items.slice(-1) +
+      resultsNames.slice(-1) +
       "."
     );
   }
+  // Helvetica, Arial, Times New Roman, Comic Sans and 1 more.
   if (results.length >= 5) {
     return (
       baseMessage +
-      results
-        .slice(0, 4)
-        .map((result) =>
-          success
-            ? (result as PositiveFontParsingResult).familyName
-            : `"${(result as NegativeFontParsingResult).file?.name}"`
-        )
-        .join(", ") +
+      resultsNames.slice(0, 4).join(", ") +
       ` and ${results.length - 4} more.`
     );
   }
