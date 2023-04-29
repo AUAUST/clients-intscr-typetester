@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { computed, reactive, readonly, ref } from "vue";
+import { computed, markRaw, reactive, readonly, ref } from "vue";
 
 import { notifications } from "./useNotifications";
 
@@ -38,6 +38,11 @@ declare module "fontkit" {
 
 type Font = {
   id: string;
+  familyName: string;
+  subfamilyName: string;
+  isVariable: boolean;
+  fontType: FontType;
+  raw: FontKit.Font;
 };
 
 type FontType = "TTF" | "OTF" | "WOFF" | "WOFF2" | "TTC" | "DFONT";
@@ -80,7 +85,7 @@ export const useFonts = defineStore("fonts", () => {
 
   // ================================================
   // Actions
-  async function add(input?: File | File[] | FileList, id?: string) {
+  async function add(input?: File | File[] | FileList) {
     if (!input) {
       notifications.sendNotification({
         type: "error",
@@ -98,8 +103,6 @@ export const useFonts = defineStore("fonts", () => {
       else if (Array.isArray(input)) return input;
       else return [];
     })();
-
-    id = id ?? createId("fnt");
 
     const promises = fontFiles.map(async (file) => {
       return await parseFont(file);
@@ -132,9 +135,31 @@ export const useFonts = defineStore("fonts", () => {
       });
     }
 
+    const ids: string[] = [];
+
+    for (const result of triage.success) {
+      const id = createId("fnt");
+
+      const font = markRaw({
+        id,
+        familyName: result.familyName,
+        subfamilyName: result.raw.subfamilyName,
+        isVariable: result.isVariable,
+        fontType: result.fontType,
+        raw: result.raw,
+      });
+
+      _storage[id] = font;
+
+      fontToDOM(result.buffer, id);
+
+      ids.push(id);
+    }
+
     notifications.stopLoading(loadingKey);
 
-    // _storage[`${Math.random()}`] = Math.random() as any;
+    console.log(ids);
+    return ids;
   }
 
   function getByIndex(index: number): Font | undefined;
