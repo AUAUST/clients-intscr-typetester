@@ -370,11 +370,12 @@ function parsingResultMessage(
   const success = type === "success";
   const baseMessage = success ? "Successfully loaded " : "Could not load ";
 
-  const resultsNames = results.map((result) =>
-    success
+  const resultsNames = results.map((result) => {
+    let name = success
       ? (result as PositiveFontParsingResult).familyName
-      : `"${(result as NegativeFontParsingResult).file?.name}"`
-  );
+      : `"${(result as NegativeFontParsingResult).file?.name}"`;
+    return name.replace(/ /g, "\u00a0").replace(/-/g, "\u2011");
+  });
 
   // Helvetica
   if (results.length === 1) {
