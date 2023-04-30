@@ -225,7 +225,7 @@ function createTab(args: TabArgs) {
 
   const _name = ref<string | undefined>(args.name);
 
-  const _font = ref<string>(args.fontId);
+  const _fontId = ref<string>(args.fontId);
 
   const _activeFeatures = ref<string[]>([]);
 
@@ -234,7 +234,7 @@ function createTab(args: TabArgs) {
   }
 
   function setFont(fontId: string) {
-    _font.value = fontId;
+    _fontId.value = fontId;
   }
 
   function addActiveFeature(featureId: string) {
@@ -257,8 +257,8 @@ function createTab(args: TabArgs) {
     get name() {
       return readonly(_name);
     },
-    get font() {
-      return readonly(_font);
+    get fontId() {
+      return readonly(_fontId);
     },
     get activeFeatures() {
       return readonly(_activeFeatures);

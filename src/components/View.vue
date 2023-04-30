@@ -1,14 +1,14 @@
 <template>
   <view-item ref="viewElement">
-    {{ view }}
     <nav>
       <Button
         v-for="tab in view.listedTabs"
-        :key="(tab as unknown as Tab).id"
+        :key="tab.id"
         size="fit-width"
-        @click="props.view.setActiveTab((tab as unknown as Tab).id)"
+        :active="tab.id === view.activeTabId"
+        @click="props.view.addTab('sandbox', true)"
       >
-        {{ (tab as unknown as Tab).id }}
+        {{ tab.id }}
       </Button>
     </nav>
     <view-overflow>
