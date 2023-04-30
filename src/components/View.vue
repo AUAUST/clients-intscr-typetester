@@ -8,7 +8,7 @@
         :active="tab.id === activeTab.id"
         @click="props.view.setActiveTab(tab)"
       >
-        {{ tab.id }}
+        {{ tab.name }}
       </Button>
       <Button @click="props.view.addTab('sandbox', true)">+</Button>
     </nav>

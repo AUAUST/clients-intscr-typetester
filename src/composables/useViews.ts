@@ -229,6 +229,11 @@ function createTab(args: TabArgs) {
 
   const _name = ref<string | undefined>(args.name);
 
+  const _computedName = computed(() => {
+    if (_name.value) return _name.value;
+    return useFonts().getById(args.fontId, "last").familyName;
+  });
+
   const _fontId = ref<string>(args.fontId);
 
   const _activeFeatures = ref<string[]>([]);
@@ -261,7 +266,7 @@ function createTab(args: TabArgs) {
     removeActiveFeature,
 
     get name() {
-      return readonly(_name) as unknown as Readonly<string | undefined>;
+      return readonly(_computedName) as unknown as Readonly<string | undefined>;
     },
     get fontId() {
       return readonly(_fontId) as unknown as Readonly<string>;
