@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, Font, useFonts } from "./useFonts";
-import { ComputedRef, computed, markRaw, reactive, readonly } from "vue";
+import { ComputedRef, computed, markRaw, reactive, readonly, ref } from "vue";
 import { createId } from "~/modules/utils";
 
 export const useViews = defineStore("views", () => {
@@ -97,6 +97,18 @@ export const useViews = defineStore("views", () => {
     getById,
   };
 });
+
+function createView(args: {
+  id?: string;
+  fontId: string;
+  tabType?: keyof typeof TabTypes;
+}) {
+  let _activeTabId: string;
+
+  return reactive({
+    id: args.id ?? createId("viw"),
+  });
+}
 
 export class View {
   id: string;
