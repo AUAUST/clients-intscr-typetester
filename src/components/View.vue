@@ -1,5 +1,6 @@
 <template>
   <view-item ref="viewElement">
+    {{ view }}
     <nav>
       <Button
         v-for="tab in view.listedTabs"

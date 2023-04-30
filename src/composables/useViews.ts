@@ -108,11 +108,20 @@ function createView(args: CreateViewArgs) {
   const id = args.id ?? createId("viw");
   const font = useFonts().getById(args.fontId, "last");
 
+  const initialTab = (function () {
+    const type = args.tabType ?? "sandbox";
+    return TabTypes[type].constructor({
+      fontId: font.id,
+    });
+  })();
+
   const _tabs = reactive<{
     [key: string]: Tab;
-  }>({});
+  }>({
+    [initialTab.id]: initialTab,
+  });
 
-  const _activeTabId = ref<string>("");
+  const _activeTabId = ref<string>(initialTab.id);
 
   const _activeTab = computed(() => {
     return _tabs[_activeTabId.value];
