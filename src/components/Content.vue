@@ -1,27 +1,7 @@
 <template>
   <main id="content-container">
-    <!-- :style="{
-      fontFeatureSettings: [...fonts.ui.enabledFontFeatures]
-        .map((feature) => `'${feature}' 1`)
-        .join(', '),
-    }" -->
     <view-container ref="viewContainerRef">
       <ChooseComponent v-if="fonts.length < 1 && views.length < 1" />
-
-      <!-- <div
-        v-for="view in views.listed"
-        :key="view.id"
-        :style="{
-          // as unknown as Tab is required because Vue unwraps the ref, but TS doesn't know that
-          // fontFamily: view.getActiveTab().value.getFont().id,
-        }"
-      >
-        {{ JSON.stringify(view, undefined, 4) }}
-        <br />
-        {{ view.activeTab }}
-
-        {{ view.activeTab.font.id }}
-      </div> -->
 
       <ViewComponent
         v-else
@@ -29,7 +9,6 @@
         :key="view.id"
         :view="(view as unknown as View)"
       />
-      <!-- {{ views.listed }} -->
     </view-container>
   </main>
 </template>
