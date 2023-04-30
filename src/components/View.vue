@@ -14,14 +14,12 @@
     </nav>
     <view-overflow>
       <view-component>
-        <KeepAlive>
-          <component
-            v-bind:is="activeTab.component"
-            :view="view"
-            :tab="activeTab"
-            :tabId="activeTab.id"
-          ></component>
-        </KeepAlive>
+        <component
+          v-bind:is="activeTab.component"
+          :view="view"
+          :tab="activeTab"
+          :tabId="activeTab.id"
+        ></component>
       </view-component>
     </view-overflow>
     <view-resize-container>
