@@ -98,7 +98,7 @@ export const useViews = defineStore("views", () => {
   };
 });
 
-class View {
+export class View {
   id: string;
 
   _activeTabId: string;
@@ -113,6 +113,12 @@ class View {
   _tabs: {
     [key: string]: Tab;
   };
+  _listedTabs = computed(() => {
+    return Object.values(this._tabs);
+  });
+  get listedTabs() {
+    return this._listedTabs;
+  }
 
   constructor(args: {
     id?: string;
@@ -129,6 +135,7 @@ class View {
     };
     this._activeTabId = initialTab.id;
   }
+
   getTabById(id: string) {
     return this._tabs[id];
   }

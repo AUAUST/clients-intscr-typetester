@@ -8,7 +8,7 @@
     <view-container ref="viewContainerRef">
       <ChooseComponent v-if="fonts.length < 1" />
 
-      <div
+      <!-- <div
         v-for="view in views.listed"
         :key="view.id"
         :style="{
@@ -21,18 +21,14 @@
         {{ view.activeTab }}
 
         {{ view.activeTab.font.id }}
-      </div>
+      </div> -->
 
-      <!-- <ViewComponent
+      <ViewComponent
+        v-else
         v-for="view in views.listed"
-        @click="
-          () => {
-            console.log(fonts.getLast().id);
-            views.addView(fonts.getLast().id);
-          }
-        "
-      >
-      </ViewComponent> -->
+        :key="view.id"
+        :view="(view as unknown as View)"
+      />
     </view-container>
   </main>
 </template>
@@ -43,7 +39,7 @@ import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
 
 import { useFonts } from "~/composables/useFonts";
-import { useViews, Tab } from "~/composables/useViews";
+import { useViews, Tab, View } from "~/composables/useViews";
 
 const fonts = useFonts();
 const views = useViews();
