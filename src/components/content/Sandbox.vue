@@ -39,5 +39,9 @@ tab-sandbox {
   height: 100%;
 
   font-family: var(--font);
+
+  &:focus {
+    outline: none;
+  }
 }
 </style>
