@@ -99,13 +99,13 @@ export const useViews = defineStore("views", () => {
 class View {
   id: string;
 
-  #activeTabId: Ref<string>;
+  _activeTabId: Ref<string>;
 
   _activeTab = computed(() => {
-    return this.#tabs[this.#activeTabId.value];
+    return this._tabs[this._activeTabId.value];
   });
 
-  #tabs: {
+  _tabs: {
     [key: string]: Tab;
   };
 
@@ -119,20 +119,20 @@ class View {
     const initialTab = new TabTypes[args?.tabType ?? "sandbox"].class({
       fontId: args.fontId,
     });
-    this.#tabs = reactive({
+    this._tabs = reactive({
       [initialTab.id]: initialTab,
     });
-    this.#activeTabId = ref(initialTab.id);
+    this._activeTabId = ref(initialTab.id);
   }
   getTabById(id: string) {
-    return this.#tabs[id];
+    return this._tabs[id];
   }
   getActiveTab() {
     return this._activeTab;
   }
   setActiveTab(id: string) {
     if (!this.getTabById(id)) return;
-    this.#activeTabId.value = id;
+    this._activeTabId.value = id;
   }
 }
 
@@ -142,7 +142,7 @@ type TabArgs = {
   fontId: string;
 };
 export class Tab {
-  #name: string | undefined;
+  _name: string | undefined;
 
   id: string;
   font: {
@@ -152,7 +152,7 @@ export class Tab {
 
   constructor(args: TabArgs) {
     this.id = args?.id ?? createId("tab");
-    this.#name = args?.name;
+    this._name = args?.name;
     this.font = {
       id: ref(args.fontId),
       activeFeatures: reactive([]),
@@ -160,7 +160,7 @@ export class Tab {
   }
 
   name = computed(() => {
-    return this.#name ?? this.id;
+    return this._name ?? this.id;
   });
 
   getFont() {
@@ -169,14 +169,14 @@ export class Tab {
 }
 
 class SandboxTab extends Tab {
-  #type = TabTypes.sandbox;
+  _type = TabTypes.sandbox;
 
   constructor(args: TabArgs) {
     super(args);
   }
 
   name = computed(() => {
-    return this.#type.displayName;
+    return this._type.displayName;
   });
 }
 
