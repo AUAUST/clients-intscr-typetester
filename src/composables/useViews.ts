@@ -172,7 +172,7 @@ function createView(args: CreateViewArgs) {
 
   function addTab(type?: keyof typeof TabTypes, becomesActive?: boolean) {
     if (!type) type = "sandbox";
-    const tab = new TabTypes[type].class({
+    const tab = TabTypes[type].constructor({
       fontId: font.id,
     });
     _tabs[tab.id] = tab;
@@ -211,50 +211,67 @@ type TabArgs = {
   fontId: string;
 };
 
-export class Tab {
-  _name: string | undefined;
+function createTab(args: TabArgs) {
+  const id = args.id ?? createId("tab");
 
-  id: string;
-  font: {
-    id: string;
-    activeFeatures: string[];
+  const _name = ref<string | undefined>(args.name);
+
+  const _font = ref<string>(args.fontId);
+
+  const _activeFeatures = ref<string[]>([]);
+
+  function setName(name: string) {
+    _name.value = name;
+  }
+
+  function setFont(fontId: string) {
+    _font.value = fontId;
+  }
+
+  function addActiveFeature(featureId: string) {
+    _activeFeatures.value.push(featureId);
+  }
+
+  function removeActiveFeature(featureId: string) {
+    const index = _activeFeatures.value.indexOf(featureId);
+    if (index > -1) _activeFeatures.value.splice(index, 1);
+  }
+
+  return {
+    id,
+
+    setName,
+    setFont,
+    addActiveFeature,
+    removeActiveFeature,
+
+    get name() {
+      return readonly(_name);
+    },
+    get font() {
+      return readonly(_font);
+    },
+    get activeFeatures() {
+      return readonly(_activeFeatures);
+    },
   };
-
-  constructor(args: TabArgs) {
-    this.id = args?.id ?? createId("tab");
-    this._name = args?.name;
-    this.font = {
-      id: args.fontId,
-      activeFeatures: [],
-    };
-  }
-
-  name = markRaw(
-    computed(() => {
-      return this._name ?? this.id;
-    })
-  );
-
-  getFont() {
-    return useFonts().getById(this.font.id)!;
-  }
 }
 
-class SandboxTab extends Tab {
-  _type = TabTypes.sandbox;
+export type Tab = ReturnType<typeof createTab>;
 
-  constructor(args: TabArgs) {
-    super(args);
-  }
+function createSandBoxTab(args: TabArgs) {
+  const tab = createTab(args);
 
-  name = computed(() => {
-    return this._type.displayName;
-  });
+  return {
+    ...tab,
+  };
 }
+
+export type SandboxTab = ReturnType<typeof createSandBoxTab>;
 
 const TabTypes = {
   sandbox: {
     displayName: "Sandbox",
-    class: SandboxTab,
+    constructor: createSandBoxTab,
   },
 };
