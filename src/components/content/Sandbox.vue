@@ -5,12 +5,6 @@
     @blur="onBlur"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
   ></div>
-  <div class="activate" @click="() => props.tab.setCurrentText('hello')">
-    Activate
-  </div>
-  <div class="deactivate" @click="() => props.tab.setCurrentText('world')">
-    Deactivate
-  </div>
 </template>
 
 <script setup lang="ts">
