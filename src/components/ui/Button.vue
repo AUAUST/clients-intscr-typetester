@@ -1,7 +1,11 @@
 <template>
   <button
     class="button"
-    :class="[size, active ? 'active' : '', deactivated ? 'deactivated' : '']"
+    :class="[
+      props.size,
+      props.active ? 'active' : '',
+      props.deactivated ? 'deactivated' : '',
+    ]"
     :title="title ?? 'A clickable button.'"
   >
     <span class="text-small">
@@ -11,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
-  size: String,
-  title: String,
-  active: Boolean,
-  deactivated: Boolean,
-});
+const props = defineProps<{
+  size?: string;
+  title?: string;
+  active?: boolean;
+  deactivated?: boolean;
+}>();
 </script>
 
 <style lang="scss">
@@ -58,6 +62,9 @@ defineProps({
     color: v.$c-gray-1;
     background-color: v.$c-auaust-7;
     cursor: pointer;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &:hover {
       background-color: v.$c-auaust-8;
