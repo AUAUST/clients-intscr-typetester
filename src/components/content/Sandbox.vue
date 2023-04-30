@@ -3,6 +3,8 @@
     ref="sandboxElement"
     contenteditable="true"
     @blur="onBlur"
+    @paste="onTextMagicallyPopsIn"
+    @drop="onTextMagicallyPopsIn"
     @input="updateName"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
   ></tab-sandbox>
@@ -47,6 +49,16 @@ function onBlur() {
 
   props.tab.setCurrentText(element.innerText!);
   element.blur();
+}
+function onTextMagicallyPopsIn(event: Event) {
+  const element = sandboxElement.value;
+
+  if (!element) return;
+
+  // This is a hack to make sure the text is updated after the paste event.
+  setTimeout(() => {
+    props.tab.setCurrentText(element.innerText!);
+  }, 0);
 }
 </script>
 
