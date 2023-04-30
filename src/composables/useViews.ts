@@ -1,6 +1,14 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, useFonts } from "./useFonts";
-import { Component, computed, markRaw, reactive, readonly, ref } from "vue";
+import {
+  Component,
+  ComputedRef,
+  computed,
+  markRaw,
+  reactive,
+  readonly,
+  ref,
+} from "vue";
 import { createId } from "~/modules/utils";
 
 import { viewport } from "./useViewport";
@@ -88,6 +96,13 @@ export const useViews = defineStore("views", () => {
     return undefined;
   }
 
+  function getNextView(view: View | string) {
+    let index = 0;
+    if (typeof view === "string") index = _listedIds.value.indexOf(view);
+    else index = _listedViews.value.indexOf(view);
+    return getByIndex(index + 1, "last");
+  }
+
   function _getFallback(fallback: FallbackPosition): View;
   function _getFallback(fallback?: undefined): undefined;
   function _getFallback(fallback?: FallbackPosition): View | undefined {
@@ -97,13 +112,13 @@ export const useViews = defineStore("views", () => {
   }
 
   function updateViewsWidth() {
-    const lastView = getLast();
+    // const lastView = getLast();
     for (const view of _listedViews.value) {
-      if (view.id === lastView.id) {
-        view.setWidth(null);
-      } else {
-        view.setWidth();
-      }
+      // if (view.id === lastView.id) {
+      // view.setWidth(null);
+      // } else {
+      view.setWidth();
+      // }
     }
   }
 
@@ -133,6 +148,7 @@ export const useViews = defineStore("views", () => {
     addView,
     getByIndex,
     getById,
+    getNextView,
   };
 });
 
@@ -234,7 +250,11 @@ function createView(args: CreateViewArgs) {
   }
 
   function resize(relative: number) {
+    const nextView = getNextView();
+
+    console.log(nextView.id, id);
     width.value = (width.value ?? 0) + relative;
+    nextView.setWidth(((nextView.width as unknown as number) ?? 0) - relative);
   }
 
   function setWidth(newWidth?: number | null) {
@@ -248,6 +268,10 @@ function createView(args: CreateViewArgs) {
   function setDOMNode(node: HTMLElement | null) {
     DOMNode.value = node;
     console.log("setDOMNode", DOMNode.value);
+  }
+
+  function getNextView() {
+    return useViews().getNextView(id);
   }
 
   return {
@@ -274,6 +298,7 @@ function createView(args: CreateViewArgs) {
     },
     width,
 
+    getNextView,
     getTabByIndex,
     getTabById,
     getFirstTab,
