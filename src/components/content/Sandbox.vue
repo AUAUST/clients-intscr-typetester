@@ -24,10 +24,15 @@ function updateName() {
   props.tab.setName(
     (function () {
       let text = sandboxElement.value?.innerText;
+      let ellipsis = false;
 
       if (!text) return undefined;
 
-      text = text.trim().slice(0, 30);
+      if (text.length > 50) ellipsis = true;
+
+      text = text.trim().slice(0, 50);
+
+      if (ellipsis) text += "...";
 
       if (text.match(/^[\s]*$/)) return undefined;
 
