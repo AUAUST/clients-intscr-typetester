@@ -71,7 +71,6 @@ const width = computed(() => {
 });
 
 onMounted(() => {
-  console.log("mounted", viewElement.value);
   props.view.setDOMNode(viewElement.value);
 });
 onUnmounted(() => {

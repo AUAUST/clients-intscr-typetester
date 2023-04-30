@@ -101,16 +101,14 @@ export const useViews = defineStore("views", () => {
     let sumOfWidth = 0;
 
     for (const view of _listedViews.value) {
-      console.log("view.id", view.id);
       if (view.id === lastView.id) {
         // The last view should take the remaining width.
         view.updateWidth(_DOMNodeWidth.value - sumOfWidth);
       } else {
         const newWidth = view.updateWidth();
-        console.log("newWidth", newWidth);
+
         sumOfWidth += newWidth || 0;
       }
-      console.log("sumOfWidth", sumOfWidth);
     }
   }
 
