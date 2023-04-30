@@ -66,8 +66,8 @@ const activeTab = computed(() => {
 
 const width = computed(() => {
   const width = props.view.width;
-  if (!width) return undefined;
-  return `${width}px`;
+  if (width === undefined) return undefined;
+  return `${Math.max(width as unknown as number, 0)}px`;
 });
 
 onMounted(() => {

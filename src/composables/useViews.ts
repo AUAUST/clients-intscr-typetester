@@ -97,24 +97,12 @@ export const useViews = defineStore("views", () => {
   }
 
   function updateViewsWidth() {
-    //  this.listed.forEach((view) => {
-    //    const realWidth = view.DOMElement.value?.offsetWidth ?? 0;
-    //    view.width.value =
-    //      realWidth >= MINIMUM_WIDTH ? realWidth : MINIMUM_WIDTH;
-    //  });
-
     const lastView = getLast();
-    let sumOfWidth = 0;
-
     for (const view of _listedViews.value) {
       if (view.id === lastView.id) {
-        // The last view should take the remaining width.
-        // view.setWidth(_DOMNodeWidth.value - sumOfWidth);
-        view.setWidth();
+        view.setWidth(null);
       } else {
-        const newWidth = view.setWidth();
-
-        sumOfWidth += newWidth || 0;
+        view.setWidth();
       }
     }
   }
@@ -249,8 +237,9 @@ function createView(args: CreateViewArgs) {
     width.value = (width.value ?? 0) + relative;
   }
 
-  function setWidth(newWidth?: number) {
+  function setWidth(newWidth?: number | null) {
     if (!DOMNode.value) return false;
+    if (newWidth === null) width.value = undefined;
     if (newWidth) width.value = newWidth;
     else width.value = DOMNode.value.offsetWidth;
     return width.value;
