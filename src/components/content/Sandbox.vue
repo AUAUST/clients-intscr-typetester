@@ -1,6 +1,4 @@
 <template>
-  {{ useViews().DOMNodeHeight }}
-  {{ useViews().DOMNodeWidth }}
   <tab-sandbox
     ref="sandboxElement"
     contenteditable="true"
