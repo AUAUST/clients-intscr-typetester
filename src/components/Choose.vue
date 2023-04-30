@@ -11,11 +11,6 @@
         <Button @click="fonts.add()">Increment</Button>
       </div>
       <div>Fonts count: {{ Object.keys(fonts.listed).length }}</div>
-      <ul>
-        <li v-for="fontId in fonts.listedIds" :key="fontId">
-          {{ fonts.listed[fontId].familyName }}
-        </li>
-      </ul>
     </no-font-container>
   </view-item>
 </template>
@@ -24,7 +19,6 @@
 // import { fonts } from "~/composables/useFont";
 import Button from "@/components/ui/Button.vue";
 
-import { storeToRefs } from "pinia";
 import { useFonts } from "~/composables/useFonts";
 
 const fonts = useFonts();

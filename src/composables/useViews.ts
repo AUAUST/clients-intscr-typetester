@@ -17,6 +17,9 @@ export const useViews = defineStore("views", () => {
   const _listedIds = computed(() => {
     return Object.keys(_storage);
   });
+  const _listedViews = computed(() => {
+    return Object.values(_storage);
+  });
 
   const length = computed(() => {
     return _listedIds.value.length;
@@ -25,13 +28,15 @@ export const useViews = defineStore("views", () => {
   // ================================================
   // Actions
   function addView(fontId: string) {
-    if (!fonts.getById(fontId)) return;
+    if (!fonts.getById(fontId)) return false;
 
     const view = new View({
       fontId,
     });
 
     _storage[view.id] = view;
+
+    return view;
   }
 
   function getByIndex(index: number): View | undefined;
@@ -73,8 +78,11 @@ export const useViews = defineStore("views", () => {
   // ================================================
   return {
     // Getters
-    get listed() {
+    get all() {
       return readonly(_storage);
+    },
+    get listed() {
+      return readonly(_listedViews);
     },
     get listedIds() {
       return readonly(_listedIds);

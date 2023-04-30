@@ -13,10 +13,11 @@
         :key="view.id"
         :style="{
           // as unknown as Tab is required because Vue unwraps the ref, but TS doesn't know that
-          fontFamily: (view.getActiveTab() as unknown as Tab).getFont().id,
+          // fontFamily: view.getActiveTab().value.getFont().id,
         }"
       >
         {{ JSON.stringify(view, undefined, 4) }}
+
         <!-- {{ view.activeTab.font.id }} -->
       </div>
 
@@ -46,8 +47,6 @@ const fonts = useFonts();
 const views = useViews();
 
 const viewContainerRef = ref<HTMLElement | null>(null);
-
-const console = window.console;
 
 const updateViewContainerWidth = () => {
   if (viewContainerRef.value) {
