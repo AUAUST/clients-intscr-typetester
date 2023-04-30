@@ -10,6 +10,7 @@
       >
         {{ tab.id }}
       </Button>
+      <Button @click="props.view.addTab('sandbox', true)">+</Button>
     </nav>
     <view-overflow>
       <view-component>
