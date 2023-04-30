@@ -3,6 +3,7 @@
     ref="sandboxElement"
     contenteditable="true"
     @blur="onBlur"
+    @input="updateName"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
     :style="{
       '--font': props.tab.fontId,
@@ -22,6 +23,21 @@ const props = defineProps<{
 
 const sandboxElement = ref<HTMLElement | null>(null);
 
+function updateName() {
+  props.tab.setName(
+    (function () {
+      let text = sandboxElement.value?.innerText;
+
+      if (!text) return undefined;
+
+      text = text.trim().slice(0, 30);
+
+      if (text.match(/^[\s]*$/)) return undefined;
+
+      return text;
+    })()
+  );
+}
 function onBlur() {
   const element = sandboxElement.value;
 

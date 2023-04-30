@@ -240,7 +240,7 @@ function createTab(args: TabArgs) {
 
   const component = markRaw(TabTypes.sandbox.component as Component);
 
-  function setName(name: string) {
+  function setName(name?: string | undefined) {
     _name.value = name;
   }
 
