@@ -192,7 +192,9 @@ function createView(args: CreateViewArgs) {
   }
 
   return {
-    id,
+    get id() {
+      return id;
+    },
 
     addTab,
     setActiveTab,

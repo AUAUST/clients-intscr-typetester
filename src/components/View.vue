@@ -3,12 +3,12 @@
     <nav>
       <Button
         v-for="tab in view.listedTabs"
-        :key="tab.id"
+        :key="(tab as unknown as Tab).id"
         size="fit-width"
-        :active="tab.id === view.activeTabId"
+        :active="(tab as unknown as Tab).id === (view.activeTabId as unknown as string)"
         @click="props.view.addTab('sandbox', true)"
       >
-        {{ tab.id }}
+        {{ (tab as unknown as Tab).id }}
       </Button>
     </nav>
     <view-overflow>
