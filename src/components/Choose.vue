@@ -7,29 +7,6 @@
         a file to start testing your font.
       </div>
       <div>You may also try an Interscript font</div>
-      <div>
-        <Button @click="fonts.add()">Increment</Button>
-      </div>
-      <div>Fonts count: {{ Object.keys(fonts.listed).length }}</div>
-      <Button @click="testObj.decrement()">-</Button>
-      {{ testObj.state }} ref
-      <Button @click="testObj.increment()">+</Button>
-
-      <Button @click="testObj.internalState--">-</Button>
-      {{ testObj.internalState }} reactive
-      <Button @click="testObj.internalState++">+</Button>
-
-      {{ testObj.comp }}
-
-      <Button @click="testObj2.decrement()">-</Button>
-      {{ testObj2.state }} ref2
-      <Button @click="testObj2.increment()">+</Button>
-
-      <Button @click="testObj2.internalState--">-</Button>
-      {{ testObj2.internalState }} reactive2
-      <Button @click="testObj2.internalState++">+</Button>
-
-      {{ testObj2.comp }}
     </no-font-container>
   </view-item>
 </template>
