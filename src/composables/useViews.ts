@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, Font, useFonts } from "./useFonts";
-import { Ref, computed, reactive, readonly, ref } from "vue";
+import { ComputedRef, computed, markRaw, reactive, readonly } from "vue";
 import { createId } from "~/modules/utils";
 
 export const useViews = defineStore("views", () => {
@@ -30,11 +30,13 @@ export const useViews = defineStore("views", () => {
   function addView(fontId: string) {
     if (!fonts.getById(fontId)) return false;
 
-    const view = new View({
-      fontId,
-    });
+    const view = reactive<View>(
+      new View({
+        fontId,
+      })
+    );
 
-    _storage[view.id] = view;
+    _storage[view.id] = view as unknown as View;
 
     return view;
   }
@@ -99,11 +101,14 @@ export const useViews = defineStore("views", () => {
 class View {
   id: string;
 
-  _activeTabId: Ref<string>;
+  _activeTabId: string;
 
   _activeTab = computed(() => {
-    return this._tabs[this._activeTabId.value];
+    return this._tabs[this._activeTabId];
   });
+  get activeTab() {
+    return this._activeTab;
+  }
 
   _tabs: {
     [key: string]: Tab;
@@ -119,20 +124,18 @@ class View {
     const initialTab = new TabTypes[args?.tabType ?? "sandbox"].class({
       fontId: args.fontId,
     });
-    this._tabs = reactive({
+    this._tabs = {
       [initialTab.id]: initialTab,
-    });
-    this._activeTabId = ref(initialTab.id);
+    };
+    this._activeTabId = initialTab.id;
   }
   getTabById(id: string) {
     return this._tabs[id];
   }
-  getActiveTab() {
-    return this._activeTab;
-  }
+
   setActiveTab(id: string) {
     if (!this.getTabById(id)) return;
-    this._activeTabId.value = id;
+    this._activeTabId = id;
   }
 }
 
@@ -141,12 +144,13 @@ type TabArgs = {
   name?: string;
   fontId: string;
 };
+
 export class Tab {
   _name: string | undefined;
 
   id: string;
   font: {
-    id: Ref<string>;
+    id: string;
     activeFeatures: string[];
   };
 
@@ -154,17 +158,19 @@ export class Tab {
     this.id = args?.id ?? createId("tab");
     this._name = args?.name;
     this.font = {
-      id: ref(args.fontId),
-      activeFeatures: reactive([]),
+      id: args.fontId,
+      activeFeatures: [],
     };
   }
 
-  name = computed(() => {
-    return this._name ?? this.id;
-  });
+  name = markRaw(
+    computed(() => {
+      return this._name ?? this.id;
+    })
+  );
 
   getFont() {
-    return useFonts().getById(this.font.id.value)!;
+    return useFonts().getById(this.font.id)!;
   }
 }
 

@@ -17,8 +17,10 @@
         }"
       >
         {{ JSON.stringify(view, undefined, 4) }}
+        <br />
+        {{ view.activeTab }}
 
-        <!-- {{ view.activeTab.font.id }} -->
+        {{ view.activeTab.font.id }}
       </div>
 
       <!-- <ViewComponent
