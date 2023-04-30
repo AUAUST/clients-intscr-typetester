@@ -34,6 +34,7 @@ export const useViews = defineStore("views", () => {
 
   const _DOMNodeWidth = computed(() => {
     // Include viewport.size.width because it's a reactive property that gets updated when the window is resized.
+    // It causes the computed property to recompute.
     viewport.size.width;
     return DOMNode.value?.clientWidth ?? 0;
   });
