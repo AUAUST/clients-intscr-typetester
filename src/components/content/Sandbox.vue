@@ -1,10 +1,13 @@
 <template>
-  <div
+  <tab-sandbox
     ref="sandboxElement"
     contenteditable="true"
     @blur="onBlur"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
-  ></div>
+    :style="{
+      '--font': props.tab.fontId,
+    }"
+  ></tab-sandbox>
 </template>
 
 <script setup lang="ts">
@@ -28,3 +31,13 @@ function onBlur() {
   element.blur();
 }
 </script>
+
+<style lang="scss">
+tab-sandbox {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  font-family: var(--font);
+}
+</style>
