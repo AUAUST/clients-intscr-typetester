@@ -103,9 +103,9 @@ export const useViews = defineStore("views", () => {
     for (const view of _listedViews.value) {
       if (view.id === lastView.id) {
         // The last view should take the remaining width.
-        view.updateWidth(_DOMNodeWidth.value - sumOfWidth);
+        // view.setWidth(_DOMNodeWidth.value - sumOfWidth);
       } else {
-        const newWidth = view.updateWidth();
+        const newWidth = view.setWidth();
 
         sumOfWidth += newWidth || 0;
       }
@@ -242,7 +242,7 @@ function createView(args: CreateViewArgs) {
     width.value = (width.value ?? 0) + relative;
   }
 
-  function updateWidth(newWidth?: number) {
+  function setWidth(newWidth?: number) {
     if (!DOMNode.value) return false;
     if (newWidth) width.value = newWidth;
     else width.value = DOMNode.value.clientWidth;
@@ -283,7 +283,7 @@ function createView(args: CreateViewArgs) {
     getFirstTab,
     getLastTab,
     resize,
-    updateWidth,
+    setWidth,
   };
 }
 
