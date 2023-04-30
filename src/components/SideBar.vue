@@ -9,7 +9,7 @@
     <menu id="sidebar">
       <SideBarSection title="Font in use" id="font-selected" :resizable="false">
         <ButtonsGroup>
-          <Button @click="fonts.openFileDialog()"> Select a file </Button>
+          <Button @click="fonts.openFontInput()"> Select a file </Button>
         </ButtonsGroup>
       </SideBarSection>
       <SideBarSection
@@ -49,22 +49,15 @@
 <script setup lang="ts">
 import { viewport } from "~/composables/useViewport";
 
-import { FontOverview, fonts } from "~/composables/useFont";
-
 import Button from "@/components/ui/Button.vue";
 import ButtonsGroup from "@/components/ui/ButtonsGroup.vue";
 import UiSettings from "@/components/sidebar/UiSettings.vue";
 import FontSettings from "@/components/sidebar/FontSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
-import { ComputedRef, computed } from "vue";
-import { View, views } from "~/composables/useViews";
-import { Tab } from "~/composables/useTabs";
 
-export interface SidebarTarget {
-  view: ComputedRef<View | undefined>;
-  tab: ComputedRef<Tab | undefined>;
-  font: ComputedRef<FontOverview | undefined>;
-}
+import { useFonts } from "~/composables/useFonts";
+
+const fonts = useFonts();
 </script>
 
 <style lang="scss">

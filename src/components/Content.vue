@@ -1,17 +1,13 @@
 <template>
   <main id="content-container">
-    <!-- :style="{
-      fontFeatureSettings: [...fonts.ui.enabledFontFeatures]
-        .map((feature) => `'${feature}' 1`)
-        .join(', '),
-    }" -->
     <view-container ref="viewContainerRef">
-      <ChooseComponent v-if="!fonts.hasAnyFont.value" />
+      <ChooseComponent v-if="fonts.length < 1 && views.length < 1" />
+
       <ViewComponent
         v-else
         v-for="view in views.listed"
         :key="view.id"
-        :view="view"
+        :view="(view as unknown as View)"
       />
     </view-container>
   </main>
@@ -22,18 +18,18 @@ import { ref, onMounted, onUnmounted } from "vue";
 import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
 
-import { fonts } from "~/composables/useFont";
+import { useFonts } from "~/composables/useFonts";
+import { useViews, Tab, View } from "~/composables/useViews";
 
-import { views } from "~/composables/useViews";
-
-console.log(fonts.hasAnyFont.value);
+const fonts = useFonts();
+const views = useViews();
 
 const viewContainerRef = ref<HTMLElement | null>(null);
 
 const updateViewContainerWidth = () => {
   if (viewContainerRef.value) {
-    views.fullWidth.value = viewContainerRef.value.offsetWidth;
-    views.calculateWidths();
+    // views.fullWidth.value = viewContainerRef.value.offsetWidth;
+    // views.calculateWidths();
   }
 };
 onMounted(() => {
@@ -41,7 +37,7 @@ onMounted(() => {
   window.addEventListener("resize", updateViewContainerWidth);
 });
 onUnmounted(() => {
-  views.fullWidth.value = undefined;
+  // views.fullWidth.value = undefined;
   window.removeEventListener("resize", updateViewContainerWidth);
 });
 </script>

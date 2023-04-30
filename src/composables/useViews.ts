@@ -1,154 +1,310 @@
-import { ref, computed, ShallowRef, shallowRef, reactive } from "vue";
-import type { Ref, ComputedRef } from "vue";
-
-import { FontOverview, fonts } from "./useFont";
-
-import { Tab, TabType, tabs } from "./useTabs";
-
+import { defineStore } from "pinia";
+import { FallbackPosition, useFonts } from "./useFonts";
+import { Component, computed, markRaw, reactive, readonly, ref } from "vue";
 import { createId } from "~/modules/utils";
-import { notifications } from "./useNotifications";
 
-const MINIMUM_WIDTH = 50;
+import SandboxTab from "@/components/content/Sandbox.vue";
 
-export class View {
-  id: string;
-  width: Ref<number | undefined> = ref(undefined);
-  DOMElement: Ref<HTMLElement | undefined> = ref(undefined);
+export const useViews = defineStore("views", () => {
+  const fonts = useFonts();
 
-  tabs: Tab[] = reactive([]);
-  activeTab: Tab;
+  // ================================================
+  // States
+  const _storage = reactive<{
+    [key: string]: View;
+  }>({});
 
-  constructor(args: {
-    id?: string;
-    font: FontOverview;
-    tab?: {
-      id?: string;
-      type: TabType;
-    };
-  }) {
-    this.id = args.id ?? createId("viw");
+  // ================================================
+  // Getters
+  const _listedIds = computed(() => {
+    return Object.keys(_storage);
+  });
 
-    const font = fonts.getFont(args.font.id);
+  const _listedViews = computed(() => {
+    return Object.values(_storage);
+  });
 
-    if (!font) {
-      notifications.sendNotification({
-        type: "error",
-        message:
-          "There was an error while applying the font to a new view.\nThis is most likely a bug. Please report it.",
-        forConsole: [font, args.font.id, args],
-      });
-    }
+  const length = computed(() => {
+    return _listedIds.value.length;
+  });
 
-    const tab = tabs.createDefaultTab({
-      font: args.font,
-      title: font.familyName,
+  // ================================================
+  // Actions
+  function addView(fontId: string) {
+    if (!fonts.getById(fontId)) return false;
+
+    const view = createView({
+      fontId,
     });
-    this.tabs.push(tab);
-    this.activeTab = reactive(tab);
+
+    _storage[view.id] = view;
+
+    return view;
   }
 
-  close() {
-    const index = views.listed.indexOf(this);
-    if (index > -1) {
-      views.listed.splice(index, 1);
+  function getByIndex(index: number): View | undefined;
+  function getByIndex(index: number, fallback: FallbackPosition): View;
+  function getByIndex(index: number, fallback?: undefined): View | undefined;
+  function getByIndex(index: number, fallback?: FallbackPosition) {
+    const view = _storage[_listedIds.value[index]];
+    if (view) return view;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
+  }
+
+  function getFirst() {
+    return getByIndex(0)!;
+  }
+
+  function getLast() {
+    return getByIndex(length.value - 1)!;
+  }
+
+  function getById(id: string): View | undefined;
+  function getById(id: string, fallback: FallbackPosition): View;
+  function getById(id: string, fallback?: undefined): View | undefined;
+  function getById(id: string, fallback?: FallbackPosition) {
+    const view = _storage[id];
+    if (view) return view;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
+  }
+
+  function _getFallback(fallback: FallbackPosition): View;
+  function _getFallback(fallback?: undefined): undefined;
+  function _getFallback(fallback?: FallbackPosition): View | undefined {
+    if (fallback === "last") return getLast();
+    else if (fallback === "first") return getFirst();
+    return undefined;
+  }
+
+  // ================================================
+  return {
+    // Getters
+    get all() {
+      return readonly(_storage);
+    },
+    get listed() {
+      return readonly(_listedViews);
+    },
+    get listedIds() {
+      return readonly(_listedIds);
+    },
+    length,
+
+    // Actions
+    addView,
+    getByIndex,
+    getById,
+  };
+});
+
+type CreateViewArgs = {
+  id?: string;
+  fontId: string;
+  tabType?: keyof typeof TabTypes;
+};
+
+function createView(args: CreateViewArgs) {
+  const id = args.id ?? createId("viw");
+  const font = useFonts().getById(args.fontId, "last");
+
+  const initialTab = (function () {
+    const type = args.tabType ?? "sandbox";
+    return TabTypes[type].constructor({
+      fontId: font.id,
+    });
+  })();
+
+  const _tabs = reactive<{
+    [key: string]: Tab;
+  }>({
+    [initialTab.id]: initialTab,
+  });
+
+  const _activeTabId = ref<string>(initialTab.id);
+
+  const _activeTab = computed(() => {
+    return _tabs[_activeTabId.value];
+  });
+
+  const _listedTabs = computed(() => {
+    return Object.values(_tabs);
+  });
+
+  function setActiveTab(tab: Tab | string) {
+    let id = "";
+    if (typeof tab === "string") {
+      if (!_tabs[tab]) return false;
+      id = tab;
+    } else {
+      id = tab.id;
     }
+    _activeTabId.value = id;
+    return true;
   }
 
-  resize(width: number) {
-    if (this.width.value) {
-      const nextView = views.listed[views.listed.indexOf(this) + 1];
-      if (nextView.width.value) {
-        this.width.value += width;
-        nextView.width.value -= width;
-      }
-    } else console.warn("no width provided");
+  function getTabByIndex(index: number): Tab | undefined;
+  function getTabByIndex(index: number, fallback: FallbackPosition): Tab;
+  function getTabByIndex(index: number, fallback?: undefined): Tab | undefined;
+  function getTabByIndex(index: number, fallback?: FallbackPosition) {
+    const tab = _listedTabs.value[index];
+    if (tab) return tab;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
   }
+
+  function getTabById(id: string): Tab | undefined;
+  function getTabById(id: string, fallback: FallbackPosition): Tab;
+  function getTabById(id: string, fallback?: undefined): Tab | undefined;
+  function getTabById(id: string, fallback?: FallbackPosition) {
+    const tab = _tabs[id];
+    if (tab) return tab;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
+  }
+
+  function _getFallback(fallback: FallbackPosition): Tab;
+  function _getFallback(fallback?: undefined): undefined;
+  function _getFallback(fallback?: FallbackPosition): Tab | undefined {
+    if (fallback === "last") return getLastTab();
+    else if (fallback === "first") return getFirstTab();
+    return undefined;
+  }
+
+  function getFirstTab() {
+    return getTabByIndex(0)!;
+  }
+
+  function getLastTab() {
+    return getTabByIndex(_listedTabs.value.length - 1)!;
+  }
+
+  function addTab(type?: keyof typeof TabTypes, becomesActive?: boolean) {
+    if (!type) type = "sandbox";
+    const tab = TabTypes[type].constructor({
+      fontId: font.id,
+    });
+    _tabs[tab.id] = tab;
+
+    if (becomesActive) setActiveTab(tab);
+
+    return tab;
+  }
+
+  return {
+    get id() {
+      return id;
+    },
+
+    addTab,
+    setActiveTab,
+
+    get activeTab() {
+      return readonly(_activeTab);
+    },
+    get activeTabId() {
+      return readonly(_activeTabId);
+    },
+    get listedTabs() {
+      return readonly(_listedTabs);
+    },
+    getTabByIndex,
+    getTabById,
+    getFirstTab,
+    getLastTab,
+  };
 }
 
-class Views {
-  listed: View[] = [];
-  activeView: Ref<View | undefined>;
-  fullWidth: Ref<number | undefined> = ref(undefined);
+export type View = ReturnType<typeof createView>;
 
-  get canCreate() {
-    return (
-      ((this.fullWidth.value ?? 0 / MINIMUM_WIDTH) || 1) > this.listed.length
-    );
-  }
-  get maxViews() {
-    return Math.floor((this.fullWidth.value ?? 0) / MINIMUM_WIDTH) || 1;
-  }
-  get canClose() {
-    return this.listed.length > 1;
-  }
+type TabArgs = {
+  id?: string;
+  name?: string;
+  fontId: string;
+};
 
-  constructor() {
-    this.activeView = ref(undefined);
-  }
+function createTab(args: TabArgs) {
+  const id = args.id ?? createId("tab");
 
-  initFirstView(fontId: string) {
-    const view = new View({
-      font: fonts.getFont(fontId, true),
-    });
-    this.activeView.value = view;
-    this.listed.push(view);
-  }
+  const _name = ref<string | undefined>(args.name);
 
-  createView(fontId: string) {
-    if (!this.canCreate) return;
+  const _computedName = computed(() => {
+    if (_name.value) return _name.value;
+    return useFonts().getById(args.fontId, "last").familyName;
+  });
 
-    if (!fontId) {
-      // TODO: get fonts.currentFont(), which implies creating said method
-      // Then, make fontId optional
-    }
-    console.log(fonts.getFont(fontId, true));
+  const _fontId = ref<string>(args.fontId);
 
-    const view = new View({
-      font: fonts.getFont(fontId, true),
-    });
+  const _activeFeatures = ref<string[]>([]);
 
-    this.listed.push(view);
-    this.activeView.value = view;
+  const component = markRaw(TabTypes.sandbox.component as Component);
+
+  function setName(name: string) {
+    _name.value = name;
   }
 
-  viewById(id: string) {
-    return this.listed.find((view) => view.id === id);
+  function setFont(fontId: string) {
+    _fontId.value = fontId;
   }
 
-  setWidthsFromState() {
-    this.listed.forEach((view) => {
-      const realWidth = view.DOMElement.value?.offsetWidth ?? 0;
-      view.width.value = realWidth >= MINIMUM_WIDTH ? realWidth : MINIMUM_WIDTH;
-    });
+  function addActiveFeature(featureId: string) {
+    _activeFeatures.value.push(featureId);
   }
 
-  calculateWidths() {
-    const fullWidth = this.fullWidth.value;
-    if (fullWidth) {
-      const defaultWidth = fullWidth / this.listed.length;
-      const previousFullWidth = this.listed
-        .map((view) => view.width.value)
-        .reduce((a, b) => (a ?? defaultWidth) + (b ?? defaultWidth), 0);
-      this.listed.forEach((view) => {
-        let newViewWidth: number | undefined;
-        let currentViewWidth = view.width.value;
-
-        if (!currentViewWidth) {
-          newViewWidth = defaultWidth;
-        } else {
-          if (previousFullWidth) {
-            let remainingWidth = fullWidth - defaultWidth;
-            newViewWidth = (currentViewWidth / previousFullWidth) * fullWidth;
-          } else {
-            newViewWidth = defaultWidth;
-          }
-        }
-
-        view.width.value =
-          newViewWidth < MINIMUM_WIDTH ? MINIMUM_WIDTH : newViewWidth;
-      });
-    }
+  function removeActiveFeature(featureId: string) {
+    const index = _activeFeatures.value.indexOf(featureId);
+    if (index > -1) _activeFeatures.value.splice(index, 1);
   }
+
+  return {
+    id,
+
+    setName,
+    setFont,
+    addActiveFeature,
+    removeActiveFeature,
+
+    get name() {
+      return readonly(_computedName) as unknown as Readonly<string | undefined>;
+    },
+    get fontId() {
+      return readonly(_fontId) as unknown as Readonly<string>;
+    },
+    get activeFeatures() {
+      return readonly(_activeFeatures) as unknown as Readonly<string[]>;
+    },
+    component,
+  };
 }
 
-export const views = new Views();
+export type Tab = ReturnType<typeof createTab>;
+
+function createSandBoxTab(args: TabArgs) {
+  const tab = createTab(args);
+
+  const _currentText = ref<string>("Welcome");
+  function setCurrentText(text: string) {
+    _currentText.value = text;
+  }
+
+  return {
+    ...tab,
+    get currentText() {
+      return readonly(_currentText) as unknown as Readonly<string>;
+    },
+    setCurrentText,
+  };
+}
+
+export type SandboxTab = ReturnType<typeof createSandBoxTab>;
+
+const TabTypes = {
+  sandbox: {
+    displayName: "Sandbox",
+    constructor: createSandBoxTab,
+    component: SandboxTab as Component,
+  },
+};
+
+console.log(SandboxTab);

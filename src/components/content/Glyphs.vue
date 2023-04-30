@@ -18,27 +18,4 @@
   </div> -->
 </template>
 
-<script setup lang="ts">
-import { Tab } from "~/composables/useTabs";
-import { View } from "~/composables/useViews";
-
-const { view, tab } = defineProps<{
-  view: View;
-  tab: Tab;
-}>();
-
-// const font = fonts.currentFont.value;
-
-// const numGlyphs = (function () {
-//   return markRaw(font?.numGlyphs);
-// })();
-// const availableFeatures = (function () {
-//   return markRaw(font?.availableFeatures);
-// })();
-// const characterSet = (function () {
-//   return font?.characterSet;
-// })();
-
-// console.log(fonts);
-// console.log(fonts.currentFont.value);
-</script>
+<script setup lang="ts"></script>

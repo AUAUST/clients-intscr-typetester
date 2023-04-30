@@ -6,7 +6,7 @@
       accept="*.ttf, *.otf, *.woff, *.woff2"
       multiple="true"
       ref="fontInput"
-      @change="(event) => fonts.handleNewFontFile((event.target as HTMLInputElement).files)"
+      @change="(event) => fonts.add((event.target as HTMLInputElement).files)"
       hidden
     />
     <font-input-overlay :visible="viewport.dropZoneVisible.value">
@@ -25,11 +25,20 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-
-import { fonts } from "~/composables/useFont";
 import { viewport } from "~/composables/useViewport";
 
+import { useFonts } from "~/composables/useFonts";
+
+const fonts = useFonts();
 const fontInput = ref<HTMLInputElement>();
+
+onMounted(() => {
+  console.log(fontInput.value);
+  fonts.setFontInput(fontInput.value);
+});
+onUnmounted(() => {
+  fonts.setFontInput(undefined);
+});
 
 function onDragLeave(event: DragEvent) {
   if (viewport.isDropZoneEventRelevant(event)) {
@@ -45,16 +54,13 @@ function onDragOver(event: DragEvent) {
 function onDrop(event: DragEvent) {
   if (viewport.isDropZoneEventRelevant(event)) {
     viewport.dropZoneVisible.value = false;
-    fonts.handleNewFontFile(event.dataTransfer!.files);
+    fonts.add(event.dataTransfer!.files);
   }
 }
 
-onMounted(() => {
-  fonts.fontInput = fontInput.value;
-});
-onUnmounted(() => {
-  fonts.fontInput = undefined;
-});
+// function useFonts() {
+//   throw new Error("Function not implemented.");
+// }
 </script>
 
 <style lang="scss">
