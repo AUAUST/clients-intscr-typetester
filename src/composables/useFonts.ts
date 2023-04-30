@@ -168,8 +168,14 @@ export const useFonts = defineStore("fonts", () => {
     return ids;
   }
 
-  function getById(id: string): Font | undefined {
-    return _storage[id];
+  function getById(id: string): Font | undefined;
+  function getById(id: string, fallback: FallbackPosition): Font;
+  function getById(id: string, fallback?: undefined): Font | undefined;
+  function getById(id: string, fallback?: FallbackPosition): Font | undefined {
+    const font = _storage[id];
+    if (font) return font;
+    else if (fallback) return _getFallback(fallback);
+    return undefined;
   }
 
   function getByIndex(index: number): Font | undefined;
