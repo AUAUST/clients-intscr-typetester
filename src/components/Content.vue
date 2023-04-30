@@ -68,11 +68,14 @@ onUnmounted(() => {
       display: grid;
       grid-template-rows: auto 1fr;
 
-      &:only-child {
-        width: 100%;
-      }
+      min-width: 50px;
+      width: 100%;
+      max-width: 100%;
+
+      --width: 100%;
+
       &:not(:only-child) {
-        width: clamp(50px, var(--width, unset) * 1px, 100%);
+        width: var(--width, unset);
       }
 
       view-resize-container {

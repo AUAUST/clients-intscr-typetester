@@ -2,7 +2,7 @@
   <view-item
     ref="viewElement"
     :style="{
-      '--width': view.width,
+      '--width': width,
     }"
   >
     <nav>
@@ -60,6 +60,12 @@ const activeTab = computed(() => {
   return props.view.activeTab as unknown as Tab;
 });
 
+const width = computed(() => {
+  const width = props.view.width;
+  if (!width) return undefined;
+  return `${width}px`;
+});
+
 const resizer: {
   lastX: number;
 
@@ -80,7 +86,6 @@ const resizer: {
   },
   mouseMove: (event) => {
     props.view.resize(event.clientX - resizer.lastX);
-    console.log(event.clientX - resizer.lastX);
     resizer.lastX = event.clientX;
   },
   mouseUp: () => {
