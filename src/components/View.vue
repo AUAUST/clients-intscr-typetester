@@ -1,5 +1,10 @@
 <template>
-  <view-item ref="viewElement">
+  <view-item
+    ref="viewElement"
+    :style="{
+      '--width': view.width,
+    }"
+  >
     <nav>
       <Button
         v-for="tab in viewTabs"
@@ -16,7 +21,7 @@
       <view-component
         :style="{
           // TS apparently doesn't handle ref unwrapping correctly so we cast the actual type
-          '--font': (view.activeTab as unknown as Tab).fontId,
+          '--font': (view.activeTab as unknown as Tab).fontId
         }"
       >
         <component
@@ -74,7 +79,8 @@ const resizer: {
     window.addEventListener("mouseup", resizer.mouseUp, { once: true });
   },
   mouseMove: (event) => {
-    // props.view.resize(event.clientX - resizer.lastX);
+    props.view.resize(event.clientX - resizer.lastX);
+    console.log(event.clientX - resizer.lastX);
     resizer.lastX = event.clientX;
   },
   mouseUp: () => {
@@ -87,7 +93,7 @@ const resizer: {
     window.addEventListener("touchend", resizer.touchEnd, { once: true });
   },
   touchMove: (event: TouchEvent) => {
-    // props.view.resize(event.touches[0].clientX - resizer.lastX);
+    props.view.resize(event.touches[0].clientX - resizer.lastX);
     resizer.lastX = event.touches[0].clientX;
   },
   touchEnd: () => {

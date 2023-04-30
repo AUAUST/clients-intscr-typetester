@@ -155,6 +155,8 @@ function createView(args: CreateViewArgs) {
     return Object.values(_tabs);
   });
 
+  const _width = ref(0);
+
   function setActiveTab(tab: Tab | string) {
     let id = "";
     if (typeof tab === "string") {
@@ -215,6 +217,10 @@ function createView(args: CreateViewArgs) {
     return tab;
   }
 
+  function resize(relative: number) {
+    _width.value = _width.value + relative;
+  }
+
   return {
     get id() {
       return id;
@@ -232,10 +238,15 @@ function createView(args: CreateViewArgs) {
     get listedTabs() {
       return readonly(_listedTabs);
     },
+    get width() {
+      return readonly(_width);
+    },
+
     getTabByIndex,
     getTabById,
     getFirstTab,
     getLastTab,
+    resize,
   };
 }
 
