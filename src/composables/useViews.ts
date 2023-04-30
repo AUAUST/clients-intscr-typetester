@@ -55,6 +55,8 @@ export const useViews = defineStore("views", () => {
 
     _storage[view.id] = view;
 
+    setTimeout(updateViewsWidth, 0);
+
     return view;
   }
 
@@ -94,6 +96,24 @@ export const useViews = defineStore("views", () => {
     return undefined;
   }
 
+  function updateViewsWidth() {
+    const lastView = getLast();
+    let sumOfWidth = 0;
+
+    for (const view of _listedViews.value) {
+      console.log("view.id", view.id);
+      if (view.id === lastView.id) {
+        // The last view should take the remaining width.
+        view.updateWidth(_DOMNodeWidth.value - sumOfWidth);
+      } else {
+        const newWidth = view.updateWidth();
+        console.log("newWidth", newWidth);
+        sumOfWidth += newWidth || 0;
+      }
+      console.log("sumOfWidth", sumOfWidth);
+    }
+  }
+
   // ================================================
   return {
     // Getters
@@ -114,6 +134,7 @@ export const useViews = defineStore("views", () => {
     get DOMNodeHeight() {
       return _DOMNodeHeight;
     },
+    updateViewsWidth,
 
     // Actions
     addView,
@@ -156,6 +177,8 @@ function createView(args: CreateViewArgs) {
   });
 
   const width = ref<number | undefined>(undefined);
+
+  const DOMNode = ref<HTMLElement | null>(null);
 
   function setActiveTab(tab: Tab | string) {
     let id = "";
@@ -221,6 +244,18 @@ function createView(args: CreateViewArgs) {
     width.value = (width.value ?? 0) + relative;
   }
 
+  function updateWidth(newWidth?: number) {
+    if (!DOMNode.value) return false;
+    if (newWidth) width.value = newWidth;
+    else width.value = DOMNode.value.clientWidth;
+    return width.value;
+  }
+
+  function setDOMNode(node: HTMLElement | null) {
+    DOMNode.value = node;
+    console.log("setDOMNode", DOMNode.value);
+  }
+
   return {
     get id() {
       return id;
@@ -239,6 +274,10 @@ function createView(args: CreateViewArgs) {
       return readonly(_listedTabs);
     },
 
+    setDOMNode,
+    get DOMNode() {
+      return readonly(DOMNode);
+    },
     width,
 
     getTabByIndex,
@@ -246,6 +285,7 @@ function createView(args: CreateViewArgs) {
     getFirstTab,
     getLastTab,
     resize,
+    updateWidth,
   };
 }
 

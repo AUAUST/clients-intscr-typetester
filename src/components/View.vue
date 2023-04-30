@@ -42,13 +42,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import Button from "./ui/Button.vue";
-import { Tab, View } from "~/composables/useViews";
+import { Tab, View, useViews } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
 }>();
+
+const viewElement = ref<HTMLElement | null>(null);
+
+const views = useViews();
 
 const viewTabs = computed(() => {
   // Warning: this is a hack. The type of listedTabs is not correct. It's actually still a ref.
@@ -64,6 +68,14 @@ const width = computed(() => {
   const width = props.view.width;
   if (!width) return undefined;
   return `${width}px`;
+});
+
+onMounted(() => {
+  console.log("mounted", viewElement.value);
+  props.view.setDOMNode(viewElement.value);
+});
+onUnmounted(() => {
+  props.view.setDOMNode(null);
 });
 
 const resizer: {
@@ -90,7 +102,7 @@ const resizer: {
   },
   mouseUp: () => {
     window.removeEventListener("mousemove", resizer.mouseMove);
-    // views.setWidthsFromState();
+    views.updateViewsWidth();
   },
   touchStart: (event: TouchEvent) => {
     resizer.lastX = event.touches[0].clientX;
@@ -103,7 +115,7 @@ const resizer: {
   },
   touchEnd: () => {
     window.removeEventListener("touchmove", resizer.touchMove);
-    // views.setWidthsFromState();
+    views.updateViewsWidth();
   },
 };
 </script>
