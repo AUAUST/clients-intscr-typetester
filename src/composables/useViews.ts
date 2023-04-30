@@ -3,6 +3,8 @@ import { FallbackPosition, useFonts } from "./useFonts";
 import { Component, computed, markRaw, reactive, readonly, ref } from "vue";
 import { createId } from "~/modules/utils";
 
+import { viewport } from "./useViewport";
+
 import SandboxTab from "@/components/content/Sandbox.vue";
 
 export const useViews = defineStore("views", () => {
@@ -26,6 +28,19 @@ export const useViews = defineStore("views", () => {
 
   const length = computed(() => {
     return _listedIds.value.length;
+  });
+
+  const DOMNode = ref<HTMLElement | null>(null);
+
+  const _DOMNodeWidth = computed(() => {
+    // Include viewport.size.width because it's a reactive property that gets updated when the window is resized.
+    viewport.size.width;
+    return DOMNode.value?.clientWidth ?? 0;
+  });
+
+  const _DOMNodeHeight = computed(() => {
+    viewport.size.height;
+    return DOMNode.value?.clientHeight ?? 0;
   });
 
   // ================================================
@@ -91,6 +106,13 @@ export const useViews = defineStore("views", () => {
       return readonly(_listedIds);
     },
     length,
+    DOMNode,
+    get DOMNodeWidth() {
+      return _DOMNodeWidth;
+    },
+    get DOMNodeHeight() {
+      return _DOMNodeHeight;
+    },
 
     // Actions
     addView,

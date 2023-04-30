@@ -20,11 +20,15 @@ import ChooseComponent from "~/components/Choose.vue";
 
 import { useFonts } from "~/composables/useFonts";
 import { useViews, Tab, View } from "~/composables/useViews";
+import { watch } from "vue";
 
 const fonts = useFonts();
 const views = useViews();
 
 const viewContainerRef = ref<HTMLElement | null>(null);
+watch(viewContainerRef, (newNode) => {
+  views.DOMNode = newNode;
+});
 
 const updateViewContainerWidth = () => {
   if (viewContainerRef.value) {

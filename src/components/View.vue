@@ -40,8 +40,6 @@ const props = defineProps<{
   view: View;
 }>();
 
-const console = window.console;
-
 const viewTabs = computed(() => {
   // Warning: this is a hack. The type of listedTabs is not correct. It's actually still a ref.
   // It's the only way so that typescript in VSCode doesn't complain.

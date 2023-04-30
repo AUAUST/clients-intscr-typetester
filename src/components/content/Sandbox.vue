@@ -1,4 +1,6 @@
 <template>
+  {{ useViews().DOMNodeHeight }}
+  {{ useViews().DOMNodeWidth }}
   <tab-sandbox
     ref="sandboxElement"
     contenteditable="true"
@@ -12,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { View, SandboxTab } from "~/composables/useViews";
+import { View, SandboxTab, useViews } from "~/composables/useViews";
 import { ref } from "vue";
 
 const props = defineProps<{
