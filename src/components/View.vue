@@ -6,7 +6,7 @@
         :key="tab.id"
         size="fit-width"
         :active="tab.id === activeTab.id"
-        @click="props.view.addTab('sandbox', true)"
+        @click="props.view.setActiveTab(tab)"
       >
         {{ tab.id }}
       </Button>
@@ -14,11 +14,13 @@
     </nav>
     <view-overflow>
       <view-component>
-        <component
-          v-bind:is="activeTab.component"
-          :view="view"
-          :tab="activeTab"
-        ></component>
+        <KeepAlive>
+          <component
+            v-bind:is="activeTab.component"
+            :view="view"
+            :tab="activeTab"
+          ></component>
+        </KeepAlive>
       </view-component>
     </view-overflow>
     <view-resize-container>
@@ -38,6 +40,8 @@ import { Tab, View } from "~/composables/useViews";
 const props = defineProps<{
   view: View;
 }>();
+
+const console = window.console;
 
 const viewTabs = computed(() => {
   // Warning: this is a hack. The type of listedTabs is not correct. It's actually still a ref.

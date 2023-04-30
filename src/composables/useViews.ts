@@ -199,6 +199,7 @@ function createView(args: CreateViewArgs) {
 
     addTab,
     setActiveTab,
+
     get activeTab() {
       return readonly(_activeTab);
     },
@@ -274,11 +275,20 @@ function createTab(args: TabArgs) {
 
 export type Tab = ReturnType<typeof createTab>;
 
-function createSandBoxTab(args: TabArgs): Tab {
+function createSandBoxTab(args: TabArgs) {
   const tab = createTab(args);
+
+  const _currentText = ref<string>(tab.id);
+  function setCurrentText(text: string) {
+    _currentText.value = text;
+  }
 
   return {
     ...tab,
+    get currentText() {
+      return readonly(_currentText);
+    },
+    setCurrentText,
   };
 }
 
