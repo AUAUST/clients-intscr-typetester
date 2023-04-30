@@ -13,7 +13,12 @@
       <Button @click="props.view.addTab('sandbox', true)">+</Button>
     </nav>
     <view-overflow>
-      <view-component>
+      <view-component
+        :style="{
+          // TS apparently doesn't handle ref unwrapping correctly so we cast the actual type
+          '--font': (view.activeTab as unknown as Tab).fontId,
+        }"
+      >
         <component
           v-bind:is="activeTab.component"
           :view="view"

@@ -7,9 +7,6 @@
     @blur="onBlur"
     @input="updateName"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
-    :style="{
-      '--font': props.tab.fontId,
-    }"
   ></tab-sandbox>
 </template>
 
