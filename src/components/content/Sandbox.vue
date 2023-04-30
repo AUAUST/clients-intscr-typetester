@@ -20,7 +20,11 @@ const props = defineProps<{
 const sandboxElement = ref<HTMLElement | null>(null);
 
 function onBlur() {
-  props.tab.setCurrentText(sandboxElement.value!.innerText!);
-  sandboxElement.value!.blur();
+  const element = sandboxElement.value;
+
+  if (!element) return;
+
+  props.tab.setCurrentText(element.innerText!);
+  element.blur();
 }
 </script>
