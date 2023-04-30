@@ -20,6 +20,16 @@
       <Button @click="testObj.internalState++">+</Button>
 
       {{ testObj.comp }}
+
+      <Button @click="testObj2.decrement()">-</Button>
+      {{ testObj2.state }} ref2
+      <Button @click="testObj2.increment()">+</Button>
+
+      <Button @click="testObj2.internalState--">-</Button>
+      {{ testObj2.internalState }} reactive2
+      <Button @click="testObj2.internalState++">+</Button>
+
+      {{ testObj2.comp }}
     </no-font-container>
   </view-item>
 </template>
@@ -62,6 +72,7 @@ function testObject() {
 }
 
 const testObj = reactive(testObject());
+const testObj2 = reactive(testObject());
 
 testObj.internalState += 10;
 </script>
