@@ -13,12 +13,11 @@
     </nav>
     <view-overflow>
       <view-component>
-        <!-- {{ props }} -->
-        <!-- <component
+        <component
           v-bind:is="activeTab.component"
           :view="view"
           :tab="activeTab"
-        ></component> -->
+        ></component>
       </view-component>
     </view-overflow>
     <view-resize-container>
@@ -33,17 +32,20 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import Button from "./ui/Button.vue";
-import { View } from "~/composables/useViews";
+import { Tab, View } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
 }>();
 
 const viewTabs = computed(() => {
-  return props.view.listedTabs.value;
+  // Warning: this is a hack. The type of listedTabs is not correct. It's actually still a ref.
+  // It's the only way so that typescript in VSCode doesn't complain.
+  return props.view.listedTabs as unknown as Tab[];
 });
 const activeTab = computed(() => {
-  return props.view.activeTab.value;
+  // Warning: same hack as above.
+  return props.view.activeTab as unknown as Tab;
 });
 
 const resizer: {
