@@ -133,15 +133,15 @@ function createView(args: CreateViewArgs) {
   });
 
   function setActiveTab(tab: Tab | string) {
+    let id = "";
     if (typeof tab === "string") {
       if (!_tabs[tab]) return false;
-
-      _activeTabId.value = tab;
-      return true;
+      id = tab;
     } else {
-      _activeTabId.value = tab.id;
-      return true;
+      id = tab.id;
     }
+    _activeTabId.value = id;
+    return true;
   }
 
   function getTabByIndex(index: number): Tab | undefined;
@@ -261,13 +261,13 @@ function createTab(args: TabArgs) {
     removeActiveFeature,
 
     get name() {
-      return readonly(_name);
+      return readonly(_name) as unknown as Readonly<string | undefined>;
     },
     get fontId() {
-      return readonly(_fontId);
+      return readonly(_fontId) as unknown as Readonly<string>;
     },
     get activeFeatures() {
-      return readonly(_activeFeatures);
+      return readonly(_activeFeatures) as unknown as Readonly<string[]>;
     },
     component,
   };
@@ -278,7 +278,7 @@ export type Tab = ReturnType<typeof createTab>;
 function createSandBoxTab(args: TabArgs) {
   const tab = createTab(args);
 
-  const _currentText = ref<string>(tab.id);
+  const _currentText = ref<string>("Welcome");
   function setCurrentText(text: string) {
     _currentText.value = text;
   }
@@ -286,7 +286,7 @@ function createSandBoxTab(args: TabArgs) {
   return {
     ...tab,
     get currentText() {
-      return readonly(_currentText);
+      return readonly(_currentText) as unknown as Readonly<string>;
     },
     setCurrentText,
   };

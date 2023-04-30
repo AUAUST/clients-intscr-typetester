@@ -19,6 +19,7 @@
             v-bind:is="activeTab.component"
             :view="view"
             :tab="activeTab"
+            :tabId="activeTab.id"
           ></component>
         </KeepAlive>
       </view-component>

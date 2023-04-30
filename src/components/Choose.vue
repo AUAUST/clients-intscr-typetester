@@ -3,7 +3,7 @@
     <no-font-container>
       <div>
         Drop or
-        <!-- <Button @click="fonts.openFileDialog()"> Choose </Button> -->
+        <Button @click="fonts.openFontInput()"> Choose </Button>
         a file to start testing your font.
       </div>
       <div>You may also try an Interscript font</div>
