@@ -97,6 +97,12 @@ export const useViews = defineStore("views", () => {
   }
 
   function updateViewsWidth() {
+    //  this.listed.forEach((view) => {
+    //    const realWidth = view.DOMElement.value?.offsetWidth ?? 0;
+    //    view.width.value =
+    //      realWidth >= MINIMUM_WIDTH ? realWidth : MINIMUM_WIDTH;
+    //  });
+
     const lastView = getLast();
     let sumOfWidth = 0;
 
@@ -104,6 +110,7 @@ export const useViews = defineStore("views", () => {
       if (view.id === lastView.id) {
         // The last view should take the remaining width.
         // view.setWidth(_DOMNodeWidth.value - sumOfWidth);
+        view.setWidth();
       } else {
         const newWidth = view.setWidth();
 
@@ -245,7 +252,7 @@ function createView(args: CreateViewArgs) {
   function setWidth(newWidth?: number) {
     if (!DOMNode.value) return false;
     if (newWidth) width.value = newWidth;
-    else width.value = DOMNode.value.clientWidth;
+    else width.value = DOMNode.value.offsetWidth;
     return width.value;
   }
 

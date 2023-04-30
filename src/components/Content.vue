@@ -74,7 +74,7 @@ onUnmounted(() => {
       max-width: 100%;
 
       &:last-of-type {
-        width: 100%;
+        flex-grow: 1;
       }
       &:only-child {
         width: 100%;
