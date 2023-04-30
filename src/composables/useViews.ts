@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
 import { FallbackPosition, useFonts } from "./useFonts";
-import { computed, markRaw, reactive, readonly, ref } from "vue";
+import { Component, computed, markRaw, reactive, readonly, ref } from "vue";
 import { createId } from "~/modules/utils";
 
-import type { ComputedRef, Ref } from "vue";
+import SandboxTab from "@/components/content/Sandbox.vue";
 
 export const useViews = defineStore("views", () => {
   const fonts = useFonts();
@@ -19,6 +19,7 @@ export const useViews = defineStore("views", () => {
   const _listedIds = computed(() => {
     return Object.keys(_storage);
   });
+
   const _listedViews = computed(() => {
     return Object.values(_storage);
   });
@@ -231,6 +232,8 @@ function createTab(args: TabArgs) {
 
   const _activeFeatures = ref<string[]>([]);
 
+  const component = markRaw(TabTypes.sandbox.component as Component);
+
   function setName(name: string) {
     _name.value = name;
   }
@@ -265,12 +268,13 @@ function createTab(args: TabArgs) {
     get activeFeatures() {
       return readonly(_activeFeatures);
     },
+    component,
   };
 }
 
 export type Tab = ReturnType<typeof createTab>;
 
-function createSandBoxTab(args: TabArgs) {
+function createSandBoxTab(args: TabArgs): Tab {
   const tab = createTab(args);
 
   return {
@@ -284,5 +288,8 @@ const TabTypes = {
   sandbox: {
     displayName: "Sandbox",
     constructor: createSandBoxTab,
+    component: SandboxTab as Component,
   },
 };
+
+console.log(SandboxTab);

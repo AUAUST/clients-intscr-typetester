@@ -2,21 +2,22 @@
   <view-item ref="viewElement">
     <nav>
       <Button
-        v-for="tab in view.listedTabs"
-        :key="(tab as unknown as Tab).id"
+        v-for="tab in viewTabs"
+        :key="tab.id"
         size="fit-width"
-        :active="(tab as unknown as Tab).id === (view.activeTabId as unknown as string)"
+        :active="tab.id === activeTab.id"
         @click="props.view.addTab('sandbox', true)"
       >
-        {{ (tab as unknown as Tab).id }}
+        {{ tab.id }}
       </Button>
     </nav>
     <view-overflow>
       <view-component>
+        <!-- {{ props }} -->
         <!-- <component
-          v-bind:is="view.activeTab"
+          v-bind:is="activeTab.component"
           :view="view"
-          :tab="view.activeTab"
+          :tab="activeTab"
         ></component> -->
       </view-component>
     </view-overflow>
@@ -30,12 +31,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import Button from "./ui/Button.vue";
-import { Tab, View } from "~/composables/useViews";
+import { View } from "~/composables/useViews";
 
 const props = defineProps<{
   view: View;
 }>();
+
+const viewTabs = computed(() => {
+  return props.view.listedTabs.value;
+});
+const activeTab = computed(() => {
+  return props.view.activeTab.value;
+});
 
 const resizer: {
   lastX: number;

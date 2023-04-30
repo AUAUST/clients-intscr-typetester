@@ -6,7 +6,7 @@
         .join(', '),
     }" -->
     <view-container ref="viewContainerRef">
-      <ChooseComponent v-if="fonts.length < 1" />
+      <ChooseComponent v-if="fonts.length < 1 && views.length < 1" />
 
       <!-- <div
         v-for="view in views.listed"
@@ -29,6 +29,7 @@
         :key="view.id"
         :view="(view as unknown as View)"
       />
+      <!-- {{ views.listed }} -->
     </view-container>
   </main>
 </template>
