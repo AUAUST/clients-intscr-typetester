@@ -276,7 +276,6 @@ function createView(args: CreateViewArgs) {
   function resize(relative: number) {
     const nextView = getNextView();
 
-    console.log(nextView.id, id);
     width.value = (width.value ?? 0) + relative;
     nextView.setWidth(((nextView.width as unknown as number) ?? 0) - relative);
   }
@@ -291,7 +290,6 @@ function createView(args: CreateViewArgs) {
 
   function setDOMNode(node: HTMLElement | null) {
     DOMNode.value = node;
-    console.log("setDOMNode", DOMNode.value);
   }
 
   function getNextView() {
@@ -422,5 +420,3 @@ const TabTypes = {
     component: SandboxTab as Component,
   },
 };
-
-console.log(SandboxTab);
