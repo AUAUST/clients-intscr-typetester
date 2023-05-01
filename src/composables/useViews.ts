@@ -397,7 +397,9 @@ export type Tab = ReturnType<typeof createTab>;
 function createSandBoxTab(args: TabArgs) {
   const tab = createTab(args);
 
-  const _currentText = ref<string>("Welcome to the Typetester's sandbox...");
+  const _currentText = ref<string>(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890"
+  );
   function setCurrentText(text: string) {
     _currentText.value = text;
   }
