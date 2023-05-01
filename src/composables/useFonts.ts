@@ -160,6 +160,10 @@ export const useFonts = defineStore("fonts", () => {
 
       views.addView(id, true);
 
+      console.log(id);
+      // @ts-ignore
+      window[id] = font;
+
       ids.push(id);
     }
 
@@ -320,11 +324,21 @@ function parsingResultMessage(
   const baseMessage = success ? "Successfully loaded " : "Could not load ";
 
   const resultsNames = results.map((result) => {
-    let name = success
-      ? (result as PositiveFontParsingResult).familyName
-      : `"${(result as NegativeFontParsingResult).file?.name}"`;
-    // Replace spaces by non-breaking spaces and hyphens by non-breaking hyphens
-    return name.replace(/ /g, "\u00a0").replace(/-/g, "\u2011");
+    let name = "";
+    try {
+      name = success
+        ? (result as PositiveFontParsingResult).familyName
+        : `"${(result as NegativeFontParsingResult).file?.name}"`;
+      // Replace spaces by non-breaking spaces and hyphens by non-breaking hyphens
+      name = name.replace(/ /g, "\u00a0").replace(/-/g, "\u2011");
+    } catch (e) {
+      notifications.sendNotification({
+        type: "error",
+        message: `An imported font has an invalid name.`,
+      });
+      name = "[Invalid\u00a0Name]";
+    }
+    return name;
   });
 
   // Helvetica
@@ -352,3 +366,13 @@ function parsingResultMessage(
     );
   }
 }
+
+// get a var font's axis name:
+// nameId = font.raw.fvar.axis[index].nameID
+// name = font.raw.name.records.fontFeatures[nameId]
+// condensed form: font.raw.name.records.fontFeatures[font.raw.fvar.axis[index].nameID]
+
+// get a var font's instance name:
+// nameId = font.raw.fvar.instance[index].nameID
+// name = font.raw.name.records.fontFeatures[nameId]
+// condensed form: font.raw.name.records.fontFeatures[font.raw.fvar.instance[index].nameID]
