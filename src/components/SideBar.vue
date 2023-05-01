@@ -7,9 +7,11 @@
     }"
   >
     <menu id="sidebar">
-      <SideBarSection title="Font in use" id="font-selected" :resizable="false">
+      <SideBarSection title="Font files" id="font-selected" :resizable="false">
         <ButtonsGroup>
-          <Button @click="fonts.openFontInput()"> Select a file </Button>
+          <Button @click="fonts.openFontInput()" size="fit-width">
+            Select a file
+          </Button>
         </ButtonsGroup>
       </SideBarSection>
       <SideBarSection
