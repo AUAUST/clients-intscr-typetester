@@ -19,7 +19,7 @@ import ViewComponent from "~/components/View.vue";
 import ChooseComponent from "~/components/Choose.vue";
 
 import { useFonts } from "~/composables/useFonts";
-import { useViews, Tab, View } from "~/composables/useViews";
+import { useViews, View } from "~/composables/useViews";
 import { watch } from "vue";
 
 const fonts = useFonts();
