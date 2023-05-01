@@ -362,48 +362,6 @@ function createTab(args: TabArgs) {
     _fontId.value = fontId;
   }
 
-  function addActiveFeature(featureId: string) {
-    _activeFeatures.value.push(featureId);
-  }
-
-  function removeActiveFeature(featureId: string) {
-    const index = _activeFeatures.value.indexOf(featureId);
-    if (index > -1) _activeFeatures.value.splice(index, 1);
-  }
-
-  return {
-    id,
-
-    setName,
-    setFont,
-    addActiveFeature,
-    removeActiveFeature,
-
-    get name() {
-      return readonly(_computedName) as unknown as Readonly<string | undefined>;
-    },
-    get fontId() {
-      return readonly(_fontId) as unknown as Readonly<string>;
-    },
-    get activeFeatures() {
-      return readonly(_activeFeatures) as unknown as Readonly<string[]>;
-    },
-    component,
-  };
-}
-
-export type Tab = ReturnType<typeof createTab>;
-
-function createPlaintextTab(args: TabArgs) {
-  const tab = createTab(args);
-
-  const _currentText = ref<string>(
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890"
-  );
-  function setCurrentText(text: string) {
-    _currentText.value = text;
-  }
-
   const _currentFontSize = ref<number>(16);
   function setFontSize(size?: number | undefined) {
     _currentFontSize.value = size ?? 16;
@@ -428,11 +386,21 @@ function createPlaintextTab(args: TabArgs) {
   }
 
   return {
-    ...tab,
-    get currentText() {
-      return readonly(_currentText) as unknown as Readonly<string>;
+    id,
+
+    setName,
+    setFont,
+
+    get name() {
+      return readonly(_computedName) as unknown as Readonly<string | undefined>;
     },
-    setCurrentText,
+    get fontId() {
+      return readonly(_fontId) as unknown as Readonly<string>;
+    },
+    get activeFeatures() {
+      return readonly(_activeFeatures) as unknown as Readonly<string[]>;
+    },
+    component,
 
     get fontSize() {
       return readonly(_currentFontSize) as unknown as Readonly<number>;
@@ -450,6 +418,27 @@ function createPlaintextTab(args: TabArgs) {
     enableFontFeature,
     disableFontFeature,
     toggleFontFeature,
+  };
+}
+
+export type Tab = ReturnType<typeof createTab>;
+
+function createPlaintextTab(args: TabArgs) {
+  const tab = createTab(args);
+
+  const _currentText = ref<string>(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ\nabcdefghijklmnopqrstuvwxyz\n1234567890"
+  );
+  function setCurrentText(text: string) {
+    _currentText.value = text;
+  }
+
+  return {
+    ...tab,
+    get currentText() {
+      return readonly(_currentText) as unknown as Readonly<string>;
+    },
+    setCurrentText,
   };
 }
 
