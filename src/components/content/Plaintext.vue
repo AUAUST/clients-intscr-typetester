@@ -1,31 +1,31 @@
 <template>
-  <tab-sandbox
-    ref="sandboxElement"
+  <tab-plaintext
+    ref="plaintextElement"
     contenteditable="true"
     @blur="onBlur"
     @paste="onTextMagicallyPopsIn"
     @drop="onTextMagicallyPopsIn"
     @input="updateName"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
-  ></tab-sandbox>
+  ></tab-plaintext>
 </template>
 
 <script setup lang="ts">
-import { View, SandboxTab, useViews } from "~/composables/useViews";
+import { View, PlaintextTab, useViews } from "~/composables/useViews";
 import { ref } from "vue";
 
 const props = defineProps<{
   view: View;
-  tab: SandboxTab;
+  tab: PlaintextTab;
   tabId: string;
 }>();
 
-const sandboxElement = ref<HTMLElement | null>(null);
+const plaintextElement = ref<HTMLElement | null>(null);
 
 function updateName() {
   props.tab.setName(
     (function () {
-      let text = sandboxElement.value?.innerText;
+      let text = plaintextElement.value?.innerText;
       let ellipsis = false;
 
       if (!text) return undefined;
@@ -43,7 +43,7 @@ function updateName() {
   );
 }
 function onBlur() {
-  const element = sandboxElement.value;
+  const element = plaintextElement.value;
 
   if (!element) return;
 
@@ -51,7 +51,7 @@ function onBlur() {
   element.blur();
 }
 function onTextMagicallyPopsIn(event: Event) {
-  const element = sandboxElement.value;
+  const element = plaintextElement.value;
 
   if (!element) return;
 
@@ -63,7 +63,7 @@ function onTextMagicallyPopsIn(event: Event) {
 </script>
 
 <style lang="scss">
-tab-sandbox {
+tab-plaintext {
   display: block;
   width: 100%;
   height: 100%;

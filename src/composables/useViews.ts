@@ -13,7 +13,7 @@ import { createId } from "~/modules/utils";
 
 import { viewport } from "./useViewport";
 
-import SandboxTab from "@/components/content/Sandbox.vue";
+import PlaintextTab from "@/components/content/Plaintext.vue";
 
 export const useViews = defineStore("views", () => {
   const fonts = useFonts();
@@ -187,7 +187,7 @@ function createView(args: CreateViewArgs) {
   const font = useFonts().getById(args.fontId, "last");
 
   const initialTab = (function () {
-    const type = args.tabType ?? "sandbox";
+    const type = args.tabType ?? "plainText";
     return TabTypes[type].constructor({
       fontId: font.id,
     });
@@ -262,7 +262,7 @@ function createView(args: CreateViewArgs) {
   }
 
   function addTab(type?: keyof typeof TabTypes, becomesActive?: boolean) {
-    if (!type) type = "sandbox";
+    if (!type) type = "plainText";
     const tab = TabTypes[type].constructor({
       fontId: font.id,
     });
@@ -352,7 +352,7 @@ function createTab(args: TabArgs) {
 
   const _activeFeatures = ref<string[]>([]);
 
-  const component = markRaw(TabTypes.sandbox.component as Component);
+  const component = markRaw(TabTypes.plainText.component as Component);
 
   function setName(name?: string | undefined) {
     _name.value = name;
@@ -394,7 +394,7 @@ function createTab(args: TabArgs) {
 
 export type Tab = ReturnType<typeof createTab>;
 
-function createSandBoxTab(args: TabArgs) {
+function createPlaintextTab(args: TabArgs) {
   const tab = createTab(args);
 
   const _currentText = ref<string>(
@@ -413,12 +413,12 @@ function createSandBoxTab(args: TabArgs) {
   };
 }
 
-export type SandboxTab = ReturnType<typeof createSandBoxTab>;
+export type PlaintextTab = ReturnType<typeof createPlaintextTab>;
 
 const TabTypes = {
-  sandbox: {
-    displayName: "Sandbox",
-    constructor: createSandBoxTab,
-    component: SandboxTab as Component,
+  plainText: {
+    displayName: "Plain text",
+    constructor: createPlaintextTab,
+    component: PlaintextTab as Component,
   },
 };

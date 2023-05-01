@@ -20,7 +20,7 @@
       >
         {{ tab.name }}
       </Button>
-      <Button @click="props.view.addTab('sandbox', true)">+</Button>
+      <Button @click="props.view.addTab('plainText', true)">+</Button>
     </nav>
     <view-overflow>
       <view-component
