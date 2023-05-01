@@ -61,13 +61,12 @@ onUnmounted(() => {
     height: 100%;
     overflow: hidden;
 
-    background-color: color.$view-normal-background;
-    color: color.$view-normal-text;
+    background-color: color.$view-active-background;
+    color: color.$view-active-text;
 
     view-item {
-      &.active {
-        background-color: color.$view-active-background;
-        color: color.$view-active-text;
+      &:not(.active) {
+        opacity: 0.8;
       }
 
       position: relative;
