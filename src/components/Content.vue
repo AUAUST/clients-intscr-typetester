@@ -65,8 +65,8 @@ onUnmounted(() => {
     color: color.$view-active-text;
 
     view-item {
-      &:not(.active) {
-        opacity: 0.8;
+      &.active nav {
+        background: linear-gradient(to bottom, v.$c-gray-4, transparent);
       }
 
       position: relative;
