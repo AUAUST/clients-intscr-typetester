@@ -2,11 +2,13 @@
   <view-item
     ref="viewElement"
     :class="{
-      active: props.view.id === views.activeView.id,
+      active: props.view.id === views.activeView?.id,
     }"
     :style="{
       '--width': width,
     }"
+    @click="views.setActiveView(props.view)"
+    @input="views.setActiveView(props.view)"
   >
     <nav>
       <Button
