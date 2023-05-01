@@ -48,10 +48,9 @@ onUnmounted(() => {
 
 <style lang="scss">
 @use "@/assets/style/variables" as v;
+@use "@/assets/style/colors" as color;
 
 #content-container {
-  background-color: var(--auaust-background-color);
-  color: var(--auaust-text-color);
   isolation: isolate;
   overflow: hidden;
 
@@ -62,7 +61,15 @@ onUnmounted(() => {
     height: 100%;
     overflow: hidden;
 
+    background-color: color.$view-normal-background;
+    color: color.$view-normal-text;
+
     view-item {
+      &.active {
+        background-color: color.$view-active-background;
+        color: color.$view-active-text;
+      }
+
       position: relative;
 
       display: grid;

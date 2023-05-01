@@ -4,7 +4,7 @@
     :class="[
       props.size,
       props.active ? 'active' : '',
-      props.deactivated ? 'deactivated' : '',
+      props.disabled ? 'disabled' : '',
     ]"
     :title="title ?? 'A clickable button.'"
   >
@@ -19,12 +19,13 @@ const props = defineProps<{
   size?: string;
   title?: string;
   active?: boolean;
-  deactivated?: boolean;
+  disabled?: boolean;
 }>();
 </script>
 
 <style lang="scss">
 @use "@/assets/style/variables" as v;
+@use "@/assets/style/colors" as color;
 
 .button {
   all: unset;
@@ -59,20 +60,26 @@ const props = defineProps<{
     padding-inline: v.$gap-small-double;
     padding-bottom: v.$gap-small-half;
 
-    color: v.$c-gray-1;
-    background-color: v.$c-auaust-7;
+    background-color: color.$button-normal-background;
+    color: color.$button-normal-text;
     cursor: pointer;
 
     white-space: nowrap;
     text-overflow: ellipsis;
 
     &:hover {
-      background-color: v.$c-auaust-8;
+      background-color: color.$button-hover-background;
+      color: color.$button-hover-text;
     }
   }
   &.active span {
-    background-color: v.$c-auaust-4;
-    color: v.$c-gray-1;
+    background-color: color.$button-active-background;
+    color: color.$button-active-text;
+    cursor: default;
+  }
+  &.disabled span {
+    background-color: color.$button-disabled-background;
+    color: color.$button-disabled-text;
     cursor: default;
   }
 }

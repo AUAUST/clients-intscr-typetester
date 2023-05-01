@@ -1,0 +1,19 @@
+@use "@/assets/style/variables" as v;
+
+$button-normal-background: v.$c-auaust-8;
+$button-normal-text: v.$c-auaust-1;
+
+$button-hover-background: v.$c-auaust-7;
+$button-hover-text: v.$c-auaust-1;
+
+$button-active-background: v.$c-auaust-5;
+$button-active-text: v.$c-auaust-1;
+
+$button-disabled-background: v.$c-auaust-6;
+$button-disabled-text: v.$c-auaust-1;
+
+$view-normal-background: v.$c-gray-3;
+$view-normal-text: v.$c-gray-6;
+
+$view-active-background: v.$c-gray-1;
+$view-active-text: v.$c-gray-8;
