@@ -20,7 +20,6 @@
         :resizable="true"
       >
         <FontSettings />
-        {{ currentFont?.familyName }}
       </SideBarSection>
       <SideBarSection
         title="Interface settings"
@@ -58,17 +57,9 @@ import UiSettings from "@/components/sidebar/UiSettings.vue";
 import FontSettings from "@/components/sidebar/FontSettings.vue";
 import SideBarSection from "@/components/sidebar/Section.vue";
 
-import { computed } from "vue";
-
 import { useFonts } from "~/composables/useFonts";
-import { useViews } from "~/composables/useViews";
 
 const fonts = useFonts();
-const views = useViews();
-
-const currentFont = computed(() =>
-  fonts.getById(views.activeView?.activeTab.fontId ?? "")
-);
 </script>
 
 <style lang="scss">

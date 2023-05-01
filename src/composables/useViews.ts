@@ -404,12 +404,52 @@ function createPlaintextTab(args: TabArgs) {
     _currentText.value = text;
   }
 
+  const _currentFontSize = ref<number>(16);
+  function setFontSize(size?: number | undefined) {
+    _currentFontSize.value = size ?? 16;
+  }
+
+  const _currentLineHeight = ref<number>(1.5);
+  function setLineHeight(height?: number | undefined) {
+    _currentLineHeight.value = height ?? 1.5;
+  }
+
+  const _currentEnabledFontFeatures = reactive(new Set<string>());
+  function enableFontFeature(feature: string) {
+    _currentEnabledFontFeatures.add(feature);
+  }
+  function disableFontFeature(feature: string) {
+    _currentEnabledFontFeatures.delete(feature);
+  }
+  function toggleFontFeature(feature: string) {
+    if (_currentEnabledFontFeatures.has(feature))
+      _currentEnabledFontFeatures.delete(feature);
+    else _currentEnabledFontFeatures.add(feature);
+  }
+
   return {
     ...tab,
     get currentText() {
       return readonly(_currentText) as unknown as Readonly<string>;
     },
     setCurrentText,
+
+    get fontSize() {
+      return readonly(_currentFontSize) as unknown as Readonly<number>;
+    },
+    setFontSize,
+
+    get lineHeight() {
+      return readonly(_currentLineHeight) as unknown as Readonly<number>;
+    },
+    setLineHeight,
+
+    get enabledFontFeatures() {
+      return readonly(_currentEnabledFontFeatures);
+    },
+    enableFontFeature,
+    disableFontFeature,
+    toggleFontFeature,
   };
 }
 
