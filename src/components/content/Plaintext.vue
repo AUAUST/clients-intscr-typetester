@@ -7,6 +7,11 @@
     @drop="onTextMagicallyPopsIn"
     @input="updateName"
     v-html="props.tab.currentText.replace(/\n/g, '<br>')"
+    :style="{
+      '--ffs': Array.from(props.tab.enabledFontFeatures)
+        .map((feature) => `'${feature}' 1`)
+        .join(', '),
+    }"
   ></tab-plaintext>
 </template>
 
@@ -67,6 +72,8 @@ tab-plaintext {
   display: block;
   width: 100%;
   height: 100%;
+
+  font-feature-settings: var(--ffs, normal);
 
   font-family: var(--font);
 

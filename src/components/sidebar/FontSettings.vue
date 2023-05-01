@@ -1,6 +1,13 @@
 <template>
   <template v-if="currentFont">
-    <Button @click="">More font-size</Button>
+    <Button
+      v-for="feature in currentFont.raw.availableFeatures"
+      :key="feature"
+      :active="currentTab?.enabledFontFeatures.has(feature)"
+      @click="currentTab?.toggleFontFeature(feature)"
+    >
+      {{ feature }}
+    </Button>
   </template>
 </template>
 
