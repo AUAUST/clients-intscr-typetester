@@ -158,7 +158,7 @@ export const useFonts = defineStore("fonts", () => {
 
       fontToDOM(result.buffer, id);
 
-      views.addView(id);
+      views.addView(id, true);
 
       ids.push(id);
     }

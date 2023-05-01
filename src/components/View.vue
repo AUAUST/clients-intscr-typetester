@@ -1,6 +1,9 @@
 <template>
   <view-item
     ref="viewElement"
+    :class="{
+      active: props.view.id === views.activeView.id,
+    }"
     :style="{
       '--width': width,
     }"

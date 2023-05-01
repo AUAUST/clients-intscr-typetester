@@ -38,6 +38,12 @@ export const useViews = defineStore("views", () => {
     return _listedIds.value.length;
   });
 
+  const _activeViewId = ref<string>();
+
+  const _activeView = computed(() => {
+    return _activeViewId.value ? _storage[_activeViewId.value] : undefined;
+  });
+
   const DOMNode = ref<HTMLElement | null>(null);
 
   const _DOMNodeWidth = computed(() => {
@@ -54,7 +60,7 @@ export const useViews = defineStore("views", () => {
 
   // ================================================
   // Actions
-  function addView(fontId: string) {
+  function addView(fontId: string, becomesActive?: boolean) {
     if (!fonts.getById(fontId)) return false;
 
     const view = createView({
@@ -62,6 +68,8 @@ export const useViews = defineStore("views", () => {
     });
 
     _storage[view.id] = view;
+
+    if (becomesActive) setActiveView(view);
 
     setTimeout(updateViewsWidth, 0);
 
@@ -122,6 +130,18 @@ export const useViews = defineStore("views", () => {
     }
   }
 
+  function setActiveView(view: View | string) {
+    let id = "";
+    if (typeof view === "string") {
+      if (!_storage[view]) return false;
+      id = view;
+    } else {
+      id = view.id;
+    }
+    _activeViewId.value = id;
+    return true;
+  }
+
   // ================================================
   return {
     // Getters
@@ -144,7 +164,11 @@ export const useViews = defineStore("views", () => {
     },
     updateViewsWidth,
 
-    // Actions
+    get activeView() {
+      return readonly(_activeView);
+    },
+    setActiveView,
+
     addView,
     getByIndex,
     getById,
