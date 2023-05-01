@@ -11,6 +11,8 @@
       '--ffs': Array.from(props.tab.enabledFontFeatures)
         .map((feature) => `'${feature}' 1`)
         .join(', '),
+      '--fs': props.tab.fontSize + 'px',
+      '--lh': props.tab.lineHeight + 'em',
     }"
   ></tab-plaintext>
 </template>
@@ -74,6 +76,8 @@ tab-plaintext {
   height: 100%;
 
   font-feature-settings: var(--ffs, normal);
+  font-size: var(--fs, 2rem);
+  line-height: var(--lh, 1);
 
   font-family: var(--font);
 

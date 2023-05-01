@@ -1,6 +1,32 @@
 <template>
   <template v-if="currentFont">
     <Button
+      @click="currentTab?.setFontSize(currentTab.fontSize + 1)"
+      size="fit-width"
+    >
+      Size +
+    </Button>
+    <Button
+      @click="currentTab?.setFontSize(currentTab.fontSize - 1)"
+      size="fit-width"
+    >
+      Size -
+    </Button>
+
+    <Button
+      @click="currentTab?.setLineHeight(currentTab.lineHeight + 0.1)"
+      size="fit-width"
+    >
+      Line height +
+    </Button>
+    <Button
+      @click="currentTab?.setLineHeight(currentTab.lineHeight - 0.1)"
+      size="fit-width"
+    >
+      Line height -
+    </Button>
+
+    <Button
       v-for="feature in currentFont.raw.availableFeatures"
       :key="feature"
       :active="currentTab?.enabledFontFeatures.has(feature)"

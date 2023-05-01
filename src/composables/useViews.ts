@@ -364,12 +364,12 @@ function createTab(args: TabArgs) {
 
   const _currentFontSize = ref<number>(16);
   function setFontSize(size?: number | undefined) {
-    _currentFontSize.value = size ?? 16;
+    _currentFontSize.value = Math.round((size ?? 16) * 4) / 4;
   }
 
   const _currentLineHeight = ref<number>(1.5);
   function setLineHeight(height?: number | undefined) {
-    _currentLineHeight.value = height ?? 1.5;
+    _currentLineHeight.value = Math.round((height ?? 1.5) * 20) / 20;
   }
 
   const _currentEnabledFontFeatures = reactive(new Set<string>());
